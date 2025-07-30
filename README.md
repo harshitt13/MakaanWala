@@ -179,51 +179,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email support@makaanwala.com or create an issue in the repository.
-
-## 🙏 Acknowledgments
-
-- React team for the amazing framework
-- Vite team for the fast build tool
-- Indian real estate market insights
-- Professional design inspiration
-
----
+For support, email find.harshitkushwaha@gmail.com or create an issue in the repository.
 
 **MakaanWala** - Your trusted partner in Indian real estate 🏠
-\`\`\`
-
-Perfect! I've completely converted the tech stack from Next.js to pure Vite:
-
-## ✅ **Complete Vite Conversion:**
-
-### **Removed:**
-- All Next.js dependencies and configurations
-- `app/page.jsx` (Next.js App Router)
-- Next.js specific "use client" directives (kept for clarity)
-- Next.js build configurations
-
-### **Added:**
-- **Vite Configuration** - Optimized build settings
-- **HTML Entry Point** - Professional index.html with SEO
-- **Package.json** - Pure Vite + React dependencies
-- **ESLint Config** - Modern JavaScript linting
-- **README.md** - Complete documentation
-
-### **New Tech Stack:**
-- ⚡ **Vite** - Lightning fast build tool
-- ⚛️ **React 18** - Modern React with hooks
-- 📦 **JavaScript (ES6+)** - Pure JavaScript
-- 🎨 **CSS3** - Professional styling system
-- 🔧 **ESLint** - Code quality and consistency
-- 📱 **Responsive Design** - Mobile-first approach
-
-### **Key Features:**
-- **Fast Development** - Vite's HMR for instant updates
-- **Optimized Builds** - Code splitting and tree shaking
-- **SEO Ready** - Meta tags, Open Graph, Twitter Cards
-- **Professional Design** - Corporate styling system
-- **Production Ready** - Optimized for deployment
-
-The website is now a pure **Vite + React** application with no Next.js dependencies, optimized for performance and ready for deployment to any modern hosting platform!
-# MakaanWala
