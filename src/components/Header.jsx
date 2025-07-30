@@ -22,6 +22,7 @@ const Header = ({ activeSection, onNavigate }) => {
     { id: "services", label: "Services" },
     { id: "properties", label: "Properties" },
     { id: "pricing", label: "Pricing" },
+    { id: "blog", label: "Blog" },
     { id: "contact", label: "Contact" },
   ];
 

@@ -7,6 +7,7 @@ import About from "./components/About";
 import Services from "./components/Services";
 import PropertyGallery from "./components/PropertyGallery";
 import Pricing from "./components/Pricing";
+import Blog from "./components/Blog";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
@@ -48,6 +49,7 @@ function App() {
         "services",
         "properties",
         "pricing",
+        "blog",
         "contact",
       ];
       const headerHeight = 80;
@@ -114,6 +116,10 @@ function App() {
 
         <section id="pricing" className="section">
           <Pricing />
+        </section>
+
+        <section id="blog" className="section">
+          <Blog />
         </section>
 
         <section id="contact" className="section">
