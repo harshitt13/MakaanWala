@@ -143,34 +143,34 @@ const propertyDatabase = [
 
 ```
 MakaanWala/
-├── 📁 src/
-│   ├── 📁 components/          # React Components
-│   │   ├── 🎯 Header.jsx       # Navigation & branding
-│   │   ├── 🏠 Hero.jsx         # Landing section
-│   │   ├── 📖 About.jsx        # Company information
-│   │   ├── 🔧 Services.jsx     # Service offerings
-│   │   ├── 🏢 PropertyGallery.jsx  # Property listings
-│   │   ├── 📝 Blog.jsx         # Content management
-│   │   ├── 💰 Pricing.jsx      # Service pricing
-│   │   ├── 📞 ContactForm.jsx  # Contact interface
-│   │   ├── 🤖 Chatbot.jsx      # AI Assistant
-│   │   ├── ⚡ LoadingScreen.jsx # Loading states
-│   │   └── 🦶 Footer.jsx       # Site footer
-│   ├── 📁 hooks/              # Custom React Hooks
-│   │   └── 🔄 useScrollAnimation.js
-│   ├── 📁 utils/              # Utility Functions
-│   │   ├── ✨ animations.js    # Animation helpers
-│   │   └── 🏡 propertyUtils.js # Property utilities
-│   ├── 📁 styles/             # CSS Stylesheets
-│   │   ├── 🎨 App.css         # Global styles
-│   │   └── 🤖 Chatbot.css     # Chatbot styling
-│   ├── 🚀 App.jsx             # Main application
-│   └── 🎯 main.jsx            # Entry point
-├── 📁 public/                 # Static assets
-├── 📋 package.json            # Dependencies
-├── ⚙️ vite.config.js          # Vite configuration
-├── 🔧 eslint.config.js        # Linting rules
-└── 📖 README.md               # This file
+├── src/
+│   ├── components/          # React Components
+│   │   ├── Header.jsx       # Navigation & branding
+│   │   ├── Hero.jsx         # Landing section
+│   │   ├── About.jsx        # Company information
+│   │   ├── Services.jsx     # Service offerings
+│   │   ├── PropertyGallery.jsx  # Property listings
+│   │   ├── Blog.jsx         # Content management
+│   │   ├── Pricing.jsx      # Service pricing
+│   │   ├── ContactForm.jsx  # Contact interface
+│   │   ├── Chatbot.jsx      # AI Assistant
+│   │   ├── LoadingScreen.jsx # Loading states
+│   │   └── Footer.jsx       # Site footer
+│   ├── hooks/              # Custom React Hooks
+│   │   └── useScrollAnimation.js
+│   ├── utils/              # Utility Functions
+│   │   ├── animations.js    # Animation helpers
+│   │   └── propertyUtils.js # Property utilities
+│   ├── styles/             # CSS Stylesheets
+│   │   ├── App.css         # Global styles
+│   │   └── Chatbot.css     # Chatbot styling
+│   ├── App.jsx             # Main application
+│   └── main.jsx            # Entry point
+├── public/                 # Static assets
+├── package.json            # Dependencies
+├── vite.config.js          # Vite configuration
+├── eslint.config.js        # Linting rules
+└── README.md               # This file
 ```
 
 ### **Optimization Techniques**
