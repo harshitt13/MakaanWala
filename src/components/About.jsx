@@ -125,7 +125,7 @@ const About = () => {
           <div className="about-text">
             <h3>Why Choose MakaanWala?</h3>
             <p>
-              Since 2004, MakaanWala has been at the forefront of India's real estate industry, helping thousands of
+              Since 2004, MakaanWala has been at the forefront of India&#39;s real estate industry, helping thousands of
               families, investors, and businesses find their perfect properties. Our commitment to excellence and client
               satisfaction has made us one of the most trusted names in Indian real estate.
             </p>
