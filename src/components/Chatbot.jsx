@@ -13,13 +13,6 @@ const Chatbot = () => {
   ])
   const [inputValue, setInputValue] = useState("")
   const [isTyping, setIsTyping] = useState(false)
-  const [userContext, setUserContext] = useState({
-    budget: null,
-    propertyType: null,
-    location: null,
-    preferences: [],
-    stage: "initial"
-  })
 
   // Property database
   const propertyDatabase = [
@@ -73,27 +66,82 @@ const Chatbot = () => {
   const generateResponse = (userMessage) => {
     const lowerMessage = userMessage.toLowerCase()
     
+    // Extract budget from message
+    const budgetMatch = lowerMessage.match(/(\d+)\s*(lakh|crore|l|cr)/i)
+    let userBudget = null
+    if (budgetMatch) {
+      const amount = parseInt(budgetMatch[1])
+      const unit = budgetMatch[2].toLowerCase()
+      userBudget = unit.includes('cr') ? amount * 100 : amount
+    }
+    
     if (lowerMessage.includes("apartment") || lowerMessage.includes("flat")) {
-      return "We have excellent apartments available! Our featured 3BHK in Connaught Place, Delhi is available for ₹85L. It includes 3 bedrooms, 2 bathrooms, 1200 sq ft, and comes fully furnished. Would you like more details?"
+      const apartment = propertyDatabase.find(p => p.type === "apartment")
+      return `We have excellent apartments! Our featured ${apartment.title} in ${apartment.location} is available for ${apartment.price}. It includes ${apartment.features.join(', ')}. ${apartment.description}. Would you like more details or schedule a viewing?`
     }
     
     if (lowerMessage.includes("villa") || lowerMessage.includes("house")) {
-      return "Perfect choice for families! We have a beautiful 4BHK Villa with Pool in Gurgaon for ₹1.2Cr. Features include 4 bedrooms, 3 bathrooms, 2800 sq ft, private pool, and garden. Interested in scheduling a viewing?"
+      const villa = propertyDatabase.find(p => p.type === "villa")
+      return `Perfect choice for families! Our ${villa.title} in ${villa.location} for ${villa.price}. Features include ${villa.features.join(', ')}. ${villa.description}. Interested in scheduling a viewing?`
+    }
+    
+    if (lowerMessage.includes("studio")) {
+      const studio = propertyDatabase.find(p => p.type === "studio")
+      return `Great for young professionals! ${studio.title} in ${studio.location} for just ${studio.price}. Features: ${studio.features.join(', ')}. ${studio.description}. Perfect for IT professionals!`
+    }
+    
+    if (lowerMessage.includes("commercial") || lowerMessage.includes("office")) {
+      const commercial = propertyDatabase.find(p => p.type === "commercial")
+      return `Excellent business opportunity! ${commercial.title} in ${commercial.location} for ${commercial.price}. Includes ${commercial.features.join(', ')}. ${commercial.description}. Ideal for your business needs!`
     }
     
     if (lowerMessage.includes("budget") || lowerMessage.includes("price")) {
+      if (userBudget) {
+        const matchingProperties = propertyDatabase.filter(p => {
+          const price = parseInt(p.price.replace(/[₹LCr]/g, ''))
+          return price <= userBudget * 1.1
+        })
+        
+        if (matchingProperties.length > 0) {
+          const property = matchingProperties[0]
+          return `Great! Based on your budget of ₹${userBudget}L, I found: ${property.title} in ${property.location} for ${property.price}. It features ${property.features.join(', ')}. Would you like to know more?`
+        }
+      }
       return "Our properties range from ₹28L for studio apartments to ₹1.2Cr for luxury villas. What's your budget range? I can help find the perfect match within your price range."
     }
     
-    if (lowerMessage.includes("loan") || lowerMessage.includes("financing")) {
-      return "We have partnerships with leading banks including SBI, HDFC, ICICI, and Axis Bank. Interest rates start from 8.5% with up to 90% loan-to-value ratio. Quick pre-approval available in 24 hours!"
+    if (lowerMessage.includes("loan") || lowerMessage.includes("financing") || lowerMessage.includes("emi")) {
+      return "💰 We have partnerships with leading banks including SBI, HDFC, ICICI, and Axis Bank. Interest rates start from 8.5% with up to 90% loan-to-value ratio. Quick pre-approval available in 24 hours! EMI calculator also available. What's your monthly income range?"
     }
     
-    if (lowerMessage.includes("hello") || lowerMessage.includes("hi")) {
-      return "Hello! 👋 Welcome to MakaanWala. I'm here to help you find the perfect property. Are you looking for apartments, villas, or commercial spaces?"
+    if (lowerMessage.includes("viewing") || lowerMessage.includes("visit") || lowerMessage.includes("schedule")) {
+      return "🏠 I'd love to arrange a property viewing for you! We offer immediate viewing (today/tomorrow), weekend viewing, or virtual tour options. Contact: +91 98765 43210. Available Mon-Fri 9AM-7PM, Weekends 10AM-5PM. Which property interests you?"
     }
     
-    return "I'd love to help you with that! 🏠 I can assist with property searches, price information, viewing arrangements, and loan guidance. What specific type of property interests you?"
+    if (lowerMessage.includes("delhi")) {
+      const delhiProp = propertyDatabase.find(p => p.location === "Delhi")
+      return `Delhi is a prime location! We have ${delhiProp.title} for ${delhiProp.price}. Delhi offers great connectivity, schools, and business opportunities. Which area interests you - Central, South, or West Delhi?`
+    }
+    
+    if (lowerMessage.includes("gurgaon") || lowerMessage.includes("gurugram")) {
+      const gurgaonProps = propertyDatabase.filter(p => p.location === "Gurgaon")
+      return `Gurgaon is booming! We have ${gurgaonProps.length} excellent options including ${gurgaonProps[0].title} for ${gurgaonProps[0].price}. Known for modern infrastructure and business hubs. What type interests you?`
+    }
+    
+    if (lowerMessage.includes("bangalore") || lowerMessage.includes("bengaluru")) {
+      const bangaloreProp = propertyDatabase.find(p => p.location === "Bangalore")
+      return `Bangalore - India's Silicon Valley! Perfect for tech professionals. We have ${bangaloreProp.title} for ${bangaloreProp.price}. Great connectivity to tech parks. Are you in the tech industry?`
+    }
+    
+    if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("hey")) {
+      return "Hello! 👋 Welcome to MakaanWala - your trusted property partner! I can help you find apartments, villas, commercial spaces, arrange viewings, and provide loan guidance. What type of property interests you today?"
+    }
+    
+    if (lowerMessage.includes("thank")) {
+      return "You're welcome! 😊 I'm here 24/7 to help with your property needs. Feel free to ask about specific properties, market insights, or schedule viewings. How else can I assist you?"
+    }
+    
+    return "I'd love to help you with that! 🏠 I can assist with property searches, price information, viewing arrangements, and loan guidance. Are you looking for apartments, villas, studios, or commercial spaces? What's your preferred location and budget?"
   }
 
   const handleSendMessage = async () => {
@@ -132,6 +180,15 @@ const Chatbot = () => {
     }
   }
 
+  const quickQuestions = [
+    "Show me apartments",
+    "Find luxury villas", 
+    "Properties under ₹50L",
+    "Schedule viewing",
+    "Loan assistance",
+    "Properties in Delhi"
+  ]
+
   return (
     <div className={`chatbot ${isOpen ? "chatbot-open" : ""}`}>
       <button className="chatbot-toggle" onClick={() => setIsOpen(!isOpen)}>
@@ -141,8 +198,22 @@ const Chatbot = () => {
       {isOpen && (
         <div className="chatbot-window">
           <div className="chatbot-header">
-            <h4>🏠 MakaanWala AI Assistant</h4>
-            <span className="online-indicator">● Online</span>
+            <div className="header-content">
+              <h4>🏠 MakaanWala AI Assistant</h4>
+              <span className="online-indicator">● Online - Instant Help</span>
+            </div>
+            <button 
+              className="clear-chat-btn" 
+              onClick={() => setMessages([{
+                id: 1,
+                text: "🏠 Welcome back! I'm your AI property assistant. How can I help you today?",
+                isUser: false,
+                timestamp: new Date(),
+              }])}
+              title="Clear Chat"
+            >
+              🔄
+            </button>
           </div>
 
           <div className="chatbot-messages">
@@ -168,6 +239,24 @@ const Chatbot = () => {
             )}
             <div ref={messagesEndRef} />
           </div>
+
+          {messages.length === 1 && (
+            <div className="quick-questions">
+              <p>Quick questions:</p>
+              {quickQuestions.map((question, index) => (
+                <button
+                  key={index}
+                  className="quick-question-btn"
+                  onClick={() => {
+                    setInputValue(question)
+                    setTimeout(handleSendMessage, 100)
+                  }}
+                >
+                  {question}
+                </button>
+              ))}
+            </div>
+          )}
 
           <div className="chatbot-input">
             <input
