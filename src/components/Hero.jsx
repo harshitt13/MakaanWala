@@ -91,7 +91,7 @@ const Hero = ({ onExplore }) => {
           <div className="hero-text">
             <div className="hero-badge">
               <span>🏆</span>
-              <span>India's Leading Real Estate Platform</span>
+              <span>India&apos;s Leading Real Estate Platform</span>
             </div>
 
             <h1 className="hero-title">Find Your Perfect Property in India</h1>
