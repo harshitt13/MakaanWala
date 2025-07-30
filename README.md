@@ -36,7 +36,7 @@ A modern, professional real estate website built with React and Vite, specifical
 
 1. Clone the repository:
 \`\`\`bash
-git clone https://github.com/your-username/makaanwala-real-estate.git
+git clone https://github.com/harshitt13/makaanwala.git
 cd makaanwala-real-estate
 \`\`\`
 
