@@ -1,11 +1,21 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import "./PropertyGallery.css"
+import { useState, useMemo } from "react";
+import {
+  Share2,
+  Facebook,
+  Twitter,
+  Linkedin,
+  ExternalLink,
+  Heart,
+  Phone,
+  Mail,
+} from "lucide-react";
+import "./PropertyGallery.css";
 
 const PropertyGallery = () => {
-  const [activeFilter, setActiveFilter] = useState("all")
-  const [priceRange, setPriceRange] = useState("all")
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [priceRange, setPriceRange] = useState("all");
 
   const properties = [
     {
@@ -80,40 +90,127 @@ const PropertyGallery = () => {
       image: "/placeholder.svg?height=300&width=400&text=Retail+Space",
       featured: false,
     },
-  ]
+  ];
 
   const filteredProperties = useMemo(() => {
-    let filtered = properties
+    let filtered = properties;
 
     if (activeFilter !== "all") {
-      filtered = filtered.filter((property) => property.type === activeFilter)
+      filtered = filtered.filter((property) => property.type === activeFilter);
     }
 
     if (priceRange !== "all") {
       filtered = filtered.filter((property) => {
-        const price = Number.parseInt(property.price.replace(/[₹,]/g, ""))
+        const price = Number.parseInt(property.price.replace(/[₹,]/g, ""));
         switch (priceRange) {
           case "under-50l":
-            return price < 5000000
+            return price < 5000000;
           case "50l-1cr":
-            return price >= 5000000 && price < 10000000
+            return price >= 5000000 && price < 10000000;
           case "over-1cr":
-            return price >= 10000000
+            return price >= 10000000;
           default:
-            return true
+            return true;
         }
-      })
+      });
     }
 
-    return filtered
-  }, [activeFilter, priceRange])
+    return filtered;
+  }, [activeFilter, priceRange, properties]);
+
+  const handlePropertyShare = (platform, property) => {
+    const url = `${window.location.origin}/property/${property.id}`;
+    const text = `Check out this amazing property: ${property.title} - ${property.price}`;
+
+    switch (platform) {
+      case "facebook":
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            url
+          )}`,
+          "_blank"
+        );
+        break;
+      case "twitter":
+        window.open(
+          `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+            url
+          )}&text=${encodeURIComponent(text)}`,
+          "_blank"
+        );
+        break;
+      case "linkedin":
+        window.open(
+          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+            url
+          )}`,
+          "_blank"
+        );
+        break;
+      default:
+        navigator.clipboard.writeText(url);
+        alert("Property link copied to clipboard!");
+    }
+  };
+
+  const PropertyActions = ({ property }) => (
+    <div className="property-actions">
+      <div className="action-buttons">
+        <button
+          className="action-btn favorite-btn"
+          aria-label="Add to favorites"
+        >
+          <Heart size={18} />
+        </button>
+        <button className="action-btn contact-btn" aria-label="Contact agent">
+          <Phone size={18} />
+        </button>
+        <button className="action-btn email-btn" aria-label="Send inquiry">
+          <Mail size={18} />
+        </button>
+      </div>
+      <div className="share-buttons property-share">
+        <span className="share-label">
+          <Share2 size={14} />
+        </span>
+        <button
+          className="share-btn share-facebook"
+          onClick={() => handlePropertyShare("facebook", property)}
+          aria-label="Share on Facebook"
+        >
+          <Facebook size={14} />
+        </button>
+        <button
+          className="share-btn share-twitter"
+          onClick={() => handlePropertyShare("twitter", property)}
+          aria-label="Share on Twitter"
+        >
+          <Twitter size={14} />
+        </button>
+        <button
+          className="share-btn share-linkedin"
+          onClick={() => handlePropertyShare("linkedin", property)}
+          aria-label="Share on LinkedIn"
+        >
+          <Linkedin size={14} />
+        </button>
+        <button
+          className="share-btn share-copy"
+          onClick={() => handlePropertyShare("copy", property)}
+          aria-label="Copy link"
+        >
+          <ExternalLink size={14} />
+        </button>
+      </div>
+    </div>
+  );
 
   const filters = [
     { id: "all", label: "All Properties" },
     { id: "apartment", label: "Apartments" },
     { id: "villa", label: "Villas" },
     { id: "commercial", label: "Commercial" },
-  ]
+  ];
 
   return (
     <section className="property-gallery">
@@ -134,7 +231,9 @@ const PropertyGallery = () => {
               {filters.map((filter) => (
                 <button
                   key={filter.id}
-                  className={`filter-btn ${activeFilter === filter.id ? "active" : ""}`}
+                  className={`filter-btn ${
+                    activeFilter === filter.id ? "active" : ""
+                  }`}
                   onClick={() => setActiveFilter(filter.id)}
                 >
                   {filter.label}
@@ -145,7 +244,11 @@ const PropertyGallery = () => {
 
           <div className="filter-group">
             <label>Price Range:</label>
-            <select value={priceRange} onChange={(e) => setPriceRange(e.target.value)} className="price-filter">
+            <select
+              value={priceRange}
+              onChange={(e) => setPriceRange(e.target.value)}
+              className="price-filter"
+            >
               <option value="all">All Prices</option>
               <option value="under-50l">Under ₹50L</option>
               <option value="50l-1cr">₹50L - ₹1Cr</option>
@@ -157,10 +260,15 @@ const PropertyGallery = () => {
         <div className="properties-grid">
           {filteredProperties.map((property) => (
             <div key={property.id} className="property-card">
-              {property.featured && <div className="featured-badge">Featured</div>}
+              {property.featured && (
+                <div className="featured-badge">Featured</div>
+              )}
 
               <div className="property-image">
-                <img src={property.image || "/placeholder.svg"} alt={property.title} />
+                <img
+                  src={property.image || "/placeholder.svg"}
+                  alt={property.title}
+                />
                 <div className="property-overlay">
                   <button className="view-btn">View Details</button>
                 </div>
@@ -184,6 +292,8 @@ const PropertyGallery = () => {
                     <strong>{property.area}</strong>
                   </span>
                 </div>
+
+                <PropertyActions property={property} />
               </div>
             </div>
           ))}
@@ -196,7 +306,7 @@ const PropertyGallery = () => {
         )}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default PropertyGallery
+export default PropertyGallery;

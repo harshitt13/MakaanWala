@@ -338,3 +338,86 @@
     font-size: 0.9rem;
   }
 }
+
+/* Property Actions & Social Sharing Styles */
+.property-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.favorite-btn:hover {
+  background: #ff6b6b;
+  border-color: #ff6b6b;
+  color: white;
+}
+
+.contact-btn:hover {
+  background: #4ecdc4;
+  border-color: #4ecdc4;
+  color: white;
+}
+
+.email-btn:hover {
+  background: #45b7d1;
+  border-color: #45b7d1;
+  color: white;
+}
+
+.property-share {
+  justify-content: center;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.property-share .share-label {
+  color: #888;
+  font-size: 0.8rem;
+  margin-right: 6px;
+}
+
+.property-share .share-btn {
+  width: 28px;
+  height: 28px;
+}
+
+@media (max-width: 768px) {
+  .property-actions {
+    margin-top: 10px;
+    padding-top: 10px;
+    gap: 8px;
+  }
+
+  .action-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .property-share .share-btn {
+    width: 26px;
+    height: 26px;
+  }
+}

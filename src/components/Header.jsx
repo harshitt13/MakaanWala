@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 import "./Header.css";
 
 const Header = ({ activeSection, onNavigate }) => {
@@ -54,6 +55,54 @@ const Header = ({ activeSection, onNavigate }) => {
               {item.label}
             </button>
           ))}
+
+          {isMenuOpen && (
+            <div className="mobile-social-links">
+              <span className="social-label">Follow Us:</span>
+              <div className="social-icons">
+                <a
+                  href="https://facebook.com/makaanwala"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                >
+                  <Facebook size={20} />
+                </a>
+                <a
+                  href="https://twitter.com/makaanwala"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter"
+                >
+                  <Twitter size={20} />
+                </a>
+                <a
+                  href="https://instagram.com/makaanwala"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                >
+                  <Instagram size={20} />
+                </a>
+                <a
+                  href="https://linkedin.com/company/makaanwala"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin size={20} />
+                </a>
+                <a
+                  href="https://youtube.com/makaanwala"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                >
+                  <Youtube size={20} />
+                </a>
+              </div>
+            </div>
+          )}
         </nav>
 
         <div className="header-actions">
