@@ -66,7 +66,7 @@ const About = () => {
     {
       name: "Rajesh Kumar",
       role: "CEO & Founder",
-      image: "/public/team_member.svg?height=300&width=300&text=CEO",
+      image: "/team_member.png?height=300&width=300&text=CEO",
       bio: "20+ years in Indian real estate with expertise in residential and commercial properties across major cities.",
     },
     {
