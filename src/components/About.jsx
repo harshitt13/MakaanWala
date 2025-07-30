@@ -72,13 +72,13 @@ const About = () => {
     {
       name: "Priya Sharma",
       role: "Head of Sales",
-      image: "/public/team_member.svg?height=300&width=300&text=Sales+Head",
+      image: "/team_member.png?height=300&width=300&text=Sales+Head",
       bio: "Top-performing agent specializing in first-time home buyers and affordable housing solutions.",
     },
     {
       name: "Amit Patel",
       role: "Property Manager",
-      image: "/public/team_member.svg?height=300&width=300&text=Manager",
+      image: "/team_member.png?height=300&width=300&text=Manager",
       bio: "Expert in property management and investment strategies with focus on rental yields and ROI optimization.",
     },
   ]
@@ -151,7 +151,7 @@ const About = () => {
           <div className="about-visual">
             <div className="about-image">
               <img
-                src="/placeholder.svg?height=400&width=500&text=Professional+Team"
+                src="/team.png?height=400&width=500&text=Professional+Team"
                 alt="MakaanWala Professional Team"
               />
             </div>
@@ -189,7 +189,7 @@ const About = () => {
             {teamMembers.map((member, index) => (
               <div key={index} className="team-card">
                 <div className="member-image">
-                  <img src={member.image || "/placeholder.svg"} alt={member.name} />
+                  <img src={member.image || "/team.png"} alt={member.name} />
                 </div>
                 <div className="member-info">
                   <h4>{member.name}</h4>
