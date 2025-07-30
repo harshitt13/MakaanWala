@@ -13,6 +13,53 @@ const Chatbot = () => {
   ])
   const [inputValue, setInputValue] = useState("")
   const [isTyping, setIsTyping] = useState(false)
+  const [userContext, setUserContext] = useState({
+    budget: null,
+    propertyType: null,
+    location: null,
+    preferences: [],
+    stage: "initial"
+  })
+
+  // Property database
+  const propertyDatabase = [
+    {
+      id: 1,
+      type: "apartment",
+      title: "Luxury 3BHK in Connaught Place",
+      price: "₹85L",
+      location: "Delhi",
+      features: ["3 bedrooms", "2 bathrooms", "1200 sq ft", "furnished"],
+      description: "Premium apartment in the heart of Delhi with modern amenities"
+    },
+    {
+      id: 2,
+      type: "villa",
+      title: "4BHK Villa with Pool",
+      price: "₹1.2Cr",
+      location: "Gurgaon",
+      features: ["4 bedrooms", "3 bathrooms", "2800 sq ft", "private pool", "garden"],
+      description: "Spacious villa perfect for families with luxury amenities"
+    },
+    {
+      id: 3,
+      type: "studio",
+      title: "Modern Studio Apartment",
+      price: "₹28L",
+      location: "Bangalore",
+      features: ["1 room", "1 bathroom", "450 sq ft", "fully furnished"],
+      description: "Perfect for young professionals in tech hub"
+    },
+    {
+      id: 4,
+      type: "commercial",
+      title: "Office Space in Cyber City",
+      price: "₹65L",
+      location: "Gurgaon",
+      features: ["1500 sq ft", "parking", "24/7 security", "cafeteria"],
+      description: "Prime commercial space in business district"
+    }
+  ]
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
