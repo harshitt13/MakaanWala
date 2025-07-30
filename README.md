@@ -27,6 +27,7 @@ A **cutting-edge, AI-powered real estate platform** built specifically for the I
 ## ✨ **Key Features**
 
 ### 🤖 **AI-Powered Property Assistant**
+
 - **Smart Budget Detection** - Automatically extracts budget from natural language (e.g., "50 lakhs", "1.2 crore")
 - **Property Database Integration** - Access to curated properties across Delhi, Gurgaon, Bangalore
 - **Contextual Responses** - Understands property types, locations, and user preferences
@@ -35,14 +36,15 @@ A **cutting-edge, AI-powered real estate platform** built specifically for the I
 
 ### 🏡 **Comprehensive Property Portfolio**
 
-| Property Type | Location | Price Range | Key Features |
-|---------------|----------|-------------|--------------|
-| **Luxury Apartments** | Delhi, Mumbai | ₹28L - ₹85L | 1-3 BHK, Furnished, Prime locations |
-| **Premium Villas** | Gurgaon, Noida | ₹1.2Cr+ | 4+ BHK, Private pools, Gardens |
-| **Studio Apartments** | Bangalore | ₹28L - ₹45L | Tech hub proximity, Fully furnished |
-| **Commercial Spaces** | Cyber City, BKC | ₹65L+ | Office spaces, Retail, Warehouses |
+| Property Type         | Location        | Price Range | Key Features                        |
+| --------------------- | --------------- | ----------- | ----------------------------------- |
+| **Luxury Apartments** | Delhi, Mumbai   | ₹28L - ₹85L | 1-3 BHK, Furnished, Prime locations |
+| **Premium Villas**    | Gurgaon, Noida  | ₹1.2Cr+     | 4+ BHK, Private pools, Gardens      |
+| **Studio Apartments** | Bangalore       | ₹28L - ₹45L | Tech hub proximity, Fully furnished |
+| **Commercial Spaces** | Cyber City, BKC | ₹65L+       | Office spaces, Retail, Warehouses   |
 
 ### 💰 **Integrated Financial Services**
+
 - **Bank Partnerships** - SBI, HDFC, ICICI, Axis Bank
 - **Competitive Rates** - Starting from 8.5% interest
 - **Quick Approval** - Pre-approval in 24 hours
@@ -50,12 +52,14 @@ A **cutting-edge, AI-powered real estate platform** built specifically for the I
 - **EMI Calculator** - Real-time affordability assessment
 
 ### 🎯 **Advanced Search & Filters**
+
 - **Multi-parameter Search** - Location, price, type, amenities
 - **Smart Suggestions** - AI-powered property recommendations
 - **Saved Searches** - Bookmark and track favorite properties
 - **Market Analytics** - Price trends and investment insights
 
 ### 📱 **Modern User Experience**
+
 - **Mobile-First Design** - Optimized for all screen sizes
 - **Lightning Fast** - Built with Vite for optimal performance
 - **Progressive Web App** - Installable, offline-capable
@@ -74,6 +78,7 @@ A **cutting-edge, AI-powered real estate platform** built specifically for the I
 ## 🚀 **Quick Start**
 
 ### Prerequisites
+
 - **Node.js** (version 18+ recommended)
 - **npm** or **yarn** package manager
 - **Git** for version control
@@ -134,21 +139,22 @@ const propertyDatabase = [
     price: "₹85L",
     location: "Delhi",
     features: ["3 bedrooms", "2 bathrooms", "1200 sq ft", "furnished"],
-    description: "Premium apartment in the heart of Delhi with modern amenities"
-  }
+    description:
+      "Premium apartment in the heart of Delhi with modern amenities",
+  },
   // ... more properties
 ];
 ```
 
 ### **AI Response Categories**
 
-| Query Type | Example Input | AI Response |
-|------------|---------------|-------------|
-| **Budget Queries** | "Properties under 50 lakhs" | Smart filtering + recommendations |
-| **Location Search** | "Show me homes in Gurgaon" | Location-specific properties |
-| **Property Type** | "I need a villa" | Type-filtered results |
-| **Loan Assistance** | "Home loan options" | Bank partnerships + rates |
-| **Viewing Requests** | "Schedule a visit" | Contact details + availability |
+| Query Type           | Example Input               | AI Response                       |
+| -------------------- | --------------------------- | --------------------------------- |
+| **Budget Queries**   | "Properties under 50 lakhs" | Smart filtering + recommendations |
+| **Location Search**  | "Show me homes in Gurgaon"  | Location-specific properties      |
+| **Property Type**    | "I need a villa"            | Type-filtered results             |
+| **Loan Assistance**  | "Home loan options"         | Bank partnerships + rates         |
+| **Viewing Requests** | "Schedule a visit"          | Contact details + availability    |
 
 ### **Smart Features**
 
@@ -194,14 +200,14 @@ MakaanWala/
 
 ## ⚡ **Performance Metrics**
 
-| Metric | Score | Status |
-|--------|-------|--------|
-| **Lighthouse Performance** | 95+ | 🟢 Excellent |
-| **First Contentful Paint** | < 1.2s | 🟢 Fast |
-| **Largest Contentful Paint** | < 2.5s | 🟢 Good |
-| **Cumulative Layout Shift** | < 0.1 | 🟢 Stable |
-| **Time to Interactive** | < 3s | 🟢 Quick |
-| **Bundle Size (gzipped)** | < 200KB | 🟢 Optimized |
+| Metric                       | Score   | Status       |
+| ---------------------------- | ------- | ------------ |
+| **Lighthouse Performance**   | 95+     | 🟢 Excellent |
+| **First Contentful Paint**   | < 1.2s  | 🟢 Fast      |
+| **Largest Contentful Paint** | < 2.5s  | 🟢 Good      |
+| **Cumulative Layout Shift**  | < 0.1   | 🟢 Stable    |
+| **Time to Interactive**      | < 3s    | 🟢 Quick     |
+| **Bundle Size (gzipped)**    | < 200KB | 🟢 Optimized |
 
 ### **Optimization Techniques**
 
@@ -216,6 +222,7 @@ MakaanWala/
 ## 🎨 Design System
 
 ### Color Palette
+
 - **Primary**: #1a365d (Professional Blue)
 - **Secondary**: #2d3748 (Dark Gray)
 - **Accent**: #3182ce (Bright Blue)
@@ -224,6 +231,7 @@ MakaanWala/
 - **Background**: #ffffff (White)
 
 ### Typography
+
 - **Font Family**: System fonts (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto)
 - **Headings**: Bold weights with proper hierarchy
 - **Body**: Regular weight with optimal line height
@@ -244,76 +252,154 @@ MakaanWala/
 ## 🌟 Key Components
 
 ### Property Gallery
+
 - Advanced filtering by type, price, location
 - Responsive grid layout
 - Property cards with hover effects
 - Search functionality
 
 ### Interactive Chatbot
+
 - Context-aware responses
 - Quick question buttons
 - Professional conversation flow
 - Mobile-optimized interface
 
 ### Contact Forms
+
 - Form validation
 - Professional styling
 - Multiple contact methods
 - Success/error states
 
 ### Blog System
+
 - Category filtering
 - Featured posts
 - Responsive cards
 - Newsletter signup
 
-## 🚀 Deployment
+## 🚀 **Deployment Options**
 
-### Build for Production
-\`\`\`bash
-npm run build
-\`\`\`
+### **Vercel (Recommended)**
 
-### Deploy to Vercel
-\`\`\`bash
+```bash
+# Install Vercel CLI
 npm install -g vercel
-vercel
-\`\`\`
 
-### Deploy to Netlify
-1. Build the project: `npm run build`
-2. Upload the `dist` folder to Netlify
+# Deploy to Vercel
+vercel --prod
 
-## 🔍 SEO Features
+# Custom domain setup
+vercel domains add your-domain.com
+```
 
-- Meta tags for search engines
-- Open Graph tags for social media
-- Twitter Card support
-- Semantic HTML structure
-- Optimized images with alt text
+### **Netlify**
 
-## 📈 Performance Optimizations
+```bash
+# Build the project
+npm run build
 
-- Code splitting with Vite
-- Lazy loading for images
-- Debounced search inputs
-- Intersection Observer for animations
-- Optimized bundle size
+# Deploy dist folder to Netlify
+# Or connect GitHub repository for auto-deployment
+```
 
-## 🤝 Contributing
+### **Docker Deployment**
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/new-feature`
-3. Commit changes: `git commit -am 'Add new feature'`
-4. Push to branch: `git push origin feature/new-feature`
-5. Submit a pull request
+```dockerfile
+# Dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+EXPOSE 3001
+CMD ["npm", "run", "preview"]
+```
 
-## 📄 License
+## 📊 **Analytics & Monitoring**
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **Google Analytics** - User behavior tracking
+- **Performance Monitoring** - Core Web Vitals
+- **Error Tracking** - Real-time error reporting
+- **SEO Monitoring** - Search engine optimization
+- **Conversion Tracking** - Lead generation metrics
 
-## 📞 Support
+## 🤝 **Contributing Guidelines**
 
-For support, email find.harshitkushwaha@gmail.com or create an issue in the repository.
+We welcome contributions! Here's how to get started:
 
-**MakaanWala** - Your trusted partner in Indian real estate 🏠
+### **Development Workflow**
+
+1. **Fork & Clone**
+
+   ```bash
+   git clone https://github.com/your-username/MakaanWala.git
+   cd MakaanWala
+   ```
+
+2. **Create Feature Branch**
+
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+
+3. **Make Changes**
+
+   - Follow ESLint rules
+   - Add tests for new features
+   - Update documentation
+
+4. **Test & Commit**
+
+   ```bash
+   npm run lint
+   npm run build
+   git commit -m "feat: add amazing feature"
+   ```
+
+5. **Submit Pull Request**
+   - Describe your changes
+   - Include screenshots if applicable
+   - Link related issues
+
+### **Code Standards**
+
+- **ESLint** - Code quality enforcement
+- **Prettier** - Code formatting
+- **Conventional Commits** - Commit message standards
+- **JSDoc** - Code documentation
+
+---
+
+## 📞 **Support & Contact**
+
+<div align="center">
+
+### **Get Help**
+
+🐛 **Found a Bug?** [Create an Issue](https://github.com/harshitt13/MakaanWala/issues)  
+💡 **Feature Request?** [Start a Discussion](https://github.com/harshitt13/MakaanWala/discussions)  
+📧 **Need Support?** [find.harshitkushwaha@gmail.com](mailto:find.harshitkushwaha@gmail.com)
+
+### **Connect With Us**
+
+[![GitHub](https://img.shields.io/badge/GitHub-harshitt13-black.svg?style=for-the-badge&logo=github)](https://github.com/harshitt13)  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue.svg?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/harshitt13)
+
+</div>
+
+---
+
+<div align="center">
+
+## 📄 **License**
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+**MakaanWala** - Transforming Indian Real Estate with AI 🏠✨
+
+_Made with ❤️ for the Indian Real Estate Market_
+
+</div>
