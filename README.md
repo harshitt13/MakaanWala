@@ -8,12 +8,12 @@
 </div>
 
 <div align="center">
-  <h3>🚀 <a href="http://localhost:3001">Live Demo</a> | 📚 <a href="#documentation">Documentation</a> | 🤝 <a href="#contributing">Contributing</a></h3>
+  <h3>🚀 <a href="https://makaanwala.vercel.app/">Live Demo</a> | 📚 <a href="#documentation">Documentation</a></h3>
 </div>
 
 ---
 
-A **cutting-edge, AI-powered real estate platform** built specifically for the Indian market. MakaanWala combines modern React architecture with intelligent features to deliver an exceptional property search and discovery experience.
+A **real estate platform** built specifically for the Indian market. MakaanWala combines modern React architecture with intelligent features to deliver an exceptional property search and discovery experience.
 
 ## 🌟 **What Makes MakaanWala Special?**
 
@@ -57,13 +57,6 @@ A **cutting-edge, AI-powered real estate platform** built specifically for the I
 - **Smart Suggestions** - AI-powered property recommendations
 - **Saved Searches** - Bookmark and track favorite properties
 - **Market Analytics** - Price trends and investment insights
-
-### 📱 **Modern User Experience**
-
-- **Mobile-First Design** - Optimized for all screen sizes
-- **Lightning Fast** - Built with Vite for optimal performance
-- **Progressive Web App** - Installable, offline-capable
-- **Accessibility** - WCAG 2.1 compliant design
 
 ## 🛠️ Tech Stack
 
@@ -146,24 +139,6 @@ const propertyDatabase = [
 ];
 ```
 
-### **AI Response Categories**
-
-| Query Type           | Example Input               | AI Response                       |
-| -------------------- | --------------------------- | --------------------------------- |
-| **Budget Queries**   | "Properties under 50 lakhs" | Smart filtering + recommendations |
-| **Location Search**  | "Show me homes in Gurgaon"  | Location-specific properties      |
-| **Property Type**    | "I need a villa"            | Type-filtered results             |
-| **Loan Assistance**  | "Home loan options"         | Bank partnerships + rates         |
-| **Viewing Requests** | "Schedule a visit"          | Contact details + availability    |
-
-### **Smart Features**
-
-- **Context Retention** - Remembers user preferences throughout the conversation
-- **Multi-language Support** - Hindi/English mixed conversations
-- **Quick Actions** - One-click property searches
-- **Real-time Responses** - Sub-second response times
-- **Conversation History** - Clear chat and restart functionality
-
 ## 📁 **Project Architecture**
 
 ```
@@ -197,17 +172,6 @@ MakaanWala/
 ├── 🔧 eslint.config.js        # Linting rules
 └── 📖 README.md               # This file
 ```
-
-## ⚡ **Performance Metrics**
-
-| Metric                       | Score   | Status       |
-| ---------------------------- | ------- | ------------ |
-| **Lighthouse Performance**   | 95+     | 🟢 Excellent |
-| **First Contentful Paint**   | < 1.2s  | 🟢 Fast      |
-| **Largest Contentful Paint** | < 2.5s  | 🟢 Good      |
-| **Cumulative Layout Shift**  | < 0.1   | 🟢 Stable    |
-| **Time to Interactive**      | < 3s    | 🟢 Quick     |
-| **Bundle Size (gzipped)**    | < 200KB | 🟢 Optimized |
 
 ### **Optimization Techniques**
 
@@ -279,57 +243,6 @@ MakaanWala/
 - Responsive cards
 - Newsletter signup
 
-## 🚀 **Deployment Options**
-
-### **Vercel (Recommended)**
-
-```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Deploy to Vercel
-vercel --prod
-
-# Custom domain setup
-vercel domains add your-domain.com
-```
-
-### **Netlify**
-
-```bash
-# Build the project
-npm run build
-
-# Deploy dist folder to Netlify
-# Or connect GitHub repository for auto-deployment
-```
-
-### **Docker Deployment**
-
-```dockerfile
-# Dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-EXPOSE 3001
-CMD ["npm", "run", "preview"]
-```
-
-## 📊 **Analytics & Monitoring**
-
-- **Google Analytics** - User behavior tracking
-- **Performance Monitoring** - Core Web Vitals
-- **Error Tracking** - Real-time error reporting
-- **SEO Monitoring** - Search engine optimization
-- **Conversion Tracking** - Lead generation metrics
-
-## 🤝 **Contributing Guidelines**
-
-We welcome contributions! Here's how to get started:
-
 ### **Development Workflow**
 
 1. **Fork & Clone**
@@ -399,7 +312,5 @@ We welcome contributions! Here's how to get started:
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 **MakaanWala** - Transforming Indian Real Estate with AI 🏠✨
-
-_Made with ❤️ for the Indian Real Estate Market_
 
 </div>

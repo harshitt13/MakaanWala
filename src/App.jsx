@@ -11,7 +11,9 @@ import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
 import LoadingScreen from "./components/LoadingScreen";
+import MobileOptimizations from "./utils/mobileOptimizations";
 import "./App.css";
+import "./styles/mobile-responsive.css";
 
 function App() {
   const [activeSection, setActiveSection] = useState("home");
@@ -19,6 +21,9 @@ function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    // Initialize mobile optimizations
+    MobileOptimizations.init();
+    
     // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false);

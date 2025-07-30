@@ -160,27 +160,125 @@
 @media (max-width: 768px) {
   .contact-content {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: var(--space-2xl);
+  }
+
+  .contact-info {
+    padding: var(--space-xl);
+    text-align: center;
+    order: 1;
   }
 
   .contact-form {
     padding: var(--space-xl);
+    order: 2;
   }
 
   .form-row {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: var(--space-md);
+  }
+
+  .form-group {
+    margin-bottom: var(--space-lg);
+  }
+
+  .form-control {
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: 48px;
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+  }
+
+  textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: var(--space-lg);
+    font-size: 1.1rem;
+    min-height: 50px;
+    border-radius: var(--radius-lg);
+  }
+
+  .info-card {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    background: var(--bg-secondary);
+  }
+
+  .info-card-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .info-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .info-card p {
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .info-card {
-    flex-direction: column;
-    text-align: center;
-    gap: var(--space-md);
+  .contact-section {
+    padding: var(--space-xl) 0;
+  }
+
+  .contact-content {
+    gap: var(--space-xl);
+  }
+
+  .contact-info {
+    padding: var(--space-lg);
   }
 
   .contact-form {
     padding: var(--space-lg);
+  }
+
+  .form-control {
+    font-size: 16px;
+    min-height: 44px;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .submit-btn {
+    padding: var(--space-md) var(--space-lg);
+    font-size: 1rem;
+    min-height: 48px;
+  }
+
+  .info-card {
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-sm);
+  }
+
+  .info-card-icon {
+    font-size: 1.8rem;
+  }
+
+  .info-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .info-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .form-message {
+    font-size: 0.9rem;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
   }
 }

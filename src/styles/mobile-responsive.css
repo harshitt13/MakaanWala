@@ -1,0 +1,228 @@
+/* Mobile-First Responsive Utilities */
+
+/* Mobile-first breakpoints */
+:root {
+  --mobile-sm: 360px;
+  --mobile-md: 480px;
+  --tablet: 768px;
+  --desktop-sm: 1024px;
+  --desktop-lg: 1200px;
+}
+
+/* Touch-friendly interactions */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .btn:hover,
+  .nav-link:hover,
+  .property-card:hover {
+    transform: none;
+  }
+
+  /* Ensure all interactive elements are touch-friendly */
+  a, button, input, select, textarea, .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Utility classes for mobile responsiveness */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
+.mobile-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.mobile-center {
+  text-align: center;
+}
+
+.mobile-full-width {
+  width: 100%;
+}
+
+/* Mobile breakpoint utilities */
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .mobile-show {
+    display: block !important;
+  }
+
+  /* Grid utilities for mobile */
+  .mobile-grid-1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mobile-grid-2 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Spacing utilities */
+  .mobile-spacing-sm {
+    padding: var(--space-sm) !important;
+  }
+
+  .mobile-spacing-md {
+    padding: var(--space-md) !important;
+  }
+
+  .mobile-spacing-lg {
+    padding: var(--space-lg) !important;
+  }
+
+  /* Typography utilities */
+  .mobile-text-sm {
+    font-size: 0.9rem !important;
+  }
+
+  .mobile-text-center {
+    text-align: center !important;
+  }
+
+  .mobile-text-left {
+    text-align: left !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Additional small mobile utilities */
+  .mobile-sm-hide {
+    display: none !important;
+  }
+
+  .mobile-sm-stack {
+    flex-direction: column !important;
+    gap: var(--space-sm) !important;
+  }
+
+  .mobile-sm-full {
+    width: 100% !important;
+  }
+
+  .mobile-sm-center {
+    text-align: center !important;
+  }
+}
+
+/* Improved scrolling on mobile */
+@media (max-width: 768px) {
+  /* Prevent horizontal overflow */
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Improve scrolling performance */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Better tap highlighting */
+  a, button, input, select, textarea {
+    -webkit-tap-highlight-color: rgba(49, 130, 206, 0.2);
+    tap-highlight-color: rgba(49, 130, 206, 0.2);
+  }
+
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Accessibility improvements for mobile */
+@media (max-width: 768px) {
+  /* Larger focus indicators for better accessibility */
+  a:focus,
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+
+  /* Better contrast for mobile readability */
+  body {
+    color: var(--text-primary);
+    background: var(--bg-primary);
+  }
+
+  /* Ensure sufficient color contrast */
+  .text-muted {
+    color: var(--text-secondary);
+  }
+
+  /* Better button spacing for touch */
+  .btn + .btn {
+    margin-top: var(--space-sm);
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  /* Reduce motion for better performance on mobile */
+  * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+
+  /* Optimize images for mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: optimizeQuality;
+  }
+
+  /* Optimize transforms for mobile performance */
+  .transform-gpu {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* Layout improvements for very small screens */
+@media (max-width: 360px) {
+  /* Extra small screen adjustments */
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  /* Ensure buttons don't get too small */
+  .btn {
+    min-height: 48px;
+    padding: var(--space-md);
+    font-size: 0.95rem;
+  }
+
+  /* Stack all flex layouts */
+  .flex {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  /* Reduce heading sizes for very small screens */
+  h1 { font-size: 1.8rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  h3 { font-size: 1.3rem !important; }
+  h4 { font-size: 1.1rem !important; }
+  h5 { font-size: 1rem !important; }
+  h6 { font-size: 0.9rem !important; }
+}

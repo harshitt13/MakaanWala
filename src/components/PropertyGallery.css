@@ -204,21 +204,137 @@
   .filters {
     flex-direction: column;
     align-items: stretch;
-    gap: 20px;
+    gap: var(--space-lg);
+    padding: var(--space-md);
+    margin-bottom: var(--space-xl);
   }
 
   .filter-group {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: var(--space-md);
+  }
+
+  .filter-group label {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .filter-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: var(--space-sm);
+  }
+
+  .filter-btn {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.9rem;
+    text-align: center;
+    min-height: 44px;
   }
 
   .properties-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: var(--space-xl);
+    padding: 0 var(--space-sm);
   }
 
   .property-card {
-    margin: 0 10px;
+    margin: 0;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .property-image {
+    height: 220px;
+  }
+
+  .property-content {
+    padding: var(--space-lg);
+  }
+
+  .property-title {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .property-price {
+    font-size: 1.3rem;
+  }
+
+  .property-details {
+    margin: var(--space-md) 0;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .property-detail {
+    font-size: 0.9rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .property-gallery {
+    padding: var(--space-lg) 0;
+  }
+
+  .filters {
+    padding: var(--space-sm);
+    gap: var(--space-md);
+  }
+
+  .filter-buttons {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xs);
+  }
+
+  .filter-btn {
+    padding: var(--space-sm);
+    font-size: 0.85rem;
+  }
+
+  .properties-grid {
+    gap: var(--space-lg);
+    padding: 0;
+  }
+
+  .property-card {
+    border-radius: var(--radius-md);
+  }
+
+  .property-image {
+    height: 200px;
+  }
+
+  .property-content {
+    padding: var(--space-md);
+  }
+
+  .property-title {
+    font-size: 1.1rem;
+  }
+
+  .property-price {
+    font-size: 1.2rem;
+  }
+
+  .property-details {
+    gap: var(--space-xs);
+  }
+
+  .property-detail {
+    font-size: 0.8rem;
+    padding: var(--space-xs);
+  }
+
+  .property-actions {
+    gap: var(--space-sm);
+    flex-direction: column;
+  }
+
+  .property-actions .btn {
+    padding: var(--space-md);
+    font-size: 0.9rem;
   }
 }

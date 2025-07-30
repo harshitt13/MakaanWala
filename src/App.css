@@ -298,13 +298,14 @@ section {
   outline-offset: 2px;
 }
 
-/* Responsive Design */
+/* Responsive Design - Mobile-First Approach */
 @media (max-width: 1200px) {
   .container {
     padding: 0 var(--space-md);
   }
 }
 
+/* Tablet Styles */
 @media (max-width: 768px) {
   section {
     padding: 35px 0;
@@ -314,24 +315,60 @@ section {
     margin-bottom: 30px;
   }
 
+  .section-header h2 {
+    font-size: 2rem;
+    line-height: 1.3;
+  }
+
+  .section-header p {
+    font-size: 1.1rem;
+  }
+
   .btn {
     padding: var(--space-md) var(--space-lg);
     font-size: 0.9rem;
     min-height: 44px;
+    /* Ensure touch targets are at least 44px */
+    min-width: 44px;
   }
 
   .container {
     padding: 0 var(--space-md);
   }
+
+  /* Improve touch targets */
+  a, button, input, select, textarea {
+    min-height: 44px;
+  }
+
+  /* Better text spacing for readability */
+  p {
+    line-height: 1.6;
+  }
 }
 
+/* Mobile Styles */
 @media (max-width: 480px) {
+  html {
+    font-size: 14px; /* Slightly smaller base font size for mobile */
+  }
+
   section {
-    padding: 30px 0;
+    padding: 25px 0;
+  }
+
+  .section-header {
+    margin-bottom: 25px;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+    line-height: 1.2;
   }
 
   .section-header p {
     font-size: 1rem;
+    line-height: 1.5;
   }
 
   .container {
@@ -341,6 +378,42 @@ section {
   .btn {
     width: 100%;
     justify-content: center;
+    padding: var(--space-lg) var(--space-md);
+    font-size: 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Stack layout for better mobile experience */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-md);
+  }
+
+  /* Improve readability with larger line heights */
+  body {
+    line-height: 1.6;
+  }
+
+  /* Better spacing for content */
+  .section-badge {
+    font-size: 0.8rem;
+    padding: var(--space-xs) var(--space-md);
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 calc(var(--space-sm) * 0.75);
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    padding: var(--space-md);
+    font-size: 0.9rem;
   }
 }
 
