@@ -66,19 +66,19 @@ const About = () => {
     {
       name: "Rajesh Kumar",
       role: "CEO & Founder",
-      image: "/placeholder.svg?height=300&width=300&text=CEO",
+      image: "/public/team_member.svg?height=300&width=300&text=CEO",
       bio: "20+ years in Indian real estate with expertise in residential and commercial properties across major cities.",
     },
     {
       name: "Priya Sharma",
       role: "Head of Sales",
-      image: "/placeholder.svg?height=300&width=300&text=Sales+Head",
+      image: "/public/team_member.svg?height=300&width=300&text=Sales+Head",
       bio: "Top-performing agent specializing in first-time home buyers and affordable housing solutions.",
     },
     {
       name: "Amit Patel",
       role: "Property Manager",
-      image: "/placeholder.svg?height=300&width=300&text=Manager",
+      image: "/public/team_member.svg?height=300&width=300&text=Manager",
       bio: "Expert in property management and investment strategies with focus on rental yields and ROI optimization.",
     },
   ]
