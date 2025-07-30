@@ -39,8 +39,14 @@
 }
 
 .header .logo-icon {
-  font-size: 1.75rem;
-  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--primary-color);
+  border-radius: 10px;
+  color: white;
 }
 
 .header .logo-text {

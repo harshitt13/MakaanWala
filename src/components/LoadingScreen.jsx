@@ -1,4 +1,5 @@
-import "./LoadingScreen.css"
+import { Home } from "lucide-react";
+import "./LoadingScreen.css";
 
 const LoadingScreen = () => {
   return (
@@ -6,7 +7,9 @@ const LoadingScreen = () => {
       <div className="loading-content">
         <div className="logo-animation">
           <div className="logo-container">
-            <div className="logo-icon">🏠</div>
+            <div className="logo-icon">
+              <Home size={48} />
+            </div>
             <h1>MakaanWala</h1>
           </div>
           <div className="logo-tagline">Your Dream Home Awaits</div>
@@ -27,7 +30,7 @@ const LoadingScreen = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoadingScreen
+export default LoadingScreen;

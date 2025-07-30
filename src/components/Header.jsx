@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Youtube,
+  Home,
+} from "lucide-react";
 import "./Header.css";
 
 const Header = ({ activeSection, onNavigate }) => {
@@ -36,7 +43,9 @@ const Header = ({ activeSection, onNavigate }) => {
     <header className={`header ${isScrolled ? "scrolled" : ""}`}>
       <div className="header-container">
         <div className="logo" onClick={() => handleNavClick("home")}>
-          <div className="logo-icon">🏠</div>
+          <div className="logo-icon">
+            <Home size={28} />
+          </div>
           <div className="logo-text">
             <span className="logo-name">MakaanWala</span>
             <span className="logo-tagline">Premium Real Estate</span>

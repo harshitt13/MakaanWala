@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock, 
-  Send, 
-  User, 
+import { useState } from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Send,
+  User,
   MessageSquare,
   DollarSign,
   Home,
   CheckCircle,
-  AlertCircle
-} from "lucide-react"
-import "./ContactForm.css"
+  AlertCircle,
+} from "lucide-react";
+import "./ContactForm.css";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -24,25 +24,25 @@ const ContactForm = () => {
     propertyType: "",
     budget: "",
     message: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState("idle")
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState("idle");
 
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate form submission
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setSubmitStatus("success")
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setSubmitStatus("success");
       setFormData({
         name: "",
         email: "",
@@ -50,14 +50,14 @@ const ContactForm = () => {
         propertyType: "",
         budget: "",
         message: "",
-      })
+      });
     } catch (error) {
-      setSubmitStatus("error")
+      setSubmitStatus("error");
     } finally {
-      setIsSubmitting(false)
-      setTimeout(() => setSubmitStatus("idle"), 3000)
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus("idle"), 3000);
     }
-  }
+  };
 
   return (
     <section className="contact-form-section">
@@ -68,7 +68,10 @@ const ContactForm = () => {
             Get In Touch
           </div>
           <h2>Let&apos;s Find Your Dream Property</h2>
-          <p>Ready to take the next step? Our expert team is here to help you find your perfect property.</p>
+          <p>
+            Ready to take the next step? Our expert team is here to help you
+            find your perfect property.
+          </p>
         </div>
 
         <div className="contact-content">
@@ -126,14 +129,14 @@ const ContactForm = () => {
                   <User size={16} />
                   Full Name *
                 </label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  value={formData.name} 
-                  onChange={handleChange} 
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Enter your full name"
-                  required 
+                  required
                 />
               </div>
 
@@ -142,14 +145,14 @@ const ContactForm = () => {
                   <Mail size={16} />
                   Email Address *
                 </label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  value={formData.email} 
-                  onChange={handleChange} 
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter your email"
-                  required 
+                  required
                 />
               </div>
             </div>
@@ -160,12 +163,12 @@ const ContactForm = () => {
                   <Phone size={16} />
                   Phone Number
                 </label>
-                <input 
-                  type="tel" 
-                  id="phone" 
-                  name="phone" 
-                  value={formData.phone} 
-                  onChange={handleChange} 
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   placeholder="Enter your phone number"
                 />
               </div>
@@ -175,7 +178,12 @@ const ContactForm = () => {
                   <Home size={16} />
                   Property Type
                 </label>
-                <select id="propertyType" name="propertyType" value={formData.propertyType} onChange={handleChange}>
+                <select
+                  id="propertyType"
+                  name="propertyType"
+                  value={formData.propertyType}
+                  onChange={handleChange}
+                >
                   <option value="">Select Property Type</option>
                   <option value="apartment">Apartment</option>
                   <option value="villa">Villa</option>
@@ -190,7 +198,12 @@ const ContactForm = () => {
                 <DollarSign size={16} />
                 Budget Range
               </label>
-              <select id="budget" name="budget" value={formData.budget} onChange={handleChange}>
+              <select
+                id="budget"
+                name="budget"
+                value={formData.budget}
+                onChange={handleChange}
+              >
                 <option value="">Select Budget Range</option>
                 <option value="under-30l">Under ₹30L</option>
                 <option value="30l-50l">₹30L - ₹50L</option>
@@ -215,7 +228,11 @@ const ContactForm = () => {
               ></textarea>
             </div>
 
-            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? (
                 <>
                   <div className="loading-spinner"></div>
@@ -239,14 +256,15 @@ const ContactForm = () => {
             {submitStatus === "error" && (
               <div className="form-message error">
                 <AlertCircle size={20} />
-                Sorry, there was an error sending your message. Please try again.
+                Sorry, there was an error sending your message. Please try
+                again.
               </div>
             )}
           </form>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;

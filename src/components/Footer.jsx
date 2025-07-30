@@ -8,6 +8,7 @@ import {
   Phone,
   Mail,
   Clock,
+  Home,
 } from "lucide-react";
 import "./Footer.css";
 
@@ -16,131 +17,108 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="footer-content">
-          <div className="footer-section">
+          <div className="footer-section footer-brand">
             <div className="footer-logo">
-              <div className="logo-icon">🏠</div>
+              <div className="logo-icon">
+                <Home size={28} />
+              </div>
               <h3>MakaanWala</h3>
             </div>
             <p>
-              Your trusted partner in finding the perfect property. We connect
-              dreams with reality through exceptional real estate services
-              across India.
+              Your trusted partner in finding the perfect property. Connecting
+              dreams with reality across India.
             </p>
             <div className="social-links">
               <a
                 href="https://facebook.com/makaanwala"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow us on Facebook"
+                aria-label="Facebook"
                 className="social-link"
               >
-                <Facebook size={20} />
+                <Facebook size={18} />
               </a>
               <a
                 href="https://twitter.com/makaanwala"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow us on Twitter"
+                aria-label="Twitter"
                 className="social-link"
               >
-                <Twitter size={20} />
+                <Twitter size={18} />
               </a>
               <a
                 href="https://instagram.com/makaanwala"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow us on Instagram"
+                aria-label="Instagram"
                 className="social-link"
               >
-                <Instagram size={20} />
+                <Instagram size={18} />
               </a>
               <a
                 href="https://linkedin.com/company/makaanwala"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Connect with us on LinkedIn"
+                aria-label="LinkedIn"
                 className="social-link"
               >
-                <Linkedin size={20} />
+                <Linkedin size={18} />
               </a>
               <a
                 href="https://youtube.com/makaanwala"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Watch us on YouTube"
+                aria-label="YouTube"
                 className="social-link"
               >
-                <Youtube size={20} />
+                <Youtube size={18} />
               </a>
             </div>
           </div>
 
           <div className="footer-section">
             <h4>Quick Links</h4>
-            <ul>
-              <li>
-                <a href="#home">Home</a>
-              </li>
-              <li>
-                <a href="#about">About Us</a>
-              </li>
-              <li>
-                <a href="#services">Services</a>
-              </li>
-              <li>
-                <a href="#properties">Properties</a>
-              </li>
-              <li>
-                <a href="#blog">Blog</a>
-              </li>
-              <li>
-                <a href="#contact">Contact</a>
-              </li>
-            </ul>
+            <div className="footer-links-grid">
+              <a href="#home">Home</a>
+              <a href="#about">About</a>
+              <a href="#services">Services</a>
+              <a href="#properties">Properties</a>
+              <a href="#blog">Blog</a>
+              <a href="#contact">Contact</a>
+            </div>
           </div>
 
           <div className="footer-section">
             <h4>Property Types</h4>
-            <ul>
-              <li>
-                <a href="#">Apartments</a>
-              </li>
-              <li>
-                <a href="#">Villas</a>
-              </li>
-              <li>
-                <a href="#">Commercial</a>
-              </li>
-              <li>
-                <a href="#">Land</a>
-              </li>
-              <li>
-                <a href="#">Luxury Homes</a>
-              </li>
-              <li>
-                <a href="#">Investment Properties</a>
-              </li>
-            </ul>
+            <div className="footer-links-grid">
+              <a href="#">Apartments</a>
+              <a href="#">Villas</a>
+              <a href="#">Commercial</a>
+              <a href="#">Land</a>
+              <a href="#">Luxury Homes</a>
+              <a href="#">Investment</a>
+            </div>
           </div>
 
-          <div className="footer-section">
-            <h4>Contact Info</h4>
+          <div className="footer-section footer-contact">
+            <h4>Get In Touch</h4>
             <div className="contact-info">
               <div className="contact-item">
-                <MapPin size={18} className="contact-icon" />
-                <span>123 Real Estate Avenue, New Delhi 110001</span>
+                <MapPin size={16} />
+                <span>123 Real Estate Ave, New Delhi 110001</span>
               </div>
               <div className="contact-item">
-                <Phone size={18} className="contact-icon" />
+                <Phone size={16} />
                 <a href="tel:+919876543210">+91 98765 43210</a>
               </div>
               <div className="contact-item">
-                <Mail size={18} className="contact-icon" />
+                <Mail size={16} />
                 <a href="mailto:info@makaanwala.com">info@makaanwala.com</a>
               </div>
               <div className="contact-item">
-                <Clock size={18} className="contact-icon" />
-                <span>Mon-Fri: 9AM-7PM, Sat-Sun: 10AM-5PM</span>
+                <Clock size={16} />
+                <span>Mon-Fri: 9AM-7PM • Weekends: 10AM-5PM</span>
               </div>
             </div>
           </div>
@@ -150,9 +128,11 @@ const Footer = () => {
           <p>
             &copy; {new Date().getFullYear()} MakaanWala. All rights reserved.
           </p>
-          <div className="footer-links">
+          <div className="footer-legal">
             <a href="#privacy">Privacy Policy</a>
+            <span>•</span>
             <a href="#terms">Terms of Service</a>
+            <span>•</span>
             <a href="#cookies">Cookie Policy</a>
           </div>
         </div>
