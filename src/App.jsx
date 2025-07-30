@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     // Initialize mobile optimizations
     MobileOptimizations.init();
-    
+
     // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false);

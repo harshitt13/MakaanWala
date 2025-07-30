@@ -19,7 +19,12 @@
   }
 
   /* Ensure all interactive elements are touch-friendly */
-  a, button, input, select, textarea, .clickable {
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  .clickable {
     min-height: 44px;
     min-width: 44px;
   }
@@ -125,7 +130,8 @@
 /* Improved scrolling on mobile */
 @media (max-width: 768px) {
   /* Prevent horizontal overflow */
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
   }
 
@@ -135,13 +141,19 @@
   }
 
   /* Better tap highlighting */
-  a, button, input, select, textarea {
+  a,
+  button,
+  input,
+  select,
+  textarea {
     -webkit-tap-highlight-color: rgba(49, 130, 206, 0.2);
     tap-highlight-color: rgba(49, 130, 206, 0.2);
   }
 
   /* Prevent zoom on input focus */
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px !important;
   }
 }
@@ -219,10 +231,22 @@
   }
 
   /* Reduce heading sizes for very small screens */
-  h1 { font-size: 1.8rem !important; }
-  h2 { font-size: 1.5rem !important; }
-  h3 { font-size: 1.3rem !important; }
-  h4 { font-size: 1.1rem !important; }
-  h5 { font-size: 1rem !important; }
-  h6 { font-size: 0.9rem !important; }
+  h1 {
+    font-size: 1.8rem !important;
+  }
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  h3 {
+    font-size: 1.3rem !important;
+  }
+  h4 {
+    font-size: 1.1rem !important;
+  }
+  h5 {
+    font-size: 1rem !important;
+  }
+  h6 {
+    font-size: 0.9rem !important;
+  }
 }
