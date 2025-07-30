@@ -8,13 +8,21 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your MakaanWala assistant. How can I help you find your perfect property today?",
+      text: "🏠 Welcome to MakaanWala! I'm your AI property assistant. I can help you find the perfect property, arrange viewings, provide market insights, and guide you through financing options. How can I assist you today?",
       isUser: false,
       timestamp: new Date(),
+      type: "greeting"
     },
   ])
   const [inputValue, setInputValue] = useState("")
   const [isTyping, setIsTyping] = useState(false)
+  const [userContext, setUserContext] = useState({
+    budget: null,
+    propertyType: null,
+    location: null,
+    preferences: [],
+    stage: "initial" // initial, browsing, interested, ready_to_buy
+  })
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
@@ -25,47 +33,186 @@ const Chatbot = () => {
     scrollToBottom()
   }, [messages])
 
-  const generateResponse = (userMessage) => {
-    const lowerMessage = userMessage.toLowerCase()
+  // Update user context based on conversation
+  const updateUserContext = (message) => {
+    const lowerMessage = message.toLowerCase()
+    const newContext = { ...userContext }
+    
+    // Extract budget
+    const budgetMatch = lowerMessage.match(/(\d+)\s*(lakh|crore|l|cr)/i)
+    if (budgetMatch) {
+      const amount = parseInt(budgetMatch[1])
+      const unit = budgetMatch[2].toLowerCase()
+      newContext.budget = unit.includes('cr') ? amount * 100 : amount
+    }
+    
+    // Extract property type
+    if (lowerMessage.includes("apartment") || lowerMessage.includes("flat")) {
+      newContext.propertyType = "apartment"
+    } else if (lowerMessage.includes("villa") || lowerMessage.includes("house")) {
+      newContext.propertyType = "villa"
+    } else if (lowerMessage.includes("studio")) {
+      newContext.propertyType = "studio"
+    } else if (lowerMessage.includes("commercial") || lowerMessage.includes("office")) {
+      newContext.propertyType = "commercial"
+    }
+    
+    // Extract location
+    if (lowerMessage.includes("delhi")) newContext.location = "Delhi"
+    else if (lowerMessage.includes("mumbai")) newContext.location = "Mumbai"
+    else if (lowerMessage.includes("bangalore") || lowerMessage.includes("bengaluru")) newContext.location = "Bangalore"
+    else if (lowerMessage.includes("gurgaon")) newContext.location = "Gurgaon"
+    
+    // Update stage
+    if (lowerMessage.includes("viewing") || lowerMessage.includes("schedule")) {
+      newContext.stage = "ready_to_buy"
+    } else if (lowerMessage.includes("loan") || lowerMessage.includes("financing")) {
+      newContext.stage = "interested"
+    } else if (newContext.propertyType || newContext.budget) {
+      newContext.stage = "browsing"
+    }
+    
+    setUserContext(newContext)
+    return newContext
+  }
 
-    if (lowerMessage.includes("price") || lowerMessage.includes("cost") || lowerMessage.includes("budget")) {
-      return "Our properties range from ₹28L for studio apartments to ₹1.2Cr for luxury villas. What's your budget range? I can help you find properties that match your financial requirements."
+  // Enhanced AI response system with property data and context awareness
+  const propertyDatabase = [
+    {
+      id: 1,
+      type: "apartment",
+      title: "Luxury 3BHK in Connaught Place",
+      price: "₹85L",
+      location: "Delhi",
+      features: ["3 bedrooms", "2 bathrooms", "1200 sq ft", "furnished"],
+      description: "Premium apartment in the heart of Delhi with modern amenities"
+    },
+    {
+      id: 2,
+      type: "villa",
+      title: "4BHK Villa with Pool",
+      price: "₹1.2Cr",
+      location: "Gurgaon",
+      features: ["4 bedrooms", "3 bathrooms", "2800 sq ft", "private pool", "garden"],
+      description: "Spacious villa perfect for families with luxury amenities"
+    },
+    {
+      id: 3,
+      type: "studio",
+      title: "Modern Studio Apartment",
+      price: "₹28L",
+      location: "Bangalore",
+      features: ["1 room", "1 bathroom", "450 sq ft", "fully furnished"],
+      description: "Perfect for young professionals in tech hub"
+    },
+    {
+      id: 4,
+      type: "commercial",
+      title: "Office Space in Cyber City",
+      price: "₹65L",
+      location: "Gurgaon",
+      features: ["1500 sq ft", "parking", "24/7 security", "cafeteria"],
+      description: "Prime commercial space in business district"
+    }
+  ]
+
+  const generateResponse = (userMessage, context = userContext) => {
+    const lowerMessage = userMessage.toLowerCase()
+    
+    // Extract budget from message
+    const budgetMatch = lowerMessage.match(/(\d+)\s*(lakh|crore|l|cr)/i)
+    let userBudget = null
+    if (budgetMatch) {
+      const amount = parseInt(budgetMatch[1])
+      const unit = budgetMatch[2].toLowerCase()
+      userBudget = unit.includes('cr') ? amount * 100 : amount
     }
 
+    // Price and budget queries
+    if (lowerMessage.includes("price") || lowerMessage.includes("cost") || lowerMessage.includes("budget")) {
+      if (userBudget) {
+        const matchingProperties = propertyDatabase.filter(p => {
+          const price = parseInt(p.price.replace(/[₹LCr]/g, ''))
+          return price <= userBudget * 1.1 // 10% flexibility
+        })
+        
+        if (matchingProperties.length > 0) {
+          const property = matchingProperties[0]
+          return `Great! Based on your budget of ₹${userBudget}L, I found a perfect match: ${property.title} in ${property.location} for ${property.price}. It features ${property.features.join(', ')}. Would you like to know more details or schedule a viewing?`
+        } else {
+          return `I understand your budget is around ₹${userBudget}L. Let me suggest some options close to your range. We have properties from ₹28L to ₹1.2Cr. Would you consider slightly adjusting your budget for better options?`
+        }
+      }
+      return "Our properties range from ₹28L for studio apartments to ₹1.2Cr for luxury villas. Could you share your budget range? This helps me find the perfect match for you. For example, you can say 'I'm looking for something under 50 lakhs'."
+    }
+
+    // Property type specific queries
     if (lowerMessage.includes("apartment") || lowerMessage.includes("flat")) {
-      return "We have beautiful apartments ranging from cozy studios to spacious 4-bedroom units. They're located in prime areas like Connaught Place, Bandra, and Koramangala. Would you like to see our available apartments?"
+      const apartments = propertyDatabase.filter(p => p.type === "apartment")
+      const apt = apartments[0]
+      return `We have beautiful apartments! Here's a featured option: ${apt.title} in ${apt.location} for ${apt.price}. It includes ${apt.features.join(', ')}. ${apt.description}. We also have options in Bandra, Koramangala, and other prime locations. What size apartment are you looking for?`
     }
 
     if (lowerMessage.includes("villa") || lowerMessage.includes("house")) {
-      return "Our villa collection includes luxury properties with 4-5 bedrooms, private pools, and gardens. Prices start from ₹95L. These are perfect for families looking for space and privacy."
+      const villas = propertyDatabase.filter(p => p.type === "villa")
+      const villa = villas[0]
+      return `Perfect choice for families! Our featured villa: ${villa.title} in ${villa.location} for ${villa.price}. Features include ${villa.features.join(', ')}. ${villa.description}. We have villas starting from ₹95L. Would you prefer a specific location or number of bedrooms?`
+    }
+
+    if (lowerMessage.includes("studio")) {
+      const studios = propertyDatabase.filter(p => p.type === "studio")
+      const studio = studios[0]
+      return `Great for young professionals! ${studio.title} in ${studio.location} for just ${studio.price}. Features: ${studio.features.join(', ')}. ${studio.description}. Perfect for IT professionals and students. Would you like to see more studio options?`
     }
 
     if (lowerMessage.includes("commercial") || lowerMessage.includes("office") || lowerMessage.includes("business")) {
-      return "We offer various commercial spaces including office buildings and retail spaces in prime business districts like Cyber City Gurgaon and Commercial Street Bangalore. Are you looking to buy or lease?"
+      const commercial = propertyDatabase.filter(p => p.type === "commercial")
+      const office = commercial[0]
+      return `Excellent business opportunity! ${office.title} in ${office.location} for ${office.price}. Includes ${office.features.join(', ')}. ${office.description}. We also have retail spaces available. Are you looking to buy or lease? What's your business type?`
     }
 
-    if (lowerMessage.includes("location") || lowerMessage.includes("area") || lowerMessage.includes("city")) {
-      return "We have properties in several premium locations: Delhi NCR, Mumbai, Bangalore, Hyderabad, and other major Indian cities. Which city or area interests you most?"
+    // Location specific queries
+    if (lowerMessage.includes("delhi") || lowerMessage.includes("connaught")) {
+      const delhiProps = propertyDatabase.filter(p => p.location === "Delhi")
+      return `Delhi is a prime location! We have excellent properties including ${delhiProps[0]?.title} for ${delhiProps[0]?.price}. Delhi offers great connectivity, schools, and business opportunities. Which area in Delhi interests you most - Central Delhi, South Delhi, or West Delhi?`
     }
 
-    if (lowerMessage.includes("viewing") || lowerMessage.includes("visit") || lowerMessage.includes("tour")) {
-      return "I'd be happy to arrange a property viewing for you! You can schedule through our contact form or call us at +91 98765 43210. Our agents are available Mon-Fri 9AM-7PM, weekends 10AM-5PM."
+    if (lowerMessage.includes("bangalore") || lowerMessage.includes("bengaluru")) {
+      const bangaloreProps = propertyDatabase.filter(p => p.location === "Bangalore")
+      return `Bangalore - India's Silicon Valley! Perfect for tech professionals. We have ${bangaloreProps[0]?.title} for ${bangaloreProps[0]?.price}. Great for IT workers with excellent connectivity to tech parks. Are you working in the tech industry?`
     }
 
-    if (lowerMessage.includes("loan") || lowerMessage.includes("financing") || lowerMessage.includes("emi")) {
-      return "We work with several trusted banks and NBFCs for home loans. Our team can connect you with pre-approved lenders and help you understand your financing options. Would you like me to arrange a consultation?"
+    if (lowerMessage.includes("gurgaon") || lowerMessage.includes("gurugram")) {
+      const gurgaonProps = propertyDatabase.filter(p => p.location === "Gurgaon")
+      return `Gurgaon is booming! We have multiple options including ${gurgaonProps[0]?.title} for ${gurgaonProps[0]?.price}. Known for modern infrastructure and business hubs. Excellent for both residential and commercial investments. What type of property interests you?`
     }
 
-    if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("hey")) {
-      return "Hello! Great to meet you. I'm here to help you find the perfect property in India. Are you looking for a residential home, apartment, or commercial space?"
+    // Service related queries
+    if (lowerMessage.includes("viewing") || lowerMessage.includes("visit") || lowerMessage.includes("tour") || lowerMessage.includes("schedule")) {
+      return "🏠 I'd love to arrange a property viewing for you! Here's how we can proceed:\n\n📅 Schedule Options:\n• Immediate viewing (today/tomorrow)\n• Weekend viewing\n• Virtual tour first\n\n📞 Contact: +91 98765 43210\n⏰ Available: Mon-Fri 9AM-7PM, Weekends 10AM-5PM\n\nWhich property caught your interest? I can prioritize that for your viewing."
     }
 
+    if (lowerMessage.includes("loan") || lowerMessage.includes("financing") || lowerMessage.includes("emi") || lowerMessage.includes("mortgage")) {
+      return "💰 Great question about financing! We have partnerships with leading banks:\n\n🏦 Our Banking Partners:\n• SBI, HDFC, ICICI, Axis Bank\n• Interest rates starting from 8.5%\n• Up to 90% loan-to-value ratio\n• Quick pre-approval in 24 hours\n\n📊 EMI Calculator available\n💼 Documentation assistance provided\n\nWhat's your monthly income range? This helps me suggest the best loan options for you."
+    }
+
+    // Sentiment based responses
+    if (lowerMessage.includes("confused") || lowerMessage.includes("help") || lowerMessage.includes("don't know")) {
+      return "I completely understand! Property buying can feel overwhelming. Let me simplify this for you:\n\n🎯 Let's start with basics:\n1. What's your budget range?\n2. Residential or commercial?\n3. Preferred location/city?\n4. Timeline for purchase?\n\nOnce I know these, I can create a personalized shortlist just for you! Think of me as your property consultant. 😊"
+    }
+
+    // Greeting responses
+    if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("hey") || lowerMessage.includes("good")) {
+      return "Hello! 👋 Welcome to MakaanWala - your trusted property partner! I'm your AI assistant, and I'm excited to help you find your dream property.\n\n🏡 I can help you with:\n• Property search & recommendations\n• Price analysis & budget planning\n• Viewing arrangements\n• Loan & financing guidance\n• Market insights\n\nWhat type of property are you looking for today?"
+    }
+
+    // Gratitude responses
     if (lowerMessage.includes("thank") || lowerMessage.includes("thanks")) {
-      return "You're very welcome! I'm here whenever you need help with your property search. Feel free to ask me anything about our listings, pricing, or scheduling viewings."
+      return "You're absolutely welcome! 😊 I'm here to make your property journey smooth and successful.\n\n🤝 Remember, I'm available 24/7 for:\n• Quick property searches\n• Market updates\n• Viewing appointments\n• Expert advice\n\nFeel free to ask me anything else about properties, or shall I connect you with one of our human experts for detailed assistance?"
     }
 
-    // Default response
-    return "That's a great question! I can help you with property searches, pricing information, scheduling viewings, and connecting you with our expert agents. You can also fill out our contact form for personalized assistance. What specific information are you looking for?"
+    // Default intelligent response
+    return `I'd love to help you with that! 🏠 As your AI property assistant, I can provide:\n\n✨ Instant Services:\n• Property recommendations based on your needs\n• Price comparisons and market analysis\n• Virtual tours and viewing arrangements\n• Financing options and EMI calculations\n\n💡 To give you the best suggestions, could you tell me:\n• Your budget range?\n• Preferred property type (apartment/villa/commercial)?\n• Location preference?\n\nWhat specific aspect of property buying interests you most?`
   }
 
   const handleSendMessage = async () => {
@@ -79,23 +226,29 @@ const Chatbot = () => {
     }
 
     setMessages((prev) => [...prev, userMessage])
+    
+    // Update user context based on the message
+    const updatedContext = updateUserContext(inputValue)
+    
+    const messageToProcess = inputValue
     setInputValue("")
     setIsTyping(true)
 
-    // Simulate AI thinking time
+    // Simulate AI thinking time with more realistic delay
     setTimeout(
       () => {
         const botResponse = {
           id: Date.now() + 1,
-          text: generateResponse(inputValue),
+          text: generateResponse(messageToProcess, updatedContext),
           isUser: false,
           timestamp: new Date(),
+          type: "response"
         }
 
         setMessages((prev) => [...prev, botResponse])
         setIsTyping(false)
       },
-      1000 + Math.random() * 1000,
+      800 + Math.random() * 1200, // 0.8-2 second delay for more natural feel
     )
   }
 
@@ -106,11 +259,37 @@ const Chatbot = () => {
     }
   }
 
-  const quickQuestions = [
-    "Show me apartments under ₹50L",
-    "What luxury villas do you have?",
-    "Schedule a property viewing",
-    "Tell me about commercial spaces",
+  const clearConversation = () => {
+    setMessages([
+      {
+        id: 1,
+        text: "🏠 Welcome back! I'm your AI property assistant. How can I help you today?",
+        isUser: false,
+        timestamp: new Date(),
+        type: "greeting"
+      },
+    ])
+    setUserContext({
+      budget: null,
+      propertyType: null,
+      location: null,
+      preferences: [],
+      stage: "initial"
+    })
+          <div className="chatbot-header">
+            <div className="header-content">
+              <h4>🏠 MakaanWala AI Assistant</h4>
+              <span className="online-indicator">● Online - Instant Help</span>
+            </div>
+            <button className="clear-chat-btn" onClick={clearConversation} title="Start New Conversation">
+              🔄
+            </button>
+          </div>ents under ₹50L",
+    "Show me luxury villas",
+    "I need commercial space",
+    "Schedule property viewing",
+    "Home loan assistance",
+    "Best areas in Delhi/NCR"
   ]
 
   return (
@@ -128,8 +307,12 @@ const Chatbot = () => {
 
           <div className="chatbot-messages">
             {messages.map((message) => (
-              <div key={message.id} className={`message ${message.isUser ? "user-message" : "bot-message"}`}>
-                <div className="message-content">{message.text}</div>
+              <div key={message.id} className={`message ${message.isUser ? "user-message" : "bot-message"} ${message.type ? `message-${message.type}` : ""}`}>
+                <div className="message-content">
+                  {message.text.split('\n').map((line, index) => (
+                    <div key={index}>{line}</div>
+                  ))}
+                </div>
                 <div className="message-time">
                   {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </div>
@@ -143,14 +326,14 @@ const Chatbot = () => {
                   <span></span>
                   <span></span>
                 </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {messages.length === 1 && (
-            <div className="quick-questions">
-              <p>Quick questions:</p>
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Ask about properties, prices, locations, loans..."
+              disabled={isTyping}
+            /><p>Quick questions:</p>
               {quickQuestions.map((question, index) => (
                 <button
                   key={index}
