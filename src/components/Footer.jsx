@@ -1,4 +1,15 @@
-import "./Footer.css"
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Youtube,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+} from "lucide-react";
+import "./Footer.css";
 
 const Footer = () => {
   return (
@@ -11,21 +22,55 @@ const Footer = () => {
               <h3>MakaanWala</h3>
             </div>
             <p>
-              Your trusted partner in finding the perfect property. We connect dreams with reality through exceptional
-              real estate services across India.
+              Your trusted partner in finding the perfect property. We connect
+              dreams with reality through exceptional real estate services
+              across India.
             </p>
             <div className="social-links">
-              <a href="#" aria-label="Facebook">
-                📘
+              <a
+                href="https://facebook.com/makaanwala"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Facebook"
+                className="social-link"
+              >
+                <Facebook size={20} />
               </a>
-              <a href="#" aria-label="Twitter">
-                🐦
+              <a
+                href="https://twitter.com/makaanwala"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Twitter"
+                className="social-link"
+              >
+                <Twitter size={20} />
               </a>
-              <a href="#" aria-label="Instagram">
-                📷
+              <a
+                href="https://instagram.com/makaanwala"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Instagram"
+                className="social-link"
+              >
+                <Instagram size={20} />
               </a>
-              <a href="#" aria-label="LinkedIn">
-                💼
+              <a
+                href="https://linkedin.com/company/makaanwala"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Connect with us on LinkedIn"
+                className="social-link"
+              >
+                <Linkedin size={20} />
+              </a>
+              <a
+                href="https://youtube.com/makaanwala"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Watch us on YouTube"
+                className="social-link"
+              >
+                <Youtube size={20} />
               </a>
             </div>
           </div>
@@ -81,25 +126,39 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Contact Info</h4>
             <div className="contact-info">
-              <p>📍 123 Real Estate Avenue, New Delhi 110001</p>
-              <p>📞 +91 98765 43210</p>
-              <p>✉️ info@makaanwala.com</p>
-              <p>🕒 Mon-Fri: 9AM-7PM, Sat-Sun: 10AM-5PM</p>
+              <div className="contact-item">
+                <MapPin size={18} className="contact-icon" />
+                <span>123 Real Estate Avenue, New Delhi 110001</span>
+              </div>
+              <div className="contact-item">
+                <Phone size={18} className="contact-icon" />
+                <a href="tel:+919876543210">+91 98765 43210</a>
+              </div>
+              <div className="contact-item">
+                <Mail size={18} className="contact-icon" />
+                <a href="mailto:info@makaanwala.com">info@makaanwala.com</a>
+              </div>
+              <div className="contact-item">
+                <Clock size={18} className="contact-icon" />
+                <span>Mon-Fri: 9AM-7PM, Sat-Sun: 10AM-5PM</span>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2024 MakaanWala. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} MakaanWala. All rights reserved.
+          </p>
           <div className="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Cookie Policy</a>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+            <a href="#cookies">Cookie Policy</a>
           </div>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

@@ -62,18 +62,7 @@ const Blog = () => {
       date: "2024-01-05",
       readTime: "7 min read",
       featured: false,
-    },
-    {
-      id: 6,
-      title: "Commercial Real Estate in Tier-2 Cities: Opportunities",
-      excerpt: "Explore the growing commercial real estate market in India's tier-2 cities.",
-      image: "/placeholder.svg?height=250&width=400&text=Commercial+RE",
-      category: "commercial",
-      author: "Sunita Reddy",
-      date: "2024-01-03",
-      readTime: "9 min read",
-      featured: false,
-    },
+    }
   ]
 
   const categories = [
