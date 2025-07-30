@@ -1,0 +1,329 @@
+.hero {
+  position: relative;
+  min-height: 550px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    var(--bg-secondary) 0%,
+    var(--bg-tertiary) 100%
+  );
+  padding: 100px 0 60px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  width: 100%;
+}
+
+.hero-main {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.hero-text {
+  max-width: 650px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--bg-accent);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  border-radius: var(--radius-lg);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: var(--space-xl);
+  animation: slideInUp 0.6s ease-out;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: var(--space-xl);
+  color: var(--text-primary);
+  animation: slideInUp 0.8s ease-out 0.2s both;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2xl);
+  max-width: 550px;
+  animation: slideInUp 0.8s ease-out 0.4s both;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-3xl);
+  flex-wrap: wrap;
+  animation: slideInUp 0.8s ease-out 0.6s both;
+}
+
+.hero-search {
+  max-width: 550px;
+  margin-bottom: var(--space-xl);
+  animation: slideInUp 0.8s ease-out 0.8s both;
+}
+
+.search-container {
+  display: flex;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xs);
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.search-container:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: var(--space-md) var(--space-lg);
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+  font-family: var(--font-sans);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-button {
+  background: var(--accent-color);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  color: var(--text-white);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.hero-visual {
+  position: relative;
+  animation: slideInRight 1s ease-out 0.4s both;
+}
+
+.hero-image {
+  width: 100%;
+  height: 450px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  transition: transform var(--transition-normal);
+}
+
+.hero-image:hover {
+  transform: translateY(-5px);
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.hero-image:hover img {
+  transform: scale(1.05);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+  background: var(--bg-primary);
+  padding: var(--space-3xl) var(--space-2xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  animation: slideInUp 1s ease-out 1s both;
+}
+
+.stat-card {
+  text-align: center;
+  padding: var(--space-lg);
+  transition: transform var(--transition-normal);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+  display: block;
+  filter: grayscale(0.2);
+  transition: filter var(--transition-normal);
+}
+
+.stat-card:hover .stat-icon {
+  filter: grayscale(0);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: var(--space-sm);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 500px;
+    padding: 90px 0 60px;
+  }
+
+  .hero-content {
+    padding: 0 var(--space-md);
+  }
+
+  .hero-main {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+
+  .hero-text {
+    order: 1;
+  }
+
+  .hero-visual {
+    order: 2;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-md);
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+  }
+
+  .stat-number {
+    font-size: 1.8rem;
+  }
+
+  .hero-image {
+    height: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 80px 0 50px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 8vw, 3rem);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-buttons {
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+  }
+
+  .stat-card {
+    padding: var(--space-md);
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+  }
+
+  .stat-number {
+    font-size: 1.6rem;
+  }
+
+  .search-container {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .search-button {
+    align-self: stretch;
+  }
+
+  .hero-image {
+    height: 280px;
+  }
+}
