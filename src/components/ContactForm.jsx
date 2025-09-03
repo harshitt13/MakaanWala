@@ -42,12 +42,10 @@ const ContactForm = () => {
     try {
       const formPayload = {
         ...formData,
-        access_key: import.meta.env.WEB3FORM_ACCESS_KEY,
-        subject: "New Contact Form Submission",
+        access_key: import.meta.env.VITE_WEB3FORM_ACCESS_KEY,
+        subject: "MakaanWala Contact Form",
         from_name: formData.name,
       };
-      // Honeypot field for spam protection
-      formPayload.birthday = "";
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
