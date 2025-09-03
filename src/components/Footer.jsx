@@ -25,12 +25,11 @@ const Footer = () => {
               <h3>MakaanWala</h3>
             </div>
             <p>
-              Your trusted partner in finding the perfect property. Connecting
-              dreams with reality across India.
+              Your trusted partner in finding the perfect property. Connecting dreams with reality across India.
             </p>
             <div className="social-links">
               <a
-                href="https://facebook.com/makaanwala"
+                href="/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -39,7 +38,7 @@ const Footer = () => {
                 <Facebook size={18} />
               </a>
               <a
-                href="https://twitter.com/makaanwala"
+                href="/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
@@ -48,7 +47,7 @@ const Footer = () => {
                 <Twitter size={18} />
               </a>
               <a
-                href="https://instagram.com/makaanwala"
+                href="/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -57,7 +56,7 @@ const Footer = () => {
                 <Instagram size={18} />
               </a>
               <a
-                href="https://linkedin.com/company/makaanwala"
+                href="/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -66,7 +65,7 @@ const Footer = () => {
                 <Linkedin size={18} />
               </a>
               <a
-                href="https://youtube.com/makaanwala"
+                href="/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
@@ -106,19 +105,19 @@ const Footer = () => {
             <div className="contact-info">
               <div className="contact-item">
                 <MapPin size={16} />
-                <span>123 Real Estate Ave, New Delhi 110001</span>
+                <span>3828 Piermont Dr, Albuquerque, NM 87112</span>
               </div>
               <div className="contact-item">
                 <Phone size={16} />
-                <a href="tel:+919876543210">+91 98765 43210</a>
+                <a href="tel:+911145678900">+91 11 4567 8900</a>
               </div>
               <div className="contact-item">
                 <Mail size={16} />
-                <a href="mailto:info@makaanwala.com">info@makaanwala.com</a>
+                <a href="mailto:support@makaanwala.com">support@makaanwala.com</a>
               </div>
               <div className="contact-item">
                 <Clock size={16} />
-                <span>Mon-Fri: 9AM-7PM • Weekends: 10AM-5PM</span>
+                <span>Mon-Fri: 9AM-7PM • Sat-Sun: 10AM-5PM</span>
               </div>
             </div>
           </div>

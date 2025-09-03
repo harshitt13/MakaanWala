@@ -286,8 +286,20 @@ const Blog = () => {
             market updates.
           </p>
           <div className="newsletter-signup">
-            <input type="email" placeholder="Enter your email address" />
-            <button className="btn btn-primary">Subscribe</button>
+            <input id="newsletter-email" type="email" placeholder="Enter your email address" />
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                const email = document.getElementById('newsletter-email').value;
+                if (email) {
+                  alert('Thank you for subscribing to our newsletter!');
+                } else {
+                  alert('Please enter a valid email address.');
+                }
+              }}
+            >
+              Subscribe
+            </button>
           </div>
         </div>
       </div>

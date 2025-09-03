@@ -99,7 +99,7 @@ const ContactForm = () => {
               </div>
               <div className="info-content">
                 <h4>Visit Our Office</h4>
-                <p>123 Real Estate Avenue, Connaught Place, New Delhi 110001</p>
+                <p>3828 Piermont Dr, Albuquerque, NM 87112</p>
               </div>
             </div>
 
@@ -109,7 +109,7 @@ const ContactForm = () => {
               </div>
               <div className="info-content">
                 <h4>Call Us</h4>
-                <p>+91 98765 43210 • +91 11 4567 8900</p>
+                <p>+91 11 4567 8900</p>
               </div>
             </div>
 
@@ -119,7 +119,7 @@ const ContactForm = () => {
               </div>
               <div className="info-content">
                 <h4>Email Us</h4>
-                <p>info@makaanwala.com • support@makaanwala.com</p>
+                <p>support@makaanwala.com</p>
               </div>
             </div>
 
