@@ -42,10 +42,9 @@ const ContactForm = () => {
     try {
       const formPayload = {
         ...formData,
-        access_key: "WEB3FORM_ACCESS_KEY", // <-- Replace with your real Web3Forms access key
+        access_key: import.meta.env.VITE_WEB3FORM_ACCESS_KEY,
         subject: "New Contact Form Submission",
         from_name: formData.name,
-        // Add more fields if needed
       };
       // Honeypot field for spam protection
       formPayload.birthday = "";
@@ -139,8 +138,14 @@ const ContactForm = () => {
 
           <form className="contact-form" onSubmit={handleSubmit}>
             {/* Web3Forms hidden access key and honeypot field */}
-            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY" />
-            <input type="text" name="birthday" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
+            {/* Honeypot field for spam protection */}
+            <input
+              type="text"
+              name="birthday"
+              style={{ display: "none" }}
+              tabIndex="-1"
+              autoComplete="off"
+            />
             <div className="form-header">
               <MessageSquare size={24} />
               <h3>Send us a Message</h3>
