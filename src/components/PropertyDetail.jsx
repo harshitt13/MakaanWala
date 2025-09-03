@@ -17,6 +17,7 @@ import {
   CheckCircle,
   AlertCircle
 } from "lucide-react";
+import ThreeDViewer from "./ThreeDViewer";
 import "./PropertyDetail.css";
 
 const PropertyDetail = () => {
@@ -313,6 +314,9 @@ const PropertyDetail = () => {
             ))}
           </div>
         </div>
+
+        {/* 3D Model Viewer */}
+        <ThreeDViewer property={property} />
 
         {/* Property Info */}
         <div className="property-content">
