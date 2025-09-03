@@ -42,7 +42,7 @@ const ContactForm = () => {
     try {
       const formPayload = {
         ...formData,
-        access_key: import.meta.env.VITE_WEB3FORM_ACCESS_KEY,
+        access_key: import.meta.env.WEB3FORM_ACCESS_KEY,
         subject: "New Contact Form Submission",
         from_name: formData.name,
       };
