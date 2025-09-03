@@ -2,11 +2,6 @@
 
 import { useState, useMemo } from "react";
 import {
-  Share2,
-  Facebook,
-  Twitter,
-  Linkedin,
-  ExternalLink,
   Heart,
   Phone,
   Mail,
@@ -121,42 +116,9 @@ const PropertyGallery = () => {
     return filtered;
   }, [activeFilter, priceRange, properties]);
 
-  const handlePropertyShare = (platform, property) => {
-    const url = `${window.location.origin}/property/${property.id}`;
-    const text = `Check out this amazing property: ${property.title} - ${property.price}`;
 
-    switch (platform) {
-      case "facebook":
-        window.open(
-          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            url
-          )}`,
-          "_blank"
-        );
-        break;
-      case "twitter":
-        window.open(
-          `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-            url
-          )}&text=${encodeURIComponent(text)}`,
-          "_blank"
-        );
-        break;
-      case "linkedin":
-        window.open(
-          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-            url
-          )}`,
-          "_blank"
-        );
-        break;
-      default:
-        navigator.clipboard.writeText(url);
-        alert("Property link copied to clipboard!");
-    }
-  };
 
-  const PropertyActions = ({ property }) => (
+  const PropertyActions = () => (
     <div className="property-actions">
       <div className="action-buttons">
         <button
@@ -170,39 +132,6 @@ const PropertyGallery = () => {
         </button>
         <button className="action-btn email-btn" aria-label="Send inquiry">
           <Mail size={18} />
-        </button>
-      </div>
-      <div className="share-buttons property-share">
-        <span className="share-label">
-          <Share2 size={14} />
-        </span>
-        <button
-          className="share-btn share-facebook"
-          onClick={() => handlePropertyShare("facebook", property)}
-          aria-label="Share on Facebook"
-        >
-          <Facebook size={14} />
-        </button>
-        <button
-          className="share-btn share-twitter"
-          onClick={() => handlePropertyShare("twitter", property)}
-          aria-label="Share on Twitter"
-        >
-          <Twitter size={14} />
-        </button>
-        <button
-          className="share-btn share-linkedin"
-          onClick={() => handlePropertyShare("linkedin", property)}
-          aria-label="Share on LinkedIn"
-        >
-          <Linkedin size={14} />
-        </button>
-        <button
-          className="share-btn share-copy"
-          onClick={() => handlePropertyShare("copy", property)}
-          aria-label="Copy link"
-        >
-          <ExternalLink size={14} />
         </button>
       </div>
     </div>

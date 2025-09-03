@@ -1,89 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Share2,
-  Facebook,
-  Twitter,
-  Linkedin,
-  ExternalLink,
-} from "lucide-react";
+
 import "./Blog.css";
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const handleShare = (platform, post) => {
-    const url = `${window.location.origin}/blog/${post.id}`;
-    const text = `Check out this article: ${post.title}`;
 
-    switch (platform) {
-      case "facebook":
-        window.open(
-          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            url
-          )}`,
-          "_blank"
-        );
-        break;
-      case "twitter":
-        window.open(
-          `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-            url
-          )}&text=${encodeURIComponent(text)}`,
-          "_blank"
-        );
-        break;
-      case "linkedin":
-        window.open(
-          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-            url
-          )}`,
-          "_blank"
-        );
-        break;
-      default:
-        navigator.clipboard.writeText(url);
-        alert("Link copied to clipboard!");
-    }
-  };
 
-  const ShareButtons = ({ post }) => (
-    <div className="share-buttons">
-      <span className="share-label">
-        <Share2 size={16} />
-        Share:
-      </span>
-      <button
-        className="share-btn share-facebook"
-        onClick={() => handleShare("facebook", post)}
-        aria-label="Share on Facebook"
-      >
-        <Facebook size={16} />
-      </button>
-      <button
-        className="share-btn share-twitter"
-        onClick={() => handleShare("twitter", post)}
-        aria-label="Share on Twitter"
-      >
-        <Twitter size={16} />
-      </button>
-      <button
-        className="share-btn share-linkedin"
-        onClick={() => handleShare("linkedin", post)}
-        aria-label="Share on LinkedIn"
-      >
-        <Linkedin size={16} />
-      </button>
-      <button
-        className="share-btn share-copy"
-        onClick={() => handleShare("copy", post)}
-        aria-label="Copy link"
-      >
-        <ExternalLink size={16} />
-      </button>
-    </div>
-  );
+
 
   const blogPosts = [
     {
@@ -230,7 +156,7 @@ const Blog = () => {
                       </div>
                       <button className="read-more-btn">Read More</button>
                     </div>
-                    <ShareButtons post={post} />
+
                   </div>
                 </article>
               ))}
@@ -271,7 +197,7 @@ const Blog = () => {
                       </div>
                       <button className="read-more-btn">Read More</button>
                     </div>
-                    <ShareButtons post={post} />
+
                   </div>
                 </article>
               )

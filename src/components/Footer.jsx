@@ -29,7 +29,7 @@ const Footer = () => {
             </p>
             <div className="social-links">
               <a
-                href="/"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -38,7 +38,7 @@ const Footer = () => {
                 <Facebook size={18} />
               </a>
               <a
-                href="/"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
@@ -47,7 +47,7 @@ const Footer = () => {
                 <Twitter size={18} />
               </a>
               <a
-                href="/"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -56,7 +56,7 @@ const Footer = () => {
                 <Instagram size={18} />
               </a>
               <a
-                href="/"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -65,7 +65,7 @@ const Footer = () => {
                 <Linkedin size={18} />
               </a>
               <a
-                href="/"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"

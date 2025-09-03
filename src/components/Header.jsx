@@ -71,7 +71,7 @@ const Header = ({ activeSection, onNavigate }) => {
               <span className="social-label">Follow Us:</span>
               <div className="social-icons">
                 <a
-                  href="/"
+                  href="#"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
@@ -79,7 +79,7 @@ const Header = ({ activeSection, onNavigate }) => {
                   <Facebook size={20} />
                 </a>
                 <a
-                  href="/"
+                  href="#"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Twitter"
@@ -87,7 +87,7 @@ const Header = ({ activeSection, onNavigate }) => {
                   <Twitter size={20} />
                 </a>
                 <a
-                  href="/"
+                  href="#"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -95,7 +95,7 @@ const Header = ({ activeSection, onNavigate }) => {
                   <Instagram size={20} />
                 </a>
                 <a
-                  href="/"
+                  href="#"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
@@ -103,7 +103,7 @@ const Header = ({ activeSection, onNavigate }) => {
                   <Linkedin size={20} />
                 </a>
                 <a
-                  href="/"
+                  href="#"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="YouTube"
