@@ -1,11 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import {
-  Heart,
-  Phone,
-  Mail,
-} from "lucide-react";
+// Removed unused imports for action buttons
 import "./PropertyGallery.css";
 
 const PropertyGallery = () => {
@@ -118,24 +114,7 @@ const PropertyGallery = () => {
 
 
 
-  const PropertyActions = () => (
-    <div className="property-actions">
-      <div className="action-buttons">
-        <button
-          className="action-btn favorite-btn"
-          aria-label="Add to favorites"
-        >
-          <Heart size={18} />
-        </button>
-        <button className="action-btn contact-btn" aria-label="Contact agent">
-          <Phone size={18} />
-        </button>
-        <button className="action-btn email-btn" aria-label="Send inquiry">
-          <Mail size={18} />
-        </button>
-      </div>
-    </div>
-  );
+  // PropertyActions component removed - no action buttons needed
 
   const filters = [
     { id: "all", label: "All Properties" },
@@ -224,8 +203,6 @@ const PropertyGallery = () => {
                     <strong>{property.area}</strong>
                   </span>
                 </div>
-
-                <PropertyActions property={property} />
               </div>
             </div>
           ))}
