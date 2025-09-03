@@ -10,6 +10,7 @@ import {
   Home,
 } from "lucide-react";
 import "./Header.css";
+import { Link } from "react-router-dom";
 
 const Header = ({ activeSection, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,7 +43,7 @@ const Header = ({ activeSection, onNavigate }) => {
   return (
     <header className={`header ${isScrolled ? "scrolled" : ""}`}>
       <div className="header-container">
-        <div className="logo" onClick={() => handleNavClick("home")}>
+        <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className="logo-icon">
             <Home size={28} />
           </div>
@@ -50,7 +51,7 @@ const Header = ({ activeSection, onNavigate }) => {
             <span className="logo-name">MakaanWala</span>
             <span className="logo-tagline">Premium Real Estate</span>
           </div>
-        </div>
+        </Link>
 
         <nav className={`nav ${isMenuOpen ? "nav-open" : ""}`}>
           {navItems.map((item) => (

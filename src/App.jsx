@@ -16,6 +16,9 @@ import MobileOptimizations from "./utils/mobileOptimizations";
 import "./App.css";
 import "./styles/mobile-responsive.css";
 
+import { Routes, Route } from "react-router-dom";
+import Search from "./components/Search";
+
 function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [isLoading, setIsLoading] = useState(true);
@@ -96,37 +99,37 @@ function App() {
         style={{ transform: `scaleX(${scrollProgress})` }}
       ></div>
       <Header activeSection={activeSection} onNavigate={scrollToSection} />
-
-      <main>
-        <section id="home" className="section">
-          <Hero onExplore={() => scrollToSection("properties")} />
-        </section>
-
-        <section id="about" className="section">
-          <About />
-        </section>
-
-        <section id="services" className="section">
-          <Services />
-        </section>
-
-        <section id="properties" className="section">
-          <PropertyGallery />
-        </section>
-
-        <section id="pricing" className="section">
-          <Pricing />
-        </section>
-
-        <section id="blog" className="section">
-          <Blog />
-        </section>
-
-        <section id="contact" className="section">
-          <ContactForm />
-        </section>
-      </main>
-
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <main>
+              <section id="home" className="section">
+                <Hero onExplore={() => scrollToSection("properties")} />
+              </section>
+              <section id="about" className="section">
+                <About />
+              </section>
+              <section id="services" className="section">
+                <Services />
+              </section>
+              <section id="properties" className="section">
+                <PropertyGallery />
+              </section>
+              <section id="pricing" className="section">
+                <Pricing />
+              </section>
+              <section id="blog" className="section">
+                <Blog />
+              </section>
+              <section id="contact" className="section">
+                <ContactForm />
+              </section>
+            </main>
+          }
+        />
+        <Route path="/search" element={<Search />} />
+      </Routes>
       <Footer />
       <Chatbot />
     </div>

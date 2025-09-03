@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Hero.css";
 
 const Hero = ({ onExplore }) => {
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
     properties: 0,
     clients: 0,
@@ -66,9 +68,7 @@ const Hero = ({ onExplore }) => {
 
   const handleSearch = (query = searchQuery) => {
     if (query.trim()) {
-      console.log("Searching for:", query);
-      // Here you would typically trigger the search functionality
-      onExplore();
+      navigate(`/search?q=${encodeURIComponent(query)}`);
     }
   };
 
