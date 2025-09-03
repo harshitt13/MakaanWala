@@ -117,7 +117,7 @@ function App() {
                 <PropertyGallery />
               </section>
               <section id="pricing" className="section">
-                <Pricing />
+                <Pricing onNavigateToContact={() => scrollToSection("contact")} />
               </section>
               <section id="blog" className="section">
                 <Blog />

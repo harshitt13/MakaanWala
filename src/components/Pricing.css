@@ -75,7 +75,6 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   position: relative;
-  cursor: pointer;
   border: 3px solid transparent;
 }
 
@@ -87,11 +86,6 @@
 .pricing-card.popular {
   border-color: #667eea;
   transform: scale(1.05);
-}
-
-.pricing-card.selected {
-  border-color: #667eea;
-  background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
 }
 
 .popular-badge {
@@ -193,33 +187,6 @@
   width: 16px;
 }
 
-.select-plan-btn {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.select-plan-btn.primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.select-plan-btn.secondary {
-  background: transparent;
-  color: #667eea;
-  border: 2px solid #667eea;
-}
-
-.select-plan-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
-
 .additional-services {
   margin-bottom: 80px;
 }
@@ -274,22 +241,6 @@
   color: #667eea;
   display: block;
   margin-bottom: 8px;
-}
-
-.add-service-btn {
-  background: #667eea;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.add-service-btn:hover {
-  background: #5a6fd8;
-  transform: scale(1.05);
 }
 
 .pricing-faq {

@@ -3,8 +3,7 @@
 import { useState } from "react"
 import "./Pricing.css"
 
-const Pricing = () => {
-  const [selectedPlan, setSelectedPlan] = useState("professional")
+const Pricing = ({ onNavigateToContact }) => {
   const [isAnnual, setIsAnnual] = useState(false)
 
   const pricingPlans = [
@@ -110,8 +109,7 @@ const Pricing = () => {
           {pricingPlans.map((plan) => (
             <div
               key={plan.id}
-              className={`pricing-card ${plan.popular ? "popular" : ""} ${selectedPlan === plan.id ? "selected" : ""}`}
-              onClick={() => setSelectedPlan(plan.id)}
+              className={`pricing-card ${plan.popular ? "popular" : ""}`}
             >
               {plan.popular && <div className="popular-badge">Most Popular</div>}
 
@@ -153,10 +151,6 @@ const Pricing = () => {
                   </>
                 )}
               </div>
-
-              <button className={`select-plan-btn ${plan.popular ? "primary" : "secondary"}`}>
-                {selectedPlan === plan.id ? "Selected Plan" : "Choose Plan"}
-              </button>
             </div>
           ))}
         </div>
@@ -174,7 +168,6 @@ const Pricing = () => {
                 </div>
                 <div className="service-price">
                   <span className="price">₹{service.price}</span>
-                  <button className="add-service-btn">Add Service</button>
                 </div>
               </div>
             ))}
@@ -203,8 +196,18 @@ const Pricing = () => {
           <h3>Ready to Get Started?</h3>
           <p>Contact us today for a personalized consultation and custom pricing options.</p>
           <div className="cta-buttons">
-            <button className="btn btn-primary">Start Free Consultation</button>
-            <button className="btn btn-secondary">Contact Sales Team</button>
+            <button 
+              className="btn btn-primary"
+              onClick={onNavigateToContact}
+            >
+              Start Free Consultation
+            </button>
+            <button 
+              className="btn btn-secondary"
+              onClick={onNavigateToContact}
+            >
+              Contact Sales Team
+            </button>
           </div>
         </div>
       </div>
