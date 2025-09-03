@@ -46,25 +46,6 @@ const Services = () => {
       ],
     },
     {
-      title: "Property Management",
-      icon: "🔧",
-      description: "Comprehensive property management services for investors and landlords.",
-      features: [
-        "Tenant screening and placement",
-        "Rent collection and accounting",
-        "Maintenance and repairs",
-        "Property inspections",
-        "Legal compliance",
-      ],
-      process: [
-        "Property assessment and setup",
-        "Marketing and tenant acquisition",
-        "Lease agreement and move-in",
-        "Ongoing management and maintenance",
-        "Financial reporting and optimization",
-      ],
-    },
-    {
       title: "Investment Consulting",
       icon: "📈",
       description: "Strategic investment advice to build your real estate portfolio.",

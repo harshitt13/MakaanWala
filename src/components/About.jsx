@@ -64,21 +64,21 @@ const About = () => {
 
   const teamMembers = [
     {
-      name: "Rajesh Kumar",
+      name: "Don Eladio",
       role: "CEO & Founder",
-      image: "/team_member.png?height=300&width=300&text=CEO",
+      image: "/ceo.png?height=300&width=300&text=CEO",
       bio: "20+ years in Indian real estate with expertise in residential and commercial properties across major cities.",
     },
     {
-      name: "Priya Sharma",
+      name: "Hector Salamanca",
       role: "Head of Sales",
-      image: "/team_member.png?height=300&width=300&text=Sales+Head",
+      image: "/hos.png?height=300&width=300&text=Sales+Head",
       bio: "Top-performing agent specializing in first-time home buyers and affordable housing solutions.",
     },
     {
-      name: "Amit Patel",
+      name: "Don Eduardo",
       role: "Property Manager",
-      image: "/team_member.png?height=300&width=300&text=Manager",
+      image: "/manager.png?height=300&width=300&text=Manager",
       bio: "Expert in property management and investment strategies with focus on rental yields and ROI optimization.",
     },
   ]

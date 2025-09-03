@@ -91,7 +91,8 @@ const Blog = () => {
       title: "10 Tips for First-Time Home Buyers in India 2024",
       excerpt:
         "Navigate the Indian home buying process with confidence using these expert tips and strategies.",
-      image: "/placeholder.svg?height=250&width=400&text=Home+Buying+Tips",
+      image:
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80", // House keys in hand
       category: "buying",
       author: "Priya Sharma",
       date: "2024-01-15",
@@ -103,7 +104,8 @@ const Blog = () => {
       title: "Indian Real Estate Market Trends: What to Expect This Year",
       excerpt:
         "Comprehensive analysis of current market conditions and predictions for the Indian real estate sector.",
-      image: "/placeholder.svg?height=250&width=400&text=Market+Trends",
+      image:
+        "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80", // City skyline
       category: "market",
       author: "Rajesh Kumar",
       date: "2024-01-12",
@@ -115,7 +117,8 @@ const Blog = () => {
       title: "Maximizing Your Property's Value Before Selling",
       excerpt:
         "Simple improvements and staging tips that can significantly increase your home's market value in India.",
-      image: "/placeholder.svg?height=250&width=400&text=Property+Value",
+      image:
+        "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80", // Modern living room
       category: "selling",
       author: "Amit Patel",
       date: "2024-01-10",
@@ -127,7 +130,8 @@ const Blog = () => {
       title: "Investment Properties: A Beginner's Guide for Indians",
       excerpt:
         "Everything you need to know about getting started in Indian real estate investment.",
-      image: "/placeholder.svg?height=250&width=400&text=Investment+Guide",
+      image:
+        "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80", // Investment concept
       category: "investment",
       author: "Neha Singh",
       date: "2024-01-08",
@@ -139,7 +143,8 @@ const Blog = () => {
       title: "Understanding Home Loan Options in India",
       excerpt:
         "Compare different home loan types and find the best financing option for your situation.",
-      image: "/placeholder.svg?height=250&width=400&text=Home+Loans",
+      image:
+        "https://images.unsplash.com/photo-1523289333742-be1143f6b766?auto=format&fit=crop&w=400&q=80", // Home loan paperwork
       category: "financing",
       author: "Vikram Gupta",
       date: "2024-01-05",
@@ -155,7 +160,6 @@ const Blog = () => {
     { id: "investment", label: "Investment" },
     { id: "market", label: "Market Trends" },
     { id: "financing", label: "Financing" },
-    { id: "commercial", label: "Commercial" },
   ];
 
   const filteredPosts =

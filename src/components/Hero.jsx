@@ -185,7 +185,7 @@ const Hero = ({ onExplore }) => {
           <div className="hero-visual">
             <div className="hero-image">
               <img
-                src="/placeholder.svg?height=400&width=600&text=Professional+Real+Estate"
+                src="/professional_real_estate.jpg?height=400&width=600&text=Professional+Real+Estate+Services"
                 alt="Professional Real Estate Services"
               />
             </div>

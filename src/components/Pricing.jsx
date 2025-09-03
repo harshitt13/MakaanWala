@@ -73,11 +73,6 @@ const Pricing = () => {
       description: "High-quality photos and virtual tours",
     },
     {
-      name: "Home Staging Consultation",
-      price: 5999,
-      description: "Expert advice on presenting your home",
-    },
-    {
       name: "Market Analysis Report",
       price: 4499,
       description: "Detailed comparative market analysis",
@@ -192,10 +187,6 @@ const Pricing = () => {
             <div className="faq-item">
               <h4>Can I change my plan anytime?</h4>
               <p>Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
-            </div>
-            <div className="faq-item">
-              <h4>What's included in the service fee?</h4>
-              <p>Our service fee covers all services in your selected plan. No hidden fees or surprise charges.</p>
             </div>
             <div className="faq-item">
               <h4>Do you offer refunds?</h4>
