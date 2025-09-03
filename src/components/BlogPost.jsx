@@ -1,10 +1,16 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock, User, Share2, BookmarkPlus } from "lucide-react";
+import { useEffect } from "react";
+import { ArrowLeft, Calendar, Clock, User, Share2 } from "lucide-react";
 import "./BlogPost.css";
 
 const BlogPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  // Scroll to top when component mounts or id changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   // Blog posts data (this would typically come from an API or context)
   const blogPosts = [
@@ -196,21 +202,45 @@ const BlogPost = () => {
     );
   }
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: post.title,
-        text: post.excerpt,
-        url: window.location.href,
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
+  const handleShare = async () => {
+    const shareUrl = `https://makaanwala.vercel.app/blog/${id}`;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      // Create a temporary notification
+      const notification = document.createElement('div');
+      notification.textContent = 'Link copied to clipboard!';
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #38a169;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+      `;
+      document.body.appendChild(notification);
+      
+      // Remove notification after 3 seconds
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = shareUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
       alert('Link copied to clipboard!');
     }
-  };
-
-  const handleBookmark = () => {
-    alert('Bookmark feature would be implemented here!');
   };
 
   return (
@@ -251,10 +281,6 @@ const BlogPost = () => {
             <button className="action-button" onClick={handleShare}>
               <Share2 size={18} />
               Share
-            </button>
-            <button className="action-button" onClick={handleBookmark}>
-              <BookmarkPlus size={18} />
-              Bookmark
             </button>
           </div>
         </div>
