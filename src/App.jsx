@@ -16,14 +16,17 @@ import MobileOptimizations from "./utils/mobileOptimizations";
 import "./App.css";
 import "./styles/mobile-responsive.css";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Search from "./components/Search";
 import BlogPost from "./components/BlogPost";
+import PropertyDetail from "./components/PropertyDetail";
 
 function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [isLoading, setIsLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Initialize mobile optimizations
@@ -77,15 +80,34 @@ function App() {
   }, []);
 
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerHeight = 80;
-      const elementPosition = element.offsetTop - headerHeight;
+    // If we're not on the home page, navigate to home first
+    if (location.pathname !== '/') {
+      navigate('/', { replace: true });
+      // Use setTimeout to ensure navigation completes before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const headerHeight = 80;
+          const elementPosition = element.offsetTop - headerHeight;
 
-      window.scrollTo({
-        top: elementPosition,
-        behavior: "smooth",
-      });
+          window.scrollTo({
+            top: elementPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    } else {
+      // We're already on home page, just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerHeight = 80;
+        const elementPosition = element.offsetTop - headerHeight;
+
+        window.scrollTo({
+          top: elementPosition,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
@@ -131,6 +153,7 @@ function App() {
         />
         <Route path="/search" element={<Search />} />
         <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/property/:id" element={<PropertyDetail />} />
       </Routes>
       <Footer />
       <Chatbot />

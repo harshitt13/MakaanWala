@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 // Removed unused imports for action buttons
 import "./PropertyGallery.css";
 
 const PropertyGallery = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [priceRange, setPriceRange] = useState("all");
+  const navigate = useNavigate();
 
   const properties = useMemo(
     () => [
@@ -170,7 +172,12 @@ const PropertyGallery = () => {
 
         <div className="properties-grid">
           {filteredProperties.map((property) => (
-            <div key={property.id} className="property-card">
+            <div 
+              key={property.id} 
+              className="property-card"
+              onClick={() => navigate(`/property/${property.id}`)}
+              style={{ cursor: 'pointer' }}
+            >
               {property.featured && (
                 <div className="featured-badge">Featured</div>
               )}
@@ -181,7 +188,15 @@ const PropertyGallery = () => {
                   alt={property.title}
                 />
                 <div className="property-overlay">
-                  <button className="view-btn">View Details</button>
+                  <button 
+                    className="view-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/property/${property.id}`);
+                    }}
+                  >
+                    View Details
+                  </button>
                 </div>
               </div>
 
