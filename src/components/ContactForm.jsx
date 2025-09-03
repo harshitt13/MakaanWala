@@ -39,18 +39,38 @@ const ContactForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setSubmitStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        propertyType: "",
-        budget: "",
-        message: "",
+      const formPayload = {
+        ...formData,
+        access_key: "WEB3FORM_ACCESS_KEY", // <-- Replace with your real Web3Forms access key
+        subject: "New Contact Form Submission",
+        from_name: formData.name,
+        // Add more fields if needed
+      };
+      // Honeypot field for spam protection
+      formPayload.birthday = "";
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formPayload),
       });
+      const data = await response.json();
+      if (data.success) {
+        setSubmitStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          propertyType: "",
+          budget: "",
+          message: "",
+        });
+      } else {
+        setSubmitStatus("error");
+      }
     } catch (error) {
       setSubmitStatus("error");
     } finally {
@@ -118,6 +138,9 @@ const ContactForm = () => {
           </div>
 
           <form className="contact-form" onSubmit={handleSubmit}>
+            {/* Web3Forms hidden access key and honeypot field */}
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY" />
+            <input type="text" name="birthday" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
             <div className="form-header">
               <MessageSquare size={24} />
               <h3>Send us a Message</h3>
