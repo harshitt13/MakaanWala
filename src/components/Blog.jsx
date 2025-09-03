@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./Blog.css";
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const navigate = useNavigate();
 
 
 
@@ -20,7 +22,7 @@ const Blog = () => {
       image:
         "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80", // House keys in hand
       category: "buying",
-      author: "Priya Sharma",
+      author: "Skyler White",
       date: "2024-01-15",
       readTime: "5 min read",
       featured: true,
@@ -33,7 +35,7 @@ const Blog = () => {
       image:
         "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80", // City skyline
       category: "market",
-      author: "Rajesh Kumar",
+      author: "Walter White",
       date: "2024-01-12",
       readTime: "8 min read",
       featured: true,
@@ -46,7 +48,7 @@ const Blog = () => {
       image:
         "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80", // Modern living room
       category: "selling",
-      author: "Amit Patel",
+      author: "Jessie Pinkman",
       date: "2024-01-10",
       readTime: "6 min read",
       featured: false,
@@ -59,7 +61,7 @@ const Blog = () => {
       image:
         "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80", // Investment concept
       category: "investment",
-      author: "Neha Singh",
+      author: "Marie Schrader",
       date: "2024-01-08",
       readTime: "10 min read",
       featured: false,
@@ -72,7 +74,7 @@ const Blog = () => {
       image:
         "https://images.unsplash.com/photo-1523289333742-be1143f6b766?auto=format&fit=crop&w=400&q=80", // Home loan paperwork
       category: "financing",
-      author: "Vikram Gupta",
+      author: "Saul Goodman",
       date: "2024-01-05",
       readTime: "7 min read",
       featured: false,
@@ -154,7 +156,12 @@ const Blog = () => {
                         <span>By {post.author}</span>
                         <span className="read-time">{post.readTime}</span>
                       </div>
-                      <button className="read-more-btn">Read More</button>
+                      <button 
+                        className="read-more-btn"
+                        onClick={() => navigate(`/blog/${post.id}`)}
+                      >
+                        Read More
+                      </button>
                     </div>
 
                   </div>
@@ -195,7 +202,12 @@ const Blog = () => {
                         <span>By {post.author}</span>
                         <span className="read-time">{post.readTime}</span>
                       </div>
-                      <button className="read-more-btn">Read More</button>
+                      <button 
+                        className="read-more-btn"
+                        onClick={() => navigate(`/blog/${post.id}`)}
+                      >
+                        Read More
+                      </button>
                     </div>
 
                   </div>

@@ -18,6 +18,7 @@ import "./styles/mobile-responsive.css";
 
 import { Routes, Route } from "react-router-dom";
 import Search from "./components/Search";
+import BlogPost from "./components/BlogPost";
 
 function App() {
   const [activeSection, setActiveSection] = useState("home");
@@ -129,6 +130,7 @@ function App() {
           }
         />
         <Route path="/search" element={<Search />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
       <Footer />
       <Chatbot />
