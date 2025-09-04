@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import NotFound from "./NotFound";
 import { ArrowLeft, Calendar, Clock, User, Share2 } from "lucide-react";
 import "./BlogPost.css";
 
@@ -190,15 +191,12 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="blog-post-not-found">
-        <div className="container">
-          <h1>Blog Post Not Found</h1>
-          <p>The blog post you're looking for doesn't exist.</p>
-          <button className="btn btn-primary" onClick={() => navigate('/')}>
-            Return to Home
-          </button>
-        </div>
-      </div>
+      <NotFound 
+        title="Blog Post Not Found" 
+        message="The blog article you are trying to access doesn't exist or may have been removed." 
+        backLabel="Back to Home" 
+        to="/" 
+      />
     );
   }
 

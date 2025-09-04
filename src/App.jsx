@@ -20,6 +20,7 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Search from "./components/Search";
 import BlogPost from "./components/BlogPost";
 import PropertyDetail from "./components/PropertyDetail";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [activeSection, setActiveSection] = useState("home");
@@ -152,8 +153,10 @@ function App() {
           }
         />
         <Route path="/search" element={<Search />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
-        <Route path="/property/:id" element={<PropertyDetail />} />
+  <Route path="/blog/:id" element={<BlogPost />} />
+  <Route path="/property/:id" element={<PropertyDetail />} />
+  {/* Catch-all 404 route MUST stay last */}
+  <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
       <Chatbot />

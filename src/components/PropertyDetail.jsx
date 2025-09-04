@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import properties, { getPropertyById, getPropertyBySlug } from "../data/properties"; // centralized property data & helpers
 import { 
   ArrowLeft, 
   MapPin, 
@@ -18,6 +19,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import ThreeDViewer from "./ThreeDViewer";
+import NotFound from "./NotFound";
 import "./PropertyDetail.css";
 
 const PropertyDetail = () => {
@@ -42,146 +44,19 @@ const PropertyDetail = () => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  // Extended property data with more details
-  const properties = [
-    {
-      id: 1,
-      title: "Modern Downtown Apartment",
-      price: "₹45,00,000",
-      location: "Connaught Place, Delhi",
-      bedrooms: 2,
-      bathrooms: 2,
-      area: "1,200 sq ft",
-      type: "apartment",
-      images: [
-        "/placeholder.svg?height=400&width=600&text=Modern+Apartment+1",
-        "/placeholder.svg?height=400&width=600&text=Modern+Apartment+2",
-        "/placeholder.svg?height=400&width=600&text=Modern+Apartment+3",
-        "/placeholder.svg?height=400&width=600&text=Modern+Apartment+4"
-      ],
-      description: "A stunning modern apartment in the heart of Delhi's business district. This beautifully designed 2-bedroom unit features contemporary finishes, floor-to-ceiling windows, and premium amenities. Perfect for professionals and small families looking for urban convenience.",
-      amenities: ["WiFi", "Parking", "Security", "Garden", "Power Backup"],
-      features: [
-        "Prime location in Connaught Place",
-        "24/7 security and concierge",
-        "Modern kitchen with premium appliances",
-        "Master bedroom with en-suite bathroom",
-        "Balcony with city views",
-        "Central air conditioning",
-        "Covered parking space",
-        "Access to rooftop garden"
-      ],
-      nearbyPlaces: [
-        { name: "Metro Station", distance: "200m" },
-        { name: "Shopping Mall", distance: "500m" },
-        { name: "Hospital", distance: "1.2km" },
-        { name: "School", distance: "800m" }
-      ],
-      agent: {
-        name: "Walter White",
-        phone: "+91 99XXXXXXXX",
-        email: "walter@makaanwala.com",
-        image: "https://vignette.wikia.nocookie.net/breakingbad/images/4/46/Cast_bb_800x600_walter-white.jpg/revision/latest/scale-to-width-down/350?cb=20170613183854"
-      }
-    },
-    {
-      id: 2,
-      title: "Luxury Villa with Pool",
-      price: "₹1,20,00,000",
-      location: "Bandra West, Mumbai",
-      bedrooms: 4,
-      bathrooms: 3,
-      area: "3,500 sq ft",
-      type: "villa",
-      images: [
-        "/placeholder.svg?height=400&width=600&text=Luxury+Villa+1",
-        "/placeholder.svg?height=400&width=600&text=Luxury+Villa+2",
-        "/placeholder.svg?height=400&width=600&text=Luxury+Villa+3",
-        "/placeholder.svg?height=400&width=600&text=Luxury+Villa+4"
-      ],
-      description: "An exquisite luxury villa offering the perfect blend of comfort and elegance. Located in prestigious Bandra West, this property features a private swimming pool, landscaped gardens, and top-of-the-line amenities throughout.",
-      amenities: ["WiFi", "Parking", "Security", "Garden", "Power Backup", "Swimming Pool"],
-      features: [
-        "Private swimming pool and deck",
-        "Landscaped garden with outdoor seating",
-        "Spacious living areas with high ceilings",
-        "Gourmet kitchen with island",
-        "Master suite with walk-in closet",
-        "3 additional bedrooms with attached baths",
-        "2-car garage with storage",
-        "Home office/study room"
-      ],
-      nearbyPlaces: [
-        { name: "Bandra Station", distance: "1.5km" },
-        { name: "Linking Road", distance: "1km" },
-        { name: "Lilavati Hospital", distance: "2km" },
-        { name: "American School", distance: "1.8km" }
-      ],
-      agent: {
-        name: "Skyler White",
-        phone: "+91 99XXXXXXXX",
-        email: "skyler@makaanwala.com",
-        image: "https://dygtyjqp7pi0m.cloudfront.net/i/21084/22735773_3.jpg?v=8D28033E5EA82A0"
-      }
-    },
-    {
-      id: 3,
-      title: "Commercial Office Space",
-      price: "₹80,00,000",
-      location: "Cyber City, Gurgaon",
-      bedrooms: 0,
-      bathrooms: 2,
-      area: "2,000 sq ft",
-      type: "commercial",
-      images: [
-        "/placeholder.svg?height=400&width=600&text=Office+Space+1",
-        "/placeholder.svg?height=400&width=600&text=Office+Space+2",
-        "/placeholder.svg?height=400&width=600&text=Office+Space+3",
-        "/placeholder.svg?height=400&width=600&text=Office+Space+4"
-      ],
-      description: "Premium commercial office space in the heart of Cyber City, Gurgaon. This modern workspace offers excellent connectivity, state-of-the-art infrastructure, and a professional environment perfect for growing businesses.",
-      amenities: ["WiFi", "Parking", "Security", "Power Backup", "Conference Room"],
-      features: [
-        "Grade A office building",
-        "24/7 security and access control",
-        "High-speed elevators",
-        "Central air conditioning",
-        "Dedicated parking spaces",
-        "Conference room access",
-        "Cafeteria and food court",
-        "Metro connectivity"
-      ],
-      nearbyPlaces: [
-        { name: "Cyber Hub", distance: "500m" },
-        { name: "Metro Station", distance: "300m" },
-        { name: "Hospital", distance: "2km" },
-        { name: "Shopping Complex", distance: "1km" }
-      ],
-      agent: {
-        name: "Jesse Pinkman",
-        phone: "+91 99XXXXXXXX",
-        email: "jesse@makaanwala.com",
-        image: "https://tse2.mm.bing.net/th/id/OIP.bMMCqogxWFqrqrJUf2LvZQHaHU?pid=ImgDet&w=198&h=196&c=7&o=7&rm=3"
-      }
-    }
-  ];
+  // properties now imported from centralized data file
 
-  const property = properties.find(p => p.id === parseInt(id));
+  // Support both numeric ID and slug routes
+  const property = getPropertyById(id) || getPropertyBySlug(id) || properties.find(p => p.id === parseInt(id));
 
-  if (!property) {
+  if (!property || property.complete === false) {
     return (
-      <div className="property-detail-page">
-        <div className="container">
-          <div className="not-found">
-            <h2>Property Not Found</h2>
-            <p>The property you&apos;re looking for doesn&apos;t exist.</p>
-            <button onClick={() => navigate('/')} className="property-back-button">
-              <ArrowLeft size={20} />
-              Go Back
-            </button>
-          </div>
-        </div>
-      </div>
+      <NotFound 
+        title="Property Not Found" 
+        message={property && property.complete === false ? "This property is not yet available. Please check back later." : "The property you're looking for doesn't exist or may have been removed."} 
+        backLabel="Back to Home" 
+        to="/" 
+      />
     );
   }
 

@@ -501,24 +501,18 @@ const ThreeDViewer = ({ property = null }) => {
           color: "#f0f5ff",
         }),
 
-        // Model: Use GLTF for Property 1, fallback to procedural model
+        // Model selection driven by property.model metadata
         (() => {
           if (!property) return React.createElement(ModernHouse, { property });
-          const gltfModelMap = {
-            1: { url: "/models/apartments/scene.gltf", targetSize: 16 },
-            3: { url: "/models/modern_office_building/scene.gltf", targetSize: 24 },
-          };
-          if (property.id === 2) {
-            return React.createElement(PropertyFBXModel, {
-              url: "/models/modern-luxury-villa-house-building-with-pool/source/42.fbx",
-              targetSize: 22,
-              onFit: (fit) => setModelFit(fit),
-            });
+          const model = property.model || { type: 'procedural' };
+          const targetSize = model.targetSize || 18;
+          if (model.type === 'gltf' && model.path) {
+            return React.createElement(PropertyGLTFModel, { url: model.path, targetSize, onFit: (fit) => setModelFit(fit) });
           }
-          const modelCfg = gltfModelMap[property.id];
-          if (modelCfg) {
-            return React.createElement(PropertyGLTFModel, { url: modelCfg.url, targetSize: modelCfg.targetSize, onFit: (fit) => setModelFit(fit) });
+          if (model.type === 'fbx' && model.path) {
+            return React.createElement(PropertyFBXModel, { url: model.path, targetSize, onFit: (fit) => setModelFit(fit) });
           }
+            // procedural fallback
           return React.createElement(ModernHouse, { property });
         })(),
 
