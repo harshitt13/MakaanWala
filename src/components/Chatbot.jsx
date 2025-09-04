@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./Chatbot.css";
+import { properties as fullProperties } from "../data/properties";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,52 +15,32 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
-  // Property database
-  const propertyDatabase = [
-    {
-      id: 1,
-      type: "apartment",
-      title: "Luxury 3BHK in Connaught Place",
-      price: "₹85L",
-      location: "Delhi",
-      features: ["3 bedrooms", "2 bathrooms", "1200 sq ft", "furnished"],
-      description:
-        "Premium apartment in the heart of Delhi with modern amenities",
-    },
-    {
-      id: 2,
-      type: "villa",
-      title: "4BHK Villa with Pool",
-      price: "₹1.2Cr",
-      location: "Gurgaon",
-      features: [
-        "4 bedrooms",
-        "3 bathrooms",
-        "2800 sq ft",
-        "private pool",
-        "garden",
-      ],
-      description: "Spacious villa perfect for families with luxury amenities",
-    },
-    {
-      id: 3,
-      type: "studio",
-      title: "Modern Studio Apartment",
-      price: "₹28L",
-      location: "Bangalore",
-      features: ["1 room", "1 bathroom", "450 sq ft", "fully furnished"],
-      description: "Perfect for young professionals in tech hub",
-    },
-    {
-      id: 4,
-      type: "commercial",
-      title: "Office Space in Cyber City",
-      price: "₹65L",
-      location: "Gurgaon",
-      features: ["1500 sq ft", "parking", "24/7 security", "cafeteria"],
-      description: "Prime commercial space in business district",
-    },
-  ];
+  // Derived property dataset from central properties.js
+  const propertyDatabase = fullProperties.map((p) => ({
+    id: p.id,
+    type: p.type?.toLowerCase(),
+    title: p.title,
+    price: p.price,
+    location: (p.location || "").split(",")[0],
+    features: p.features || [],
+    description: p.description || "",
+  }));
+
+  const priceToLakhs = (priceStr) => {
+    if (!priceStr) return null;
+    const raw = priceStr
+      .replace(/₹/g, "")
+      .replace(/,/g, "")
+      .trim()
+      .toLowerCase();
+    const m = raw.match(/([0-9]+(?:\.[0-9]+)?)\s*(cr|crore|l|lakh)?/i);
+    if (!m) return null;
+    const amt = parseFloat(m[1]);
+    const unit = (m[2] || "lakh").toLowerCase();
+    if (unit.startsWith("cr") || unit.startsWith("crore")) return amt * 100; // crore to lakh
+    return amt; // lakh
+  };
+
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -73,128 +54,118 @@ const Chatbot = () => {
   const generateResponse = (userMessage) => {
     const lowerMessage = userMessage.toLowerCase();
 
-    // Extract budget from message
-    const budgetMatch = lowerMessage.match(/(\d+)\s*(lakh|crore|l|cr)/i);
-    let userBudget = null;
+    // Budget extraction (supports decimal + crore/lakh shorthand)
+    let userBudget = null; // in lakhs
+    const budgetMatch = lowerMessage.match(/(\d+(?:\.\d+)?)\s*(cr|crore|lakh|l)?/i);
     if (budgetMatch) {
-      const amount = parseInt(budgetMatch[1]);
-      const unit = budgetMatch[2].toLowerCase();
-      userBudget = unit.includes("cr") ? amount * 100 : amount;
+      const amount = parseFloat(budgetMatch[1]);
+      const unit = (budgetMatch[2] || "lakh").toLowerCase();
+      userBudget = unit.startsWith("cr") ? amount * 100 : amount;
     }
 
     if (lowerMessage.includes("apartment") || lowerMessage.includes("flat")) {
       const apartment = propertyDatabase.find((p) => p.type === "apartment");
-      return `We have excellent apartments! Our featured ${
-        apartment.title
-      } in ${apartment.location} is available for ${
-        apartment.price
-      }. It includes ${apartment.features.join(", ")}. ${
-        apartment.description
-      }. Would you like more details or schedule a viewing?`;
+      if (apartment)
+        return `Featured apartment: ${apartment.title} (${apartment.location}) at ${apartment.price}. Key: ${apartment.features.slice(
+          0,
+          4
+        ).join(", ")}. Want more details?`;
     }
 
     if (lowerMessage.includes("villa") || lowerMessage.includes("house")) {
       const villa = propertyDatabase.find((p) => p.type === "villa");
-      return `Perfect choice for families! Our ${villa.title} in ${
-        villa.location
-      } for ${villa.price}. Features include ${villa.features.join(", ")}. ${
-        villa.description
-      }. Interested in scheduling a viewing?`;
+      if (villa)
+        return `Luxury villa option: ${villa.title} in ${villa.location} at ${villa.price}. Highlights: ${villa.features.slice(
+          0,
+          4
+        ).join(", ")}. Schedule a viewing?`;
     }
 
     if (lowerMessage.includes("studio")) {
-      const studio = propertyDatabase.find((p) => p.type === "studio");
-      return `Great for young professionals! ${studio.title} in ${
-        studio.location
-      } for just ${studio.price}. Features: ${studio.features.join(", ")}. ${
-        studio.description
-      }. Perfect for IT professionals!`;
+      const studio = propertyDatabase.find((p) => /studio/i.test(p.title));
+      if (studio)
+        return `Studio match: ${studio.title} in ${studio.location} at ${studio.price}. Features: ${studio.features.slice(
+          0,
+          4
+        ).join(", ")}.`;
     }
 
-    if (
-      lowerMessage.includes("commercial") ||
-      lowerMessage.includes("office")
-    ) {
+    if (lowerMessage.includes("commercial") || lowerMessage.includes("office")) {
       const commercial = propertyDatabase.find((p) => p.type === "commercial");
-      return `Excellent business opportunity! ${commercial.title} in ${
-        commercial.location
-      } for ${commercial.price}. Includes ${commercial.features.join(", ")}. ${
-        commercial.description
-      }. Ideal for your business needs!`;
+      if (commercial)
+        return `Commercial highlight: ${commercial.title} (${commercial.location}) at ${commercial.price}. Core: ${commercial.features.slice(
+          0,
+          4
+        ).join(", ")}.`;
     }
 
-    if (lowerMessage.includes("budget") || lowerMessage.includes("price")) {
+    if (
+      lowerMessage.includes("budget") ||
+      lowerMessage.includes("price") ||
+      lowerMessage.includes("under")
+    ) {
       if (userBudget) {
-        const matchingProperties = propertyDatabase.filter((p) => {
-          const price = parseInt(p.price.replace(/[₹LCr]/g, ""));
-          return price <= userBudget * 1.1;
-        });
-
-        if (matchingProperties.length > 0) {
-          const property = matchingProperties[0];
-          return `Great! Based on your budget of ₹${userBudget}L, I found: ${
-            property.title
-          } in ${property.location} for ${
-            property.price
-          }. It features ${property.features.join(
-            ", "
-          )}. Would you like to know more?`;
+        const matches = propertyDatabase
+          .map((p) => ({ p, priceL: priceToLakhs(p.price) }))
+          .filter((obj) => obj.priceL && obj.priceL <= userBudget * 1.05)
+          .sort((a, b) => a.priceL - b.priceL)
+          .slice(0, 3);
+        if (matches.length) {
+          const list = matches
+            .map((m) => `${m.p.title} (${m.p.price})`)
+            .join(" | ");
+          return `Options near ₹${userBudget}L: ${list}. Which one interests you?`;
         }
+        return `No listings below ~₹${userBudget}L found. Try increasing budget or specify location.`;
       }
-      return "Our properties range from ₹28L for studio apartments to ₹1.2Cr for luxury villas. What's your budget range? I can help find the perfect match within your price range.";
+      const lakhValues = propertyDatabase
+        .map((p) => priceToLakhs(p.price))
+        .filter(Boolean);
+      if (lakhValues.length) {
+        const min = Math.min(...lakhValues);
+        const max = Math.max(...lakhValues);
+        return `Current range: ~₹${Math.round(min)}L to ₹${(
+          max / 100
+        ).toFixed(2)}Cr. Share your budget (e.g. 45 lakh, 1.2 cr).`;
+      }
+      return "Share your budget (e.g. 45 lakh, 1 cr) and I'll suggest matches.";
     }
 
-    if (
-      lowerMessage.includes("loan") ||
-      lowerMessage.includes("financing") ||
-      lowerMessage.includes("emi")
-    ) {
-      return "💰 We have partnerships with leading banks including SBI, HDFC, ICICI, and Axis Bank. Interest rates start from 8.5% with up to 90% loan-to-value ratio. Quick pre-approval available in 24 hours! EMI calculator also available. What's your monthly income range?";
+    if (/(loan|financ|emi)/.test(lowerMessage)) {
+      return "💰 Partner banks: SBI, HDFC, ICICI, Axis. Rates from ~8.5% with up to 90% LTV. Want EMI guidance?";
     }
 
-    if (
-      lowerMessage.includes("viewing") ||
-      lowerMessage.includes("visit") ||
-      lowerMessage.includes("schedule")
-    ) {
-      return "🏠 I'd love to arrange a property viewing for you! We offer immediate viewing (today/tomorrow), weekend viewing, or virtual tour options. Contact: +91 98765 43210. Available Mon-Fri 9AM-7PM, Weekends 10AM-5PM. Which property interests you?";
+    if (/(viewing|visit|schedule)/.test(lowerMessage)) {
+      return "🏠 Viewing options: today, weekend, or virtual. Provide property type or location to proceed.";
     }
 
-    if (lowerMessage.includes("delhi")) {
-      const delhiProp = propertyDatabase.find((p) => p.location === "Delhi");
-      return `Delhi is a prime location! We have ${delhiProp.title} for ${delhiProp.price}. Delhi offers great connectivity, schools, and business opportunities. Which area interests you - Central, South, or West Delhi?`;
+    if (/delhi/.test(lowerMessage)) {
+      const delhi = propertyDatabase.find((p) => /delhi/i.test(p.location));
+      if (delhi)
+        return `Delhi sample: ${delhi.title} at ${delhi.price}. Preferred area (Central/South/West)?`;
     }
 
-    if (lowerMessage.includes("gurgaon") || lowerMessage.includes("gurugram")) {
-      const gurgaonProps = propertyDatabase.filter(
-        (p) => p.location === "Gurgaon"
-      );
-      return `Gurgaon is booming! We have ${gurgaonProps.length} excellent options including ${gurgaonProps[0].title} for ${gurgaonProps[0].price}. Known for modern infrastructure and business hubs. What type interests you?`;
+    if (/(gurgaon|gurugram)/.test(lowerMessage)) {
+      const gurgaon = propertyDatabase.filter((p) => /gurgaon/i.test(p.location));
+      if (gurgaon.length)
+        return `Gurgaon listings: ${gurgaon.length}. Example: ${gurgaon[0].title} (${gurgaon[0].price}). Residential or commercial?`;
     }
 
-    if (
-      lowerMessage.includes("bangalore") ||
-      lowerMessage.includes("bengaluru")
-    ) {
-      const bangaloreProp = propertyDatabase.find(
-        (p) => p.location === "Bangalore"
-      );
-      return `Bangalore - India's Silicon Valley! Perfect for tech professionals. We have ${bangaloreProp.title} for ${bangaloreProp.price}. Great connectivity to tech parks. Are you in the tech industry?`;
+    if (/(bangalore|bengaluru)/.test(lowerMessage)) {
+      const blr = propertyDatabase.find((p) => /(bangalore|bengaluru)/i.test(p.location));
+      if (blr)
+        return `Bangalore example: ${blr.title} at ${blr.price}. Focus on Koramangala, Whitefield, or another area?`;
     }
 
-    if (
-      lowerMessage.includes("hello") ||
-      lowerMessage.includes("hi") ||
-      lowerMessage.includes("hey")
-    ) {
-      return "Hello! 👋 Welcome to MakaanWala - your trusted property partner! I can help you find apartments, villas, commercial spaces, arrange viewings, and provide loan guidance. What type of property interests you today?";
+    if (/(hello|hi|hey)/.test(lowerMessage)) {
+      return "Hello! 👋 I can help with apartments, villas, commercial spaces, budgets, and viewings. What are you looking for?";
     }
 
-    if (lowerMessage.includes("thank")) {
-      return "You're welcome! 😊 I'm here 24/7 to help with your property needs. Feel free to ask about specific properties, market insights, or schedule viewings. How else can I assist you?";
+    if (/thank/.test(lowerMessage)) {
+      return "You're welcome! Need anything else—budget suggestions, locations, or loan info?";
     }
 
-    return "I'd love to help you with that! 🏠 I can assist with property searches, price information, viewing arrangements, and loan guidance. Are you looking for apartments, villas, studios, or commercial spaces? What's your preferred location and budget?";
+    return "Tell me what you're seeking (e.g. '3 BHK in Delhi under 80 lakh' or 'commercial space in Gurgaon') and I'll shortlist options.";
   };
 
   const handleSendMessage = async () => {

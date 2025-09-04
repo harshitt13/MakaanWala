@@ -159,21 +159,6 @@ Breakpoints:
 
 ---
 
-## 📊 Data & Models
-
-Structured property objects (see `src/data/properties.js`) include:
-
-- `slug`, `title`, `price`, `location`, `bedrooms`, `amenities`, `features`
-- `model: { type: 'gltf' | 'fbx' | 'procedural', path?, targetSize }`
-
-Helper utilities:
-
-- `getPropertyById(id)`
-- `getPropertyBySlug(slug)`
-- `searchProperties(query)` (title, location, type, description)
-
----
-
 ## 🤖 AI Assistant Notes
 
 Current implementation:
@@ -181,34 +166,6 @@ Current implementation:
 - Pure client‑side rule & keyword engine (no external API calls)
 - Budget extraction supports: `50 lakh`, `1.2 cr`, `85L`, `1 cr` pattern forms
 - Branch logic for property type, location, loan inquiries, scheduling, gratitude, greetings
-
-Upgrade paths:
-
-- Replace `generateResponse` with a streaming backend LLM endpoint
-- Add conversation memory (local store + summarisation)
-- Integrate vector search for semantic property retrieval
-
----
-
-## ♿ Accessibility & UX
-
-- Clear focus targets & large interactive touch areas for mobile
-- Semantic heading grouping in main content components
-- Descriptive alt text recommended for production asset replacements
-- Color contrast aligns with WCAG AA for core palette (verify on future palette changes)
-
----
-
-## 🔐 Security & Privacy
-
-- No user PII persisted server-side (static frontend only)
-- No third-party analytics scripts bundled yet
-- Safe to deploy via static hosting (Vercel / Netlify / S3)
-
-Recommended future hardening:
-
-- CSP headers & SRI hashes for external assets
-- Input sanitisation if server search added later
 
 ---
 
@@ -233,38 +190,7 @@ If you introduce additional GLTF/FBX models, follow the same directory pattern a
 
 ---
 
-## Roadmap
-
-- [ ] Real LLM powered assistant (OpenAI / local inference)
-- [ ] Server API & database layer (favourite properties, auth)
-- [ ] Image optimization pipeline (sharp + responsive srcset)
-- [ ] Property comparison view
-- [ ] Metrics instrumentation (Core Web Vitals tracking)
-- [ ] Automated accessibility audit (axe CI)
-- [ ] Dark mode theme toggle
-
----
-
-## Contributing
-
-Contributions welcome! Please open an issue first for major feature proposals. Keep PRs focused and small where possible.
-
-Coding standards:
-
-- ESLint must pass (`npm run lint`)
-- Prefer pure functions in utilities
-- Keep component prop surfaces minimal
-- Use semantic commit messages
-
----
-
 ## Support
-
-| Type | Channel |
-|------|---------|
-| Bug / Issue | GitHub Issues |
-| Feature Idea | GitHub Discussions |
-| Direct Contact | <find.harshitkushwaha@gmail.com> |
 
 Connect:
 
