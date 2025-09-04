@@ -3,6 +3,41 @@
   padding: 40px 0;
 }
 
+/* Text alignment adjustments */
+.property-gallery .section-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 40px;
+}
+
+.property-gallery .section-header h2,
+.property-gallery .section-header p { margin-left: auto; margin-right: auto; }
+
+/* Ensure all cards use consistent left text alignment */
+.property-card { text-align: left; }
+
+/* Keep internal info block tidy */
+.property-info { display: flex; flex-direction: column; align-items: flex-start; }
+
+/* Align property meta row neatly */
+.property-details { align-items: center; }
+
+/* Location sometimes long — keep it from stretching card */
+.property-location { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Center empty state text */
+.no-results { text-align: center; }
+
+/* Filters alignment refinement */
+.filters { align-items: flex-end; }
+.filter-group { align-items: center; }
+
+@media (max-width: 768px) {
+  .filters { align-items: stretch; }
+  .filter-group { align-items: stretch; }
+  .property-gallery .section-header { text-align: center; }
+}
+
 .filters {
   display: flex;
   justify-content: space-between;

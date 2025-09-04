@@ -24,6 +24,7 @@ const PropertyDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [shareCopied, setShareCopied] = useState(false);
   
   // Form state for quick inquiry
   const [formData, setFormData] = useState({
@@ -173,7 +174,7 @@ const PropertyDetail = () => {
         <div className="container">
           <div className="not-found">
             <h2>Property Not Found</h2>
-            <p>The property you're looking for doesn't exist.</p>
+            <p>The property you&apos;re looking for doesn&apos;t exist.</p>
             <button onClick={() => navigate('/')} className="property-back-button">
               <ArrowLeft size={20} />
               Go Back
@@ -188,32 +189,11 @@ const PropertyDetail = () => {
     const shareUrl = `https://makaanwala.vercel.app/property/${id}`;
     try {
       await navigator.clipboard.writeText(shareUrl);
-      // Create a temporary notification
-      const notification = document.createElement('div');
-      notification.textContent = 'Link copied to clipboard!';
-      notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #38a169;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        font-weight: 500;
-        z-index: 1000;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        transition: all 0.3s ease;
-      `;
-      document.body.appendChild(notification);
-      
-      setTimeout(() => {
-        notification.style.opacity = '0';
-        setTimeout(() => {
-          document.body.removeChild(notification);
-        }, 300);
-      }, 3000);
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 2000);
     } catch (err) {
-      alert('Link copied to clipboard!');
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 2000);
     }
   };
 
@@ -281,17 +261,10 @@ const PropertyDetail = () => {
       <div className="container">
         {/* Header */}
         <div className="property-detail-header">
-          <button className="property-back-button" onClick={() => navigate('/')}>
+          <button className="property-back-button" onClick={() => navigate('/') }>
             <ArrowLeft size={20} />
             Back to Properties
           </button>
-          
-          <div className="header-actions">
-            <button className="action-button" onClick={handleShare}>
-              <Share2 size={18} />
-              Share
-            </button>
-          </div>
         </div>
 
         {/* Image Gallery */}
@@ -301,6 +274,17 @@ const PropertyDetail = () => {
               src={property.images[currentImageIndex]} 
               alt={property.title}
             />
+            <button
+              type="button"
+              className={`floating-share-btn ${shareCopied ? 'copied' : ''}`}
+              aria-label="Share property"
+              onClick={handleShare}
+            >
+              <Share2 size={18} />
+            </button>
+            {shareCopied && (
+              <span className="share-tooltip" role="status">Copied!</span>
+            )}
           </div>
           <div className="thumbnail-grid">
             {property.images.map((image, index) => (
