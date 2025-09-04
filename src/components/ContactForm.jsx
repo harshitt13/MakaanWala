@@ -77,7 +77,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="contact-form-section">
+    <section id="contact" className="contact-form-section">
       <div className="container">
         <div className="section-header">
           <div className="section-badge">

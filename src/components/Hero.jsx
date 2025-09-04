@@ -165,7 +165,19 @@ const Hero = ({ onExplore }) => {
               <button className="btn btn-primary" onClick={onExplore}>
                 <span>Browse Properties</span>
               </button>
-              <button className="btn btn-secondary">
+              <button
+                className="btn btn-secondary"
+                onClick={() => {
+                  const el = document.getElementById("contact");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  } else {
+                    // Fallback: navigate to root with hash if routing retains component
+                    window.location.hash = "contact";
+                  }
+                }}
+                aria-label="Scroll to contact section to schedule a consultation"
+              >
                 <span>Schedule Consultation</span>
               </button>
             </div>

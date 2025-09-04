@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import properties, { getPropertyById, getPropertyBySlug } from "../data/properties"; // centralized property data & helpers
 import { 
   ArrowLeft, 
@@ -13,6 +13,10 @@ import {
   Trees, 
   Zap,
   Share2,
+  Maximize2,
+  Minimize2,
+  ChevronLeft,
+  ChevronRight,
   Phone,
   Mail,
   CheckCircle,
@@ -27,6 +31,9 @@ const PropertyDetail = () => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [shareCopied, setShareCopied] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const mainImageRef = useRef(null);
+  const touchStartXRef = useRef(null);
   
   // Form state for quick inquiry
   const [formData, setFormData] = useState({
@@ -49,17 +56,6 @@ const PropertyDetail = () => {
   // Support both numeric ID and slug routes
   const property = getPropertyById(id) || getPropertyBySlug(id) || properties.find(p => p.id === parseInt(id));
 
-  if (!property || property.complete === false) {
-    return (
-      <NotFound 
-        title="Property Not Found" 
-        message={property && property.complete === false ? "This property is not yet available. Please check back later." : "The property you're looking for doesn't exist or may have been removed."} 
-        backLabel="Back to Home" 
-        to="/" 
-      />
-    );
-  }
-
   const handleShare = async () => {
     const shareUrl = `https://makaanwala.vercel.app/property/${id}`;
     try {
@@ -71,6 +67,89 @@ const PropertyDetail = () => {
       setTimeout(() => setShareCopied(false), 2000);
     }
   };
+
+  const toggleFullscreen = () => {
+    const el = mainImageRef.current;
+    if (!el) return;
+    try {
+      if (!document.fullscreenElement) {
+        if (el.requestFullscreen) {
+          el.requestFullscreen();
+        } else if (el.webkitRequestFullscreen) {
+          el.webkitRequestFullscreen();
+        } else {
+          // Fallback: open image in new tab
+          const img = el.querySelector('img');
+            if (img?.src) window.open(img.src, '_blank');
+          return;
+        }
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    } catch (e) {
+      // Silent fail fallback
+      const img = el.querySelector('img');
+      if (img?.src) window.open(img.src, '_blank');
+    }
+  };
+
+  useEffect(() => {
+    const handleFsChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
+
+  const goPrevImage = useCallback(() => {
+    if (!property?.images?.length) return;
+    setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
+  }, [property?.images?.length]);
+
+  const goNextImage = useCallback(() => {
+    if (!property?.images?.length) return;
+    setCurrentImageIndex((prev) => (prev + 1) % property.images.length);
+  }, [property?.images?.length]);
+
+  // Keyboard navigation for gallery
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === 'ArrowLeft') {
+        goPrevImage();
+      } else if (e.key === 'ArrowRight') {
+        goNextImage();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [goPrevImage, goNextImage]);
+
+  const handleTouchStart = (e) => {
+    touchStartXRef.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e) => {
+    if (touchStartXRef.current == null) return;
+    const diff = e.changedTouches[0].clientX - touchStartXRef.current;
+    const threshold = 40; // min px to count as swipe
+    if (diff > threshold) {
+      goPrevImage();
+    } else if (diff < -threshold) {
+      goNextImage();
+    }
+    touchStartXRef.current = null;
+  };
+
+  // Early return AFTER all hooks
+  if (!property || property.complete === false) {
+    return (
+      <NotFound 
+        title="Property Not Found" 
+        message={property && property.complete === false ? "This property is not yet available. Please check back later." : "The property you're looking for doesn't exist or may have been removed."} 
+        backLabel="Back to Home" 
+        to="/" 
+      />
+    );
+  }
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -144,11 +223,44 @@ const PropertyDetail = () => {
 
         {/* Image Gallery */}
         <div className="property-gallery">
-          <div className="main-image">
+          <div 
+            className="main-image" 
+            ref={mainImageRef}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <img 
               src={property.images[currentImageIndex]} 
               alt={property.title}
             />
+            {property.images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  className="gallery-nav-btn left"
+                  aria-label="Previous image"
+                  onClick={goPrevImage}
+                >
+                  <ChevronLeft size={22} />
+                </button>
+                <button
+                  type="button"
+                  className="gallery-nav-btn right"
+                  aria-label="Next image"
+                  onClick={goNextImage}
+                >
+                  <ChevronRight size={22} />
+                </button>
+              </>
+            )}
+            <button
+              type="button"
+              className="floating-fs-btn"
+              aria-label={isFullscreen ? "Exit fullscreen" : "View fullscreen"}
+              onClick={toggleFullscreen}
+            >
+              {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+            </button>
             <button
               type="button"
               className={`floating-share-btn ${shareCopied ? 'copied' : ''}`}

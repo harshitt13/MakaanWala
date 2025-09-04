@@ -14,9 +14,9 @@ export const properties = [
     featured: true,
     images: [
       "https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/202676081/original/bbe950c0dffc308209418cb105cd63c6c4dc2107/do-3d-visualization-of-interior-and-exterior.jpg?height=400&width=600&text=Modern+Apartment+1",
-      "https://tse1.mm.bing.net/th/id/OIP.2bDaJEAPhONiIyA6yrqdgAHaHa?w=626&h=626&rs=1&pid=ImgDetMain&o=7&rm=3?height=400&width=600&text=Modern+Apartment+2",
-      "/https://www.mymovecyprus.com/wp-content/uploads/2022/12/COVER-2.jpg?height=400&width=600&text=Modern+Apartment+3",
-      "https://www.islandbluecyprus.com/media/project-images/3369-_orig.jpg?height=400&width=600&text=Modern+Apartment+4"
+      "https://img.peerspace.com/image/upload/c_crop,g_custom/g_auto,c_fill,q_auto,f_auto,fl_progressive:steep,w_800,ar_1.6/tafxb0ehncr7ugzknbsm?w=626&h=626&rs=1&pid=ImgDetMain&o=7&rm=3?height=400&width=600&text=Modern+Apartment+2",
+      "https://www.souciehorner.com/wp-content/uploads/2017/04/Kitchen3-1536.jpg?height=400&width=600&text=Modern+Apartment+3",
+      "https://img.peerspace.com/image/upload/f_auto,q_auto,dpr_auto,w_3840/psmmridxsg17vezlwpib?height=400&width=600&text=Modern+Apartment+4"
     ],
     description: "A stunning modern apartment in the heart of Delhi's business district. This beautifully designed 2-bedroom unit features contemporary finishes, floor-to-ceiling windows, and premium amenities. Perfect for professionals and small families looking for urban convenience.",
     amenities: ["WiFi", "Parking", "Security", "Garden", "Power Backup"],
@@ -66,7 +66,7 @@ export const properties = [
       "https://villascroatia.com/wp-content/uploads/2020/08/modern-luxury-villa-pool-medulin-croatia-01-2.jpg?height=400&width=600&text=Luxury+Villa+1",
       "https://villascroatia.com/wp-content/uploads/2020/08/modern-luxury-villa-pool-medulin-croatia-13-1.jpg?height=400&width=600&text=Luxury+Villa+2",
       "https://villascroatia.com/wp-content/uploads/2020/08/modern-luxury-villa-pool-medulin-croatia-12-1.jpg?height=400&width=600&text=Luxury+Villa+3",
-      "https://tse3.mm.bing.net/th/id/OIP._NzTD0L5x7BVNFZ16zkeUgHaE8?w=1736&h=1159&rs=1&pid=ImgDetMain&o=7&rm=3?height=400&width=600&text=Luxury+Villa+4"
+      "https://villascroatia.com/wp-content/uploads/2020/08/modern-luxury-villa-pool-medulin-croatia-02.jpg?height=400&width=600&text=Luxury+Villa+4"
     ],
     description: "An exquisite luxury villa offering the perfect blend of comfort and elegance. Located in prestigious Bandra West, this property features a private swimming pool, landscaped gardens, and top-of-the-line amenities throughout.",
     amenities: ["WiFi", "Parking", "Security", "Garden", "Power Backup", "Swimming Pool"],
@@ -114,9 +114,9 @@ export const properties = [
     featured: false,
     images: [
       "https://i.pinimg.com/originals/00/09/9e/00099e7e6776dbd8d137cc5c39905fda.jpg?height=400&width=600&text=Office+Space+1",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/01bcae183336693.653e320f4b964.jpg?height=400&width=600&text=Office+Space+2",
-      "https://dynamic.realestateindia.com/prop_images/2178111/1192605_4.jpg?height=400&width=600&text=Office+Space+3",
-      "/https://aajudesign.com/wp-content/uploads/2022/06/Commercial-Building-Baluwatar.png?height=400&width=600&text=Office+Space+4"
+      "https://thearchitectsdiary.com/wp-content/uploads/2023/11/Interior-design-3-1024x574.webp?height=400&width=600&text=Office+Space+2",
+      "https://arktura.com/wp-content/uploads/2017/01/Arktura-SoundAngle-Confidential_WEB_1-1600x1078.jpg?height=400&width=600&text=Office+Space+3",
+      "https://drk-realty.com/images/AdobeStock_329295634.jpeg?height=400&width=600&text=Office+Space+4"
     ],
     description: "Premium commercial office space in the heart of Cyber City, Gurgaon. This modern workspace offers excellent connectivity, state-of-the-art infrastructure, and a professional environment perfect for growing businesses.",
     amenities: ["WiFi", "Parking", "Security", "Power Backup", "Conference Room"],
