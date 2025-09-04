@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import NotFound from "./NotFound";
 import { getBlogById, getBlogBySlug, listBlogs } from "../data/blogs";
 import { ArrowLeft, Calendar, Clock, User, Share2 } from "lucide-react";
@@ -16,6 +16,18 @@ const BlogPost = () => {
 
   // Blog posts data (this would typically come from an API or context)
   const post = getBlogById(id) || getBlogBySlug(id);
+
+  // Compute a random selection of other blogs (exclude current + incomplete)
+  const randomRelated = useMemo(() => {
+    if (!post) return [];
+    const candidates = listBlogs().filter(b => b.id !== post.id && b.complete !== false);
+    // Fisher-Yates shuffle for unbiased randomness
+    for (let i = candidates.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+    }
+    return candidates.slice(0, 3); // show up to 3 random articles
+  }, [post]);
 
   if (!post || post.complete === false) {
     return (
@@ -147,26 +159,26 @@ const BlogPost = () => {
         <div className="related-posts">
           <h3>Related Articles</h3>
           <div className="related-posts-grid">
-            {listBlogs()
-              .filter(p => p.id !== post.id && p.category === post.category)
-              .slice(0, 2)
-              .map(relatedPost => (
-                <div 
-                  key={relatedPost.id} 
-                  className="related-post-card"
-                  onClick={() => navigate(`/blog/${relatedPost.id}`)}
-                >
-                  <img src={relatedPost.image} alt={relatedPost.title} />
-                  <div className="related-post-content">
-                    <h4>{relatedPost.title}</h4>
-                    <p>{relatedPost.excerpt}</p>
-                    <div className="related-post-meta">
-                      <span>{relatedPost.author}</span>
-                      <span>{relatedPost.readTime}</span>
-                    </div>
+            {randomRelated.map(relatedPost => (
+              <div
+                key={relatedPost.id}
+                className="related-post-card"
+                onClick={() => navigate(`/blog/${relatedPost.id}`)}
+              >
+                <img src={relatedPost.image} alt={relatedPost.title} />
+                <div className="related-post-content">
+                  <h4>{relatedPost.title}</h4>
+                  <p>{relatedPost.excerpt}</p>
+                  <div className="related-post-meta">
+                    <span>{relatedPost.author}</span>
+                    <span>{relatedPost.readTime}</span>
                   </div>
                 </div>
-              ))}
+              </div>
+            ))}
+            {randomRelated.length === 0 && (
+              <p className="no-related">No other articles available yet.</p>
+            )}
           </div>
         </div>
       </div>
