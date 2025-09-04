@@ -455,8 +455,8 @@ const ThreeDViewer = ({ property = null }) => {
           });
           renderer.outputColorSpace = THREE.SRGBColorSpace;
           renderer.toneMapping = THREE.ACESFilmicToneMapping;
-          renderer.toneMappingExposure = 1.1; // Slightly brighter for midday
-          renderer.shadowMap.enabled = true;
+          renderer.toneMappingExposure = 1.0; // reduce brightness to lessen banding
+          renderer.shadowMap.enabled = true; // keep shadows but lower resolution below
           renderer.physicallyCorrectLights = true;
           return renderer;
         },
@@ -481,23 +481,23 @@ const ThreeDViewer = ({ property = null }) => {
         React.createElement("directionalLight", {
           castShadow: true,
           position: [35, 55, 18],
-          intensity: 2.2,
+          intensity: 1.6, // slightly reduced
           color: "#ffffff",
-          shadowBias: -0.00015,
-          shadowNormalBias: 0.02,
-          "shadow-mapSize-width": 4096,
-          "shadow-mapSize-height": 4096,
-          "shadow-camera-near": 1,
-          "shadow-camera-far": 160,
-          "shadow-camera-left": -60,
-          "shadow-camera-right": 60,
-          "shadow-camera-top": 60,
-          "shadow-camera-bottom": -60,
+          shadowBias: -0.0002,
+          shadowNormalBias: 0.03,
+          "shadow-mapSize-width": 2048,
+          "shadow-mapSize-height": 2048,
+          "shadow-camera-near": 2,
+          "shadow-camera-far": 140,
+          "shadow-camera-left": -50,
+          "shadow-camera-right": 50,
+          "shadow-camera-top": 50,
+          "shadow-camera-bottom": -50,
         }),
         // Subtle fill light from opposite side to soften shadows
         React.createElement("directionalLight", {
           position: [-40, 25, -30],
-          intensity: 0.45,
+          intensity: 0.3,
           color: "#f0f5ff",
         }),
 
@@ -530,12 +530,13 @@ const ThreeDViewer = ({ property = null }) => {
 
         // Environment and shadows
         React.createElement(ContactShadows, {
-          opacity: 0.3,
-          scale: 30,
-          blur: 2,
-          far: 4.5,
-          resolution: 512,
+          opacity: 0.25,
+          scale: 26,
+          blur: 1.8,
+          far: 4,
+          resolution: 256, // lower res for performance
           color: "#000000",
+          frames: 60, // cache after initial frames
         }),
   React.createElement(Environment, { preset: "city" }),
 

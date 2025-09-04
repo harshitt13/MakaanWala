@@ -1,5 +1,5 @@
+import { useEffect, useState, useRef, useCallback, lazy, Suspense } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState, useRef, useCallback } from "react";
 import properties, { getPropertyById, getPropertyBySlug } from "../data/properties"; // centralized property data & helpers
 import { 
   ArrowLeft, 
@@ -22,7 +22,8 @@ import {
   CheckCircle,
   AlertCircle
 } from "lucide-react";
-import ThreeDViewer from "./ThreeDViewer";
+// Lazy-load heavy 3D viewer to improve initial page performance
+const ThreeDViewerLazy = lazy(() => import('./ThreeDViewer'));
 import NotFound from "./NotFound";
 import "./PropertyDetail.css";
 
@@ -34,6 +35,9 @@ const PropertyDetail = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const mainImageRef = useRef(null);
   const touchStartXRef = useRef(null);
+  const viewerContainerRef = useRef(null);
+  const [viewerVisible, setViewerVisible] = useState(false);
+  const [viewerMounted, setViewerMounted] = useState(false);
   
   // Form state for quick inquiry
   const [formData, setFormData] = useState({
@@ -49,6 +53,26 @@ const PropertyDetail = () => {
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [id]);
+
+  // Intersection Observer to mount 3D viewer only when scrolled into view
+  useEffect(() => {
+    const el = viewerContainerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setViewerVisible(true);
+            setViewerMounted(true); // mount once
+            observer.disconnect();
+          }
+        });
+      },
+      { root: null, threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [id]);
 
   // properties now imported from centralized data file
@@ -280,14 +304,29 @@ const PropertyDetail = () => {
                 className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
                 onClick={() => setCurrentImageIndex(index)}
               >
-                <img src={image} alt={`${property.title} ${index + 1}`} />
+                <img src={image} alt={`${property.title} ${index + 1}`} loading="lazy" />
               </div>
             ))}
           </div>
         </div>
 
-        {/* 3D Model Viewer */}
-        <ThreeDViewer property={property} />
+        {/* 3D Model Viewer (Lazy) */}
+        <div ref={viewerContainerRef} className="viewer-lazy-wrapper">
+          {!viewerMounted && (
+            <div className="viewer-placeholder">
+              <div className="viewer-skeleton" aria-hidden="true" />
+              <p>3D interactive view loads on scroll to save bandwidth.</p>
+              <button type="button" className="load-viewer-btn" onClick={() => { setViewerMounted(true); setViewerVisible(true); }}>
+                Load 3D View Now
+              </button>
+            </div>
+          )}
+          {viewerMounted && (
+            <Suspense fallback={<div className="viewer-fallback">Loading 3D Viewer...</div>}>
+              {viewerVisible && <ThreeDViewerLazy property={property} />}
+            </Suspense>
+          )}
+        </div>
 
         {/* Property Info */}
         <div className="property-content">
