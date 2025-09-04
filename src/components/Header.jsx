@@ -43,7 +43,16 @@ const Header = ({ activeSection, onNavigate }) => {
   return (
     <header className={`header ${isScrolled ? "scrolled" : ""}`}>
       <div className="header-container">
-        <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Link
+          to="/"
+          className="logo"
+          style={{ textDecoration: 'none', color: 'inherit' }}
+          onClick={(e) => {
+            e.preventDefault();
+            handleNavClick('home');
+          }}
+          aria-label="Go to Hero section"
+        >
           <div className="logo-icon">
             <Home size={28} />
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -26,6 +26,8 @@ function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [isLoading, setIsLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const scrollRestoreAppliedRef = useRef(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -49,6 +51,20 @@ function App() {
         document.documentElement.clientHeight;
       const scroll = totalScroll / windowHeight;
       setScrollProgress(scroll);
+      setShowScrollTop(totalScroll > 400); // show after some scroll
+
+      // Persist current scroll for this route
+      const routeKey = location.pathname + location.search + location.hash;
+      // Store only every ~50ms via rAF batching
+      if (!handleScroll.rafPending) {
+        handleScroll.rafPending = true;
+        requestAnimationFrame(() => {
+          try {
+            sessionStorage.setItem("scroll:" + routeKey, String(totalScroll));
+          } catch (e) { /* ignore quota / private mode */ }
+          handleScroll.rafPending = false;
+        });
+      }
 
       // Update active section based on scroll position
       const sections = [
@@ -74,11 +90,44 @@ function App() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Call once to set initial state
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // initial
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname, location.search, location.hash]);
+
+  // Apply restoration on load / route change (run after layout ready)
+  useEffect(() => {
+    if (scrollRestoreAppliedRef.current) return;
+    window.history.scrollRestoration = 'manual';
+    const routeKey = location.pathname + location.search + location.hash;
+    let saved = null;
+  try { saved = sessionStorage.getItem('scroll:' + routeKey); } catch (e) { /* ignore */ }
+    if (saved) {
+      const target = parseInt(saved, 10) || 0;
+      // First attempt soon after paint
+      requestAnimationFrame(() => window.scrollTo(0, target));
+      // Second attempt after potential async/lazy content mounts (e.g. images)
+      setTimeout(() => {
+        if (Math.abs(window.scrollY - target) > 40) {
+          window.scrollTo(0, target);
+        }
+      }, 350);
+      scrollRestoreAppliedRef.current = true;
+    }
+  }, [location.pathname, location.search, location.hash]);
+
+  // Ensure final position saved on unload
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      try {
+        const routeKey = location.pathname + location.search + location.hash;
+        sessionStorage.setItem('scroll:' + routeKey, String(window.scrollY));
+      } catch (e) { /* ignore */ }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [location.pathname, location.search, location.hash]);
 
   const scrollToSection = (sectionId) => {
     // If we're not on the home page, navigate to home first
@@ -160,6 +209,15 @@ function App() {
       </Routes>
       <Footer />
       <Chatbot />
+      {showScrollTop && (
+        <button
+          aria-label="Scroll to top"
+          className="scroll-to-top-btn"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          ↑
+        </button>
+      )}
     </div>
   );
 }
