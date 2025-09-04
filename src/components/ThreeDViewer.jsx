@@ -179,7 +179,7 @@ function ModernHouse({ property }) {
   );
 }
 
-const ThreeDViewer = ({ property, modelPath = null }) => {
+const ThreeDViewer = ({ property= null }) => {
   const viewerRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -314,10 +314,6 @@ const ThreeDViewer = ({ property, modelPath = null }) => {
         React.createElement('span', null, '🔄 Scroll to zoom'),
         React.createElement('span', null, '📱 Touch & drag on mobile')
       ),
-      !modelPath && React.createElement('div', { className: 'fallback-note' },
-        React.createElement('span', null, '📦 Using procedural model based on property data'),
-        React.createElement('small', null, '• Add .fbx or .gltf files to public/models/ for custom 3D models')
-      )
     )
   );
 };
