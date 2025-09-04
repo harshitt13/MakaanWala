@@ -109,7 +109,7 @@ const Footer = () => {
               </div>
               <div className="contact-item">
                 <Phone size={16} />
-                <a href="tel:+911145678900">+91 11 4567 8900</a>
+                <a href="tel:+911145678900">+91 99XXX XXXXX</a>
               </div>
               <div className="contact-item">
                 <Mail size={16} />
@@ -117,7 +117,8 @@ const Footer = () => {
               </div>
               <div className="contact-item">
                 <Clock size={16} />
-                <span>Mon-Fri: 9AM-7PM • Sat-Sun: 10AM-5PM</span>
+                <span>Mon-Fri: 9AM-7PM<br />
+                  Sat-Sun: 10AM-5PM</span>
               </div>
             </div>
           </div>
