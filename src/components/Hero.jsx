@@ -125,18 +125,7 @@ const Hero = ({ onExplore }) => {
                   aria-haspopup="listbox"
                   role="combobox"
                 />
-                <div className="search-filters">
-                  <select
-                    className="filter-select"
-                    aria-label="Property type filter"
-                  >
-                    <option value="">All Types</option>
-                    <option value="apartment">Apartment</option>
-                    <option value="house">House</option>
-                    <option value="villa">Villa</option>
-                    <option value="commercial">Commercial</option>
-                  </select>
-                </div>
+                {/* Removed type filter dropdown as requested */}
                 <button
                   className="search-button"
                   onClick={() => handleSearch()}
