@@ -1,316 +1,285 @@
-# 🏠 MakaanWala - Premium Real Estate Platform
+# 🏠 MakaanWala – Modern 3D + AI Enabled Real Estate Platform
 
-<div align="center">
-  <img src="https://img.shields.io/badge/React-18.2.0-blue.svg" alt="React Version">
-  <img src="https://img.shields.io/badge/Vite-5.2.0-purple.svg" alt="Vite Version">
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
-  <img src="https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg" alt="Status">
-</div>
+![React 19](https://img.shields.io/badge/React-19.1.0-61dafb?logo=react&labelColor=20232a)
+![React Router](https://img.shields.io/badge/React%20Router-7.x-CA4245?logo=reactrouter&labelColor=20232a)
+![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?logo=vite&logoColor=fff)
+![Three.js](https://img.shields.io/badge/Three.js-0.180.0-black?logo=three.js)
+![License: MIT](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
-<div align="center">
-  <h3>🚀 <a href="https://makaanwala.vercel.app/">Live Demo</a> | 📚 <a href="#documentation">Documentation</a></h3>
-</div>
+**MakaanWala** is a performance‑focused real estate experience for the Indian market featuring interactive 3D property visualisation, a rule‑driven AI assistant, and structured property data.
+
+Live Demo: [makaanwala.vercel.app](https://makaanwala.vercel.app/)
 
 ---
 
-A **real estate platform** built specifically for the Indian market. MakaanWala combines modern React architecture with intelligent features to deliver an exceptional property search and discovery experience.
+## 🧭 Overview
 
-## 🌟 **What Makes MakaanWala Special?**
+MakaanWala delivers a modern property discovery journey:
 
-🤖 **AI-Powered Property Assistant** - Revolutionary chatbot with natural language processing  
-🏡 **Smart Property Matching** - Intelligent recommendations based on budget and preferences  
-💰 **Integrated Loan Services** - Direct partnerships with major Indian banks  
-📱 **Mobile-First Design** - Seamless experience across all devices  
-🔍 **Advanced Search & Filters** - Find your perfect property in seconds  
-⚡ **Lightning Fast Performance** - Built with Vite for optimal speed
+- Immersive real‑time 3D previews for select properties using Three.js + react-three-fiber
+- A contextual property assistant (rule-based conversational engine) that interprets budget, location and intent keywords
+- Structured property catalogue with enriched metadata (amenities, features, nearby points, agents, model references)
+- Fast, cache‑friendly static delivery via Vite build output & modern bundling
+- Clean, modular React component architecture ready for scale
 
-## ✨ **Key Features**
+> Note: The current "AI" assistant is deterministic / rule driven (no remote LLM calls). It can be upgraded to a true LLM pipeline later without architectural friction.
 
-### 🤖 **AI-Powered Property Assistant**
+---
 
-- **Smart Budget Detection** - Automatically extracts budget from natural language (e.g., "50 lakhs", "1.2 crore")
-- **Property Database Integration** - Access to curated properties across Delhi, Gurgaon, Bangalore
-- **Contextual Responses** - Understands property types, locations, and user preferences
-- **Quick Action Buttons** - One-click access to common queries
-- **24/7 Availability** - Instant responses with human-like conversation flow
+## ✨ Core Features
 
-### 🏡 **Comprehensive Property Portfolio**
+| Category | Highlights |
+|----------|------------|
+| Property Discovery | Filter by type, budget, city, amenities; structured slugs for detail routes |
+| Interactive 3D | GLTF + FBX models with automatic camera fitting, procedural fallback renderer |
+| Conversational Helper | Budget extraction (lakh/crore), location & asset-type intent classification |
+| Performance | Lazy loading, suspense loaders, shadow & tone‑mapping tuned for realism vs cost |
+| Mobile UX | Responsive layout, touch gestures in 3D viewport, accessible navigation |
+| Data Layer | Centralised `properties` dataset with model metadata and search utilities |
+| Theming & Animations | CSS variables, intersection observer driven reveal animations |
 
-| Property Type         | Location        | Price Range | Key Features                        |
-| --------------------- | --------------- | ----------- | ----------------------------------- |
-| **Luxury Apartments** | Delhi, Mumbai   | ₹28L - ₹85L | 1-3 BHK, Furnished, Prime locations |
-| **Premium Villas**    | Gurgaon, Noida  | ₹1.2Cr+     | 4+ BHK, Private pools, Gardens      |
-| **Studio Apartments** | Bangalore       | ₹28L - ₹45L | Tech hub proximity, Fully furnished |
-| **Commercial Spaces** | Cyber City, BKC | ₹65L+       | Office spaces, Retail, Warehouses   |
+---
 
-### 💰 **Integrated Financial Services**
+## 3D & Visualization
 
-- **Bank Partnerships** - SBI, HDFC, ICICI, Axis Bank
-- **Competitive Rates** - Starting from 8.5% interest
-- **Quick Approval** - Pre-approval in 24 hours
-- **High LTV** - Up to 90% loan-to-value ratio
-- **EMI Calculator** - Real-time affordability assessment
+| Property Model Type | Source | Loader | Target Scale Strategy |
+|---------------------|--------|--------|-----------------------|
+| Apartment (id:1) | `/models/apartments/scene.gltf` | GLTF | Bounding box fit → uniform scale |
+| Luxury Villa (id:2) | `/models/modern-luxury-villa-house-building-with-pool/source/42.fbx` | FBX | Dynamic scale + center/ground offset |
+| Office (id:3) | `/models/modern_office_building/scene.gltf` | GLTF | Box3 fit & camera auto framing |
 
-### 🎯 **Advanced Search & Filters**
+---
 
-- **Multi-parameter Search** - Location, price, type, amenities
-- **Smart Suggestions** - AI-powered property recommendations
-- **Saved Searches** - Bookmark and track favorite properties
-- **Market Analytics** - Price trends and investment insights
+## Architecture
 
-## 🛠️ Tech Stack
+```text
+src/
+ ├── components/        UI + feature components (Chatbot, Gallery, 3D Viewer, etc.)
+ ├── data/              Structured domain datasets (properties, blogs)
+ ├── hooks/             Reusable behaviour (scroll animations)
+ ├── utils/             Pure helpers (animations, property utils, theme manager)
+ ├── styles/            Global + responsive CSS
+ ├── App.jsx            Route & layout composition
+ └── main.jsx           Application bootstrap
+public/
+ └── models/            3D assets (each with individual license.txt)
+```
+---
 
-- **Frontend**: React 18, JavaScript (ES6+), JSX
-- **Build Tool**: Vite
-- **Styling**: CSS3 with CSS Variables, Grid, Flexbox
-- **State Management**: React Hooks (useState, useEffect, useRef, useMemo)
-- **Custom Hooks**: Form validation, animations, local storage
-- **Performance**: Lazy loading, debounced search, intersection observer
-- **Development**: ESLint, Hot Module Replacement
+## Tech Stack
 
-## 🚀 **Quick Start**
+- React 19 (functional components + hooks)
+- React Router 7 (client navigation)
+- Three.js + @react-three/fiber + @react-three/drei (3D rendering abstractions)
+- Vite 5 (dev & production bundling)
+- ESLint (strict rules; no unused disable directives)
+- lucide-react (iconography)
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- **Node.js** (version 18+ recommended)
-- **npm** or **yarn** package manager
-- **Git** for version control
+- Node.js 18+ (LTS recommended)
+- npm (bundled with Node) or yarn / pnpm
 
 ### Installation
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/harshitt13/MakaanWala.git
 cd MakaanWala
-
-# 2. Install dependencies
 npm install
-
-# 3. Start development server
 npm run dev
-
-# 4. Open your browser
-# Visit: http://localhost:3001
 ```
+Visit: <http://localhost:5173> (or the port shown in terminal)
 
 ### Production Build
 
 ```bash
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Lint code
-npm run lint
+npm run build    # Generate optimized assets
+npm run preview  # Local preview of dist
+npm run lint     # Static analysis
 ```
 
-## 🤖 **AI Chatbot Deep Dive**
+> No environment variables are required in the current version. All data is static / in‑repo.
 
-### **Intelligent Conversation Engine**
+---
 
-The MakaanWala AI Assistant is powered by advanced natural language processing and context-aware responses:
+## 🧪 Development Workflow
 
-```javascript
-// Example: Budget extraction from natural language
-"I'm looking for apartments under 50 lakhs in Delhi"
-↓
-AI extracts: { budget: 50, unit: "lakh", location: "Delhi", type: "apartment" }
-↓
-Returns: Matching properties within budget range
-```
+1. Branch: `git checkout -b feat/<short-description>`
+2. Code: follow ESLint guidance; keep components focused
+3. Test locally: `npm run dev` + interactive usage
+4. Lint & build: `npm run lint && npm run build`
+5. Commit using Conventional Commits: `feat: add villa comparison widget`
+6. Open PR with context + screenshots (3D / responsive views encouraged)
 
-### **Property Database Schema**
+Commit style examples:
 
-```javascript
-const propertyDatabase = [
-  {
-    id: 1,
-    type: "apartment",
-    title: "Luxury 3BHK in Connaught Place",
-    price: "₹85L",
-    location: "Delhi",
-    features: ["3 bedrooms", "2 bathrooms", "1200 sq ft", "furnished"],
-    description:
-      "Premium apartment in the heart of Delhi with modern amenities",
-  },
-  // ... more properties
-];
-```
+- `feat: add auto camera fit for FBX models`
+- `fix: stabilize shadow bias in 3D viewer`
+- `refactor: extract budget parser`
 
-## 📁 **Project Architecture**
+---
 
-```
-MakaanWala/
-├── src/
-│   ├── components/          # React Components
-│   │   ├── Header.jsx       # Navigation & branding
-│   │   ├── Hero.jsx         # Landing section
-│   │   ├── About.jsx        # Company information
-│   │   ├── Services.jsx     # Service offerings
-│   │   ├── PropertyGallery.jsx  # Property listings
-│   │   ├── Blog.jsx         # Content management
-│   │   ├── Pricing.jsx      # Service pricing
-│   │   ├── ContactForm.jsx  # Contact interface
-│   │   ├── Chatbot.jsx      # AI Assistant
-│   │   ├── LoadingScreen.jsx # Loading states
-│   │   └── Footer.jsx       # Site footer
-│   ├── hooks/              # Custom React Hooks
-│   │   └── useScrollAnimation.js
-│   ├── utils/              # Utility Functions
-│   │   ├── animations.js    # Animation helpers
-│   │   └── propertyUtils.js # Property utilities
-│   ├── styles/             # CSS Stylesheets
-│   │   ├── App.css         # Global styles
-│   │   └── Chatbot.css     # Chatbot styling
-│   ├── App.jsx             # Main application
-│   └── main.jsx            # Entry point
-├── public/                 # Static assets
-├── package.json            # Dependencies
-├── vite.config.js          # Vite configuration
-├── eslint.config.js        # Linting rules
-└── README.md               # This file
-```
+## 🏎 Performance & Optimization
 
-### **Optimization Techniques**
+- Vite native ESBuild transforms → sub‑second cold starts
+- Suspense + granular lazy loading for 3D + ancillary views
+- Procedural geometry fallback avoids stalled network for 3D
+- Tone mapping + limited shadow cascade to balance realism vs GPU cost
+- Texture colorSpace normalization to SRGB
+- Debounced conversational updates for smoother typing experience
 
-- ⚡ **Vite Build System** - Lightning-fast HMR and optimized builds
-- 🔄 **Code Splitting** - Dynamic imports for route-based splitting
-- 📱 **Lazy Loading** - Images and components load on demand
-- 🎯 **Tree Shaking** - Unused code elimination
-- 💾 **Browser Caching** - Optimized cache headers
-- 🗜️ **Asset Compression** - Gzip/Brotli compression
-- 📊 **Bundle Analysis** - Webpack bundle analyzer integration
+---
 
 ## 🎨 Design System
 
-### Color Palette
+Color Tokens:
 
-- **Primary**: #1a365d (Professional Blue)
-- **Secondary**: #2d3748 (Dark Gray)
-- **Accent**: #3182ce (Bright Blue)
-- **Success**: #38a169 (Green)
-- **Text**: #1a202c (Dark)
-- **Background**: #ffffff (White)
+```text
+Primary:    #1a365d
+Secondary:  #2d3748
+Accent:     #3182ce
+Success:    #38a169
+Text:       #1a202c
+Background: #ffffff
+```
+Typography: System font stack for performance & cross‑platform rendering consistency.
 
-### Typography
+Breakpoints:
 
-- **Font Family**: System fonts (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto)
-- **Headings**: Bold weights with proper hierarchy
-- **Body**: Regular weight with optimal line height
-
-## 📱 Responsive Breakpoints
-
-- **Mobile**: < 480px
-- **Tablet**: 481px - 768px
-- **Desktop**: > 768px
-
-## 🔧 Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-## 🌟 Key Components
-
-### Property Gallery
-
-- Advanced filtering by type, price, location
-- Responsive grid layout
-- Property cards with hover effects
-- Search functionality
-
-### Interactive Chatbot
-
-- Context-aware responses
-- Quick question buttons
-- Professional conversation flow
-- Mobile-optimized interface
-
-### Contact Forms
-
-- Form validation
-- Professional styling
-- Multiple contact methods
-- Success/error states
-
-### Blog System
-
-- Category filtering
-- Featured posts
-- Responsive cards
-- Newsletter signup
-
-### **Development Workflow**
-
-1. **Fork & Clone**
-
-   ```bash
-   git clone https://github.com/your-username/MakaanWala.git
-   cd MakaanWala
-   ```
-
-2. **Create Feature Branch**
-
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-
-3. **Make Changes**
-
-   - Follow ESLint rules
-   - Add tests for new features
-   - Update documentation
-
-4. **Test & Commit**
-
-   ```bash
-   npm run lint
-   npm run build
-   git commit -m "feat: add amazing feature"
-   ```
-
-5. **Submit Pull Request**
-   - Describe your changes
-   - Include screenshots if applicable
-   - Link related issues
-
-### **Code Standards**
-
-- **ESLint** - Code quality enforcement
-- **Prettier** - Code formatting
-- **Conventional Commits** - Commit message standards
-- **JSDoc** - Code documentation
+```text
+< 480px   Mobile
+481–768px Tablet
+> 768px   Desktop
+```
 
 ---
 
-## 📞 **Support & Contact**
+## 📊 Data & Models
 
-<div align="center">
+Structured property objects (see `src/data/properties.js`) include:
 
-### **Get Help**
+- `slug`, `title`, `price`, `location`, `bedrooms`, `amenities`, `features`
+- `model: { type: 'gltf' | 'fbx' | 'procedural', path?, targetSize }`
 
-🐛 **Found a Bug?** [Create an Issue](https://github.com/harshitt13/MakaanWala/issues)  
-💡 **Feature Request?** [Start a Discussion](https://github.com/harshitt13/MakaanWala/discussions)  
-📧 **Need Support?** [find.harshitkushwaha@gmail.com](mailto:find.harshitkushwaha@gmail.com)
+Helper utilities:
 
-### **Connect With Us**
-
-[![GitHub](https://img.shields.io/badge/GitHub-harshitt13-black.svg?style=for-the-badge&logo=github)](https://github.com/harshitt13)  
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue.svg?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/harshitt13)
-
-</div>
+- `getPropertyById(id)`
+- `getPropertyBySlug(slug)`
+- `searchProperties(query)` (title, location, type, description)
 
 ---
 
-<div align="center">
+## 🤖 AI Assistant Notes
 
-## 📄 **License**
+Current implementation:
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+- Pure client‑side rule & keyword engine (no external API calls)
+- Budget extraction supports: `50 lakh`, `1.2 cr`, `85L`, `1 cr` pattern forms
+- Branch logic for property type, location, loan inquiries, scheduling, gratitude, greetings
 
-**MakaanWala** - Transforming Indian Real Estate with AI 🏠✨
+Upgrade paths:
 
-</div>
+- Replace `generateResponse` with a streaming backend LLM endpoint
+- Add conversation memory (local store + summarisation)
+- Integrate vector search for semantic property retrieval
+
+---
+
+## ♿ Accessibility & UX
+
+- Clear focus targets & large interactive touch areas for mobile
+- Semantic heading grouping in main content components
+- Descriptive alt text recommended for production asset replacements
+- Color contrast aligns with WCAG AA for core palette (verify on future palette changes)
+
+---
+
+## 🔐 Security & Privacy
+
+- No user PII persisted server-side (static frontend only)
+- No third-party analytics scripts bundled yet
+- Safe to deploy via static hosting (Vercel / Netlify / S3)
+
+Recommended future hardening:
+
+- CSP headers & SRI hashes for external assets
+- Input sanitisation if server search added later
+
+---
+
+## 🗂 3D Assets & Licensing
+
+All third‑party 3D models bundled in `public/models` retain their original licensing. Each model directory already includes its respective `license.txt` file:
+
+```text
+public/models/
+ ├── apartments/                             (contains license.txt)
+ ├── modern_office_building/                 (contains license.txt)
+ └── modern-luxury-villa-house-building-with-pool/ (contains license.txt)
+```
+
+Usage Policy:
+
+- Do not remove or alter the included license files
+- When re‑distributing, ensure each model’s `license.txt` accompanies the asset
+- If replacing assets, add a new `license.txt` documenting the source & terms
+
+If you introduce additional GLTF/FBX models, follow the same directory pattern and include attribution per the provider’s requirements.
+
+---
+
+## Roadmap
+
+- [ ] Real LLM powered assistant (OpenAI / local inference)
+- [ ] Server API & database layer (favourite properties, auth)
+- [ ] Image optimization pipeline (sharp + responsive srcset)
+- [ ] Property comparison view
+- [ ] Metrics instrumentation (Core Web Vitals tracking)
+- [ ] Automated accessibility audit (axe CI)
+- [ ] Dark mode theme toggle
+
+---
+
+## Contributing
+
+Contributions welcome! Please open an issue first for major feature proposals. Keep PRs focused and small where possible.
+
+Coding standards:
+
+- ESLint must pass (`npm run lint`)
+- Prefer pure functions in utilities
+- Keep component prop surfaces minimal
+- Use semantic commit messages
+
+---
+
+## Support
+
+| Type | Channel |
+|------|---------|
+| Bug / Issue | GitHub Issues |
+| Feature Idea | GitHub Discussions |
+| Direct Contact | <find.harshitkushwaha@gmail.com> |
+
+Connect:
+
+- GitHub: [github.com/harshitt13](https://github.com/harshitt13)
+- LinkedIn: [linkedin.com/in/harshitt13](https://linkedin.com/in/harshitt13)
+
+---
+
+## License
+
+Released under the MIT License – see [`LICENSE`](LICENSE).
+
+> Third‑party 3D assets retain their own licenses (already included beside each model). You are responsible for compliance when re‑using them outside this repository.
+
+---
+
+**MakaanWala** – Transforming Indian Real Estate with 3D & Assistive Intelligence
+
