@@ -1,6 +1,6 @@
 import React, { useRef, useState, Suspense, useCallback } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Environment, ContactShadows, Html, useProgress } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { OrbitControls, Environment, ContactShadows, Html, useProgress, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import './ThreeDViewer.css';
 
@@ -22,7 +22,84 @@ function Loader() {
   );
 }
 
-// Modern House Model Component using Three.js primitives
+// GLTF Model for specific properties (e.g., Property 1)
+function PropertyGLTFModel({ url, targetSize = 8, onFit }) {
+  const gltf = useGLTF(url);
+  // Clone once to avoid StrictMode double-mount duplications
+  const clonedScene = React.useMemo(() => gltf.scene.clone(true), [gltf.scene]);
+  const groupRef = React.useRef();
+  const fittedRef = React.useRef(false);
+
+  React.useEffect(() => {
+    if (!groupRef.current) return;
+
+    // Clear any previous children (defensive against StrictMode)
+    groupRef.current.clear();
+    groupRef.current.add(clonedScene);
+
+    // Only fit/scale once
+    if (fittedRef.current) return;
+    fittedRef.current = true;
+
+    clonedScene.traverse(obj => {
+      if (obj.isMesh) {
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        if (obj.material) {
+          // Ensure correct material update
+          obj.material.side = THREE.FrontSide;
+          obj.material.needsUpdate = true;
+        }
+      }
+    });
+
+    const box = new THREE.Box3().setFromObject(clonedScene);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    const maxDim = Math.max(size.x, size.y, size.z) || 1;
+    const scale = targetSize / maxDim;
+
+    groupRef.current.scale.setScalar(scale);
+    const baseOffsetY = box.min.y * scale;
+    groupRef.current.position.set(-center.x * scale, -baseOffsetY, -center.z * scale);
+
+    const radius = (maxDim * 0.5) * scale;
+    onFit && onFit({ box, size, center, scale, radius });
+  }, [clonedScene, targetSize, onFit]);
+
+  return React.createElement('group', { ref: groupRef });
+}
+
+// Preload known models
+useGLTF.preload('/models/apartments/scene.gltf');
+useGLTF.preload('/models/bali_villa_-_roman_villa_influence/scene.gltf');
+useGLTF.preload('/models/autumn_house/scene.gltf'); // keep old for potential reuse
+
+// Helper component to smoothly fit camera to loaded model bounds
+function AutoCameraFit({ modelFit }) {
+  const { camera } = useThree();
+  const doneRef = useRef(false);
+  useFrame(() => {
+    if (!modelFit || doneRef.current) return;
+    const { radius } = modelFit;
+    const fov = camera.fov * (Math.PI / 180);
+    const targetDist = (radius / Math.sin(fov / 2)) * 1.25; // margin
+    const targetPos = new THREE.Vector3(targetDist, targetDist * 0.6, targetDist);
+    camera.position.lerp(targetPos, 0.08);
+    camera.near = 0.05;
+    camera.far = Math.max(400, radius * 40);
+    camera.updateProjectionMatrix();
+    if (camera.position.distanceTo(targetPos) < 0.15) {
+      camera.position.copy(targetPos);
+      doneRef.current = true; // stop adjusting once close
+    }
+  });
+  return null;
+}
+
+// Modern House Model Component using Three.js primitives (fallback / dynamic generator)
 function ModernHouse({ property }) {
   const groupRef = useRef();
   
@@ -44,10 +121,11 @@ function ModernHouse({ property }) {
     group.add(mainStructure);
     
     // Roof based on property type
-    const roofHeight = property?.type === 'Apartment' ? 0.8 : 2;
+    const normalizedType = (property?.type || '').toLowerCase();
+    const roofHeight = normalizedType === 'apartment' ? 0.8 : 2;
     const roofGeometry = new THREE.ConeGeometry(4.5, roofHeight, 4);
     const roofMaterial = new THREE.MeshStandardMaterial({ 
-      color: property?.type === 'Villa' ? '#8B4513' : '#696969',
+      color: normalizedType === 'villa' ? '#8B4513' : '#696969',
       roughness: 0.8
     });
     const roof = new THREE.Mesh(roofGeometry, roofMaterial);
@@ -182,6 +260,7 @@ function ModernHouse({ property }) {
 const ThreeDViewer = ({ property= null }) => {
   const viewerRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [modelFit, setModelFit] = useState(null);
 
   // Fullscreen functionality
   const toggleFullscreen = useCallback(() => {
@@ -241,7 +320,8 @@ const ThreeDViewer = ({ property= null }) => {
     React.createElement(Canvas, {
       shadows: true,
       dpr: [1, 2],
-      camera: { position: [12, 8, 12], fov: 50 },
+      gl: { logarithmicDepthBuffer: true },
+      camera: { position: [12, 8, 12], fov: 45, near: 0.05, far: 500 },
       style: { 
         background: 'linear-gradient(135deg, #87CEEB 0%, #E0F6FF 50%, #F0F8FF 100%)',
         borderRadius: '15px'
@@ -268,8 +348,23 @@ const ThreeDViewer = ({ property= null }) => {
           color: "#ffeaa7" 
         }),
         
-        // Model
-        React.createElement(ModernHouse, { property: property }),
+        // Model: Use GLTF for Property 1, fallback to procedural model
+        (() => {
+          if (!property) return React.createElement(ModernHouse, { property });
+          const modelMap = {
+            1: { url: '/models/apartments/scene.gltf', targetSize: 16 },
+            2: { url: '/models/bali_villa_-_roman_villa_influence/scene.gltf', targetSize: 18 }
+          }; // Local GLTF models
+          const modelCfg = modelMap[property.id];
+          if (modelCfg) {
+            return React.createElement(PropertyGLTFModel, { 
+              url: modelCfg.url,
+              targetSize: modelCfg.targetSize,
+              onFit: (fit) => setModelFit(fit)
+            });
+          }
+          return React.createElement(ModernHouse, { property });
+        })(),
         
         // Ground
         React.createElement('mesh', {
@@ -293,16 +388,18 @@ const ThreeDViewer = ({ property= null }) => {
         React.createElement(Environment, { preset: "sunset" }),
         
         // Enhanced Controls
+        React.createElement(AutoCameraFit, { modelFit }),
         React.createElement(OrbitControls, {
           enablePan: true,
           enableZoom: true,
           enableRotate: true,
-          minDistance: 5,
-          maxDistance: 30,
+          minDistance: 4,
+          maxDistance: 60,
           minPolarAngle: 0,
-          maxPolarAngle: Math.PI / 2.2,
+            maxPolarAngle: Math.PI / 2.1,
           autoRotate: false,
-          autoRotateSpeed: 0.5
+          autoRotateSpeed: 0.5,
+          target: modelFit ? [0, (modelFit.size.y * modelFit.scale) * 0.4, 0] : [0, 2, 0]
         })
       )
     ),
