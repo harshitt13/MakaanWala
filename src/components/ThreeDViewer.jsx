@@ -74,8 +74,10 @@ function PropertyGLTFModel({ url, targetSize = 8, onFit }) {
 
 // Preload known models
 useGLTF.preload('/models/apartments/scene.gltf');
-useGLTF.preload('/models/bali_villa_-_roman_villa_influence/scene.gltf');
-useGLTF.preload('/models/autumn_house/scene.gltf'); // keep old for potential reuse
+useGLTF.preload('/models/modern_luxury_villa_house_building_with_pool/scene.gltf');
+useGLTF.preload('/models/modern_office_building/scene.gltf');
+useGLTF.preload('/models/autumn_house/scene.gltf'); // legacy
+useGLTF.preload('/models/free_london_kinnaird_house/scene.gltf'); // legacy office variant
 
 // Helper component to smoothly fit camera to loaded model bounds
 function AutoCameraFit({ modelFit }) {
@@ -353,8 +355,9 @@ const ThreeDViewer = ({ property= null }) => {
           if (!property) return React.createElement(ModernHouse, { property });
           const modelMap = {
             1: { url: '/models/apartments/scene.gltf', targetSize: 16 },
-            2: { url: '/models/bali_villa_-_roman_villa_influence/scene.gltf', targetSize: 18 }
-          }; // Local GLTF models
+            2: { url: '/models/modern_luxury_villa_house_building_with_pool/scene.gltf', targetSize: 22 },
+            3: { url: '/models/modern_office_building/scene.gltf', targetSize: 24 }
+          }; // Local GLTF models (updated)
           const modelCfg = modelMap[property.id];
           if (modelCfg) {
             return React.createElement(PropertyGLTFModel, { 
