@@ -7,6 +7,18 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   position: relative;
   margin: 20px 0;
+  transition: all 0.3s ease;
+}
+
+.threed-viewer.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 9999;
+  border-radius: 0;
+  margin: 0;
 }
 
 .threed-header {
@@ -17,6 +29,17 @@
   z-index: 2;
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.header-info {
+  flex: 1;
+}
+
 .threed-header h3 {
   margin: 0 0 8px 0;
   font-size: 1.4rem;
@@ -24,6 +47,33 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.fullscreen-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+
+.fullscreen-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.fullscreen-btn:active {
+  transform: scale(0.95);
 }
 
 .property-info {
@@ -48,6 +98,10 @@
   height: calc(100% - 140px) !important;
   display: block;
   cursor: grab;
+}
+
+.threed-viewer.fullscreen canvas {
+  height: calc(100% - 120px) !important;
 }
 
 .threed-viewer canvas:active {
@@ -158,6 +212,20 @@
     padding: 15px 20px 12px;
   }
 
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .fullscreen-btn {
+    align-self: flex-end;
+    margin-top: -35px;
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
   .threed-header h3 {
     font-size: 1.2rem;
   }
@@ -192,6 +260,10 @@
   .threed-viewer canvas {
     height: calc(100% - 120px) !important;
   }
+
+  .threed-viewer.fullscreen canvas {
+    height: calc(100% - 100px) !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -209,6 +281,13 @@
     gap: 8px;
   }
 
+  .fullscreen-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    margin-top: -30px;
+  }
+
   .instruction-row span {
     font-size: 0.75rem;
     padding: 3px 8px;
@@ -216,5 +295,9 @@
 
   .threed-viewer canvas {
     height: calc(100% - 110px) !important;
+  }
+
+  .threed-viewer.fullscreen canvas {
+    height: calc(100% - 90px) !important;
   }
 }

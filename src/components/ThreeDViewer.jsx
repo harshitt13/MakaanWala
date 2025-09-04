@@ -1,4 +1,4 @@
-import React, { useRef, useState, Suspense } from 'react';
+import React, { useRef, useState, Suspense, useCallback } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows, Html, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
@@ -179,13 +179,61 @@ function ModernHouse({ property }) {
   );
 }
 
-const ThreeDViewer = ({ property, modelPath = null, modelType = null }) => {
-  return React.createElement('div', { className: 'threed-viewer' },
+const ThreeDViewer = ({ property, modelPath = null }) => {
+  const viewerRef = useRef(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Fullscreen functionality
+  const toggleFullscreen = useCallback(() => {
+    if (!viewerRef.current) return;
+
+    if (!document.fullscreenElement) {
+      viewerRef.current.requestFullscreen().then(() => {
+        setIsFullscreen(true);
+      }).catch(err => {
+        console.error('Error attempting to enable fullscreen:', err);
+      });
+    } else {
+      document.exitFullscreen().then(() => {
+        setIsFullscreen(false);
+      }).catch(err => {
+        console.error('Error attempting to exit fullscreen:', err);
+      });
+    }
+  }, []);
+
+  // Listen for fullscreen changes
+  React.useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  return React.createElement('div', { 
+    className: `threed-viewer ${isFullscreen ? 'fullscreen' : ''}`, 
+    ref: viewerRef 
+  },
     React.createElement('div', { className: 'threed-header' },
-      React.createElement('h3', null, '🏡 3D Property View'),
-      property && React.createElement('div', { className: 'property-info' },
-        React.createElement('span', { className: 'property-type' }, 
-          `${property.type} • ${property.bedrooms} bed • ${property.bathrooms} bath`
+      React.createElement('div', { className: 'header-content' },
+        React.createElement('div', { className: 'header-info' },
+          React.createElement('h3', null, '🏡 3D Property View'),
+          property && React.createElement('div', { className: 'property-info' },
+            React.createElement('span', { className: 'property-type' }, 
+              `${property.type} • ${property.bedrooms} bed • ${property.bathrooms} bath`
+            )
+          )
+        ),
+        React.createElement('button', { 
+          className: 'fullscreen-btn',
+          onClick: toggleFullscreen,
+          title: isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'
+        }, 
+          isFullscreen ? '🗗' : '⛶'
         )
       )
     ),
