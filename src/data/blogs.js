@@ -1,5 +1,3 @@
-// Centralized blog posts data & helper utilities (mirrors properties.js pattern)
-
 export const blogs = [
   {
     id: 1,
@@ -9,7 +7,7 @@ export const blogs = [
     excerpt: 'Navigate the Indian home buying process with confidence using these expert tips and strategies.',
     image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
     category: 'buying',
-    author: 'Skyler White',
+    author: 'Hank Schrader',
     date: '2024-01-15',
     readTime: '5 min read',
     featured: true,
@@ -37,7 +35,7 @@ export const blogs = [
     excerpt: 'Comprehensive analysis of current market conditions and predictions for the Indian real estate sector.',
     image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80',
     category: 'market',
-    author: 'Walter White',
+    author: 'Marie Schrader',
     date: '2024-01-12',
     readTime: '8 min read',
     featured: true,
@@ -61,7 +59,7 @@ export const blogs = [
     excerpt: "Simple improvements and staging tips that can significantly increase your home's market value in India.",
     image: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80',
     category: 'selling',
-    author: 'Jessie Pinkman',
+    author: 'Mike Ehrmantraut',
     date: '2024-01-10',
     readTime: '6 min read',
     featured: false,
@@ -83,11 +81,11 @@ export const blogs = [
     excerpt: 'Everything you need to know about getting started in Indian real estate investment.',
     image: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80',
     category: 'investment',
-    author: 'Marie Schrader',
+    author: 'Walter White Jr.',
     date: '2024-01-08',
     readTime: '10 min read',
     featured: false,
-    content: '' // intentionally empty to mark incomplete
+    content: ''
   },
   {
     id: 5,
@@ -103,10 +101,8 @@ export const blogs = [
     featured: false,
     content: ''
   },
-  // Future posts can be added here
 ];
 
-// Helper utilities
 export const getBlogById = (id) => blogs.find(b => b.id === Number(id));
 export const getBlogBySlug = (slug) => blogs.find(b => b.slug === slug);
 export const listBlogs = () => blogs.slice();

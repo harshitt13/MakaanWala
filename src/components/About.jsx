@@ -76,7 +76,7 @@ const About = () => {
       bio: "Top-performing agent specializing in first-time home buyers and affordable housing solutions.",
     },
     {
-      name: "Don Eduardo",
+      name: "Lalo Salamanca",
       role: "Property Manager",
       image: "/manager.png?height=300&width=300&text=Manager",
       bio: "Expert in property management and investment strategies with focus on rental yields and ROI optimization.",

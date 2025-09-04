@@ -9,26 +9,20 @@ const BlogPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Scroll to top when component mounts or id changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
-
-  // Blog posts data (this would typically come from an API or context)
   const post = getBlogById(id) || getBlogBySlug(id);
-
-  // Compute a random selection of other blogs (exclude current + incomplete)
   const randomRelated = useMemo(() => {
     if (!post) return [];
     const candidates = listBlogs().filter(b => b.id !== post.id && b.complete !== false);
-    // Fisher-Yates shuffle for unbiased randomness
+    // Shuffle array
     for (let i = candidates.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
     }
     return candidates.slice(0, 3); // show up to 3 random articles
   }, [post]);
-
   if (!post || post.complete === false) {
     return (
       <NotFound 

@@ -9,14 +9,8 @@ import "./Blog.css";
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const navigate = useNavigate();
-
-
-
-
-
   const featuredPosts = useMemo(() => listFeaturedBlogs(), []);
   const filteredPosts = useMemo(() => listBlogsByCategory(selectedCategory), [selectedCategory]);
-  // For 'all' category show every non-featured (including incomplete) as cards
   const regularPosts = useMemo(() => {
     if (selectedCategory === 'all') {
       return listBlogs().filter(p => !p.featured);
@@ -33,8 +27,6 @@ const Blog = () => {
     { id: "financing", label: "Financing" },
   ];
 
-  // derived lists above
-
   return (
     <section className="blog-section">
       <div className="container">
@@ -46,7 +38,6 @@ const Blog = () => {
           <h2>Latest News & Insights</h2>
           <p>Stay informed with the latest trends, tips, and market analysis</p>
         </div>
-
         <div className="blog-categories">
           {categories.map((category) => (
             <button
@@ -60,7 +51,6 @@ const Blog = () => {
             </button>
           ))}
         </div>
-
         {selectedCategory === "all" && (
           <div className="featured-posts">
             <h3>Featured Articles</h3>
@@ -107,7 +97,6 @@ const Blog = () => {
             </div>
           </div>
         )}
-
         <div className="blog-posts">
           {selectedCategory !== "all" && <h3>Latest Posts</h3>}
           <div className="posts-grid">
@@ -146,14 +135,12 @@ const Blog = () => {
                         Read More
                       </button>
                     </div>
-
                   </div>
                 </article>
               )
             )}
           </div>
         </div>
-
         <div className="blog-cta">
           <h3>Want to Stay Updated?</h3>
           <p>
