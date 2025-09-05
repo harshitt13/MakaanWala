@@ -22,7 +22,7 @@
 }
 
 .toggle-switch {
-  width: 60px;
+  width: 60px; /* original desktop size restored */
   height: 30px;
   background: #e0e0e0;
   border: none;
@@ -37,7 +37,7 @@
 }
 
 .toggle-slider {
-  width: 26px;
+  width: 26px; /* original desktop size restored */
   height: 26px;
   background: white;
   border-radius: 50%;
@@ -49,8 +49,10 @@
 }
 
 .toggle-switch.annual .toggle-slider {
-  transform: translateX(30px);
+  transform: translateX(30px); /* matches 60px container with 26px knob */
 }
+
+/* (Mobile overrides for toggle removed - reverted to original sizing across breakpoints) */
 
 .discount-badge {
   background: #ff6b6b;
@@ -341,6 +343,8 @@
   .pricing-cta {
     padding: 40px 20px;
   }
+  
+  /* (Reverted segmented billing toggle styles removed) */
 }
 
 @media (max-width: 480px) {

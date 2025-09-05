@@ -95,7 +95,7 @@ const Pricing = ({ onNavigateToContact }) => {
           <p>Flexible pricing options for all your real estate needs</p>
         </div>
 
-        <div className="billing-toggle">
+  <div className="billing-toggle">
           <span className={!isAnnual ? "active" : ""}>Monthly</span>
           <button className={`toggle-switch ${isAnnual ? "annual" : ""}`} onClick={() => setIsAnnual(!isAnnual)}>
             <div className="toggle-slider"></div>
@@ -127,7 +127,7 @@ const Pricing = ({ onNavigateToContact }) => {
               </div>
 
               <div className="plan-features">
-                <h4>What's Included:</h4>
+                <h4>What&#39;s Included:</h4>
                 <ul>
                   {plan.features.map((feature, index) => (
                     <li key={index} className="included">
@@ -183,7 +183,7 @@ const Pricing = ({ onNavigateToContact }) => {
             </div>
             <div className="faq-item">
               <h4>Do you offer refunds?</h4>
-              <p>We offer a 30-day satisfaction guarantee. If you're not happy, we'll refund your payment.</p>
+              <p>We offer a 30-day satisfaction guarantee. If you&#39;re not happy, we&#39;ll refund your payment.</p>
             </div>
             <div className="faq-item">
               <h4>Is there a contract commitment?</h4>

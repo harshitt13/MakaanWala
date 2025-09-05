@@ -53,6 +53,99 @@
 
 /* Mobile breakpoint utilities */
 @media (max-width: 768px) {
+  /* Global layout tightening */
+  .container, .header-container, .hero-content, .services-section .container, .pricing-section .container, .about-section .container, .property-detail-page .container, .footer > .container {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  /* Prevent large grids from overflowing */
+  .hero-main, .stats-container, .hero-stats, .services-tabs, .pricing-grid, .team-grid, .footer-content, .property-content, .amenities-grid, .places-grid {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Generic grid collapse helper (if not already single column) */
+  .collapse-on-mobile-2 { grid-template-columns: 1fr 1fr !important; }
+  .collapse-on-mobile-1 { grid-template-columns: 1fr !important; }
+
+  /* Horizontal scroll prevention for wide elements */
+  table, .pricing-grid, .services-tabs { overflow-x: auto; }
+  table { display: block; }
+
+  /* Flex row to column fallback */
+  .stack-mobile, .header-actions, .cta-buttons, .hero-buttons { flex-direction: column !important; gap: var(--space-md); }
+
+  /* Cards full width */
+  .pricing-card, .service-card, .team-card, .stat-card, .property-card, .detail-card { width: 100%; }
+
+  /* Text scaling safeguards */
+  h1.hero-title { font-size: clamp(2.1rem, 7vw, 2.9rem); }
+  .hero-subtitle { font-size: 1.05rem; }
+
+  /* Remove heavy shadows for performance */
+  .hero-image, .team-card, .pricing-card, .service-card, .property-main, .agent-card, .inquiry-form { box-shadow: var(--shadow-md); }
+
+  /* Narrow search adjustments safeguard (fallback if component CSS misses) */
+  .search-container { max-width: 100%; }
+
+  /* Ensure images scale properly */
+  img, video, canvas { max-width: 100%; height: auto; }
+
+  /* Footer link sizing tweak */
+  .footer-links-grid a { line-height: 1.3; }
+ }
+
+/* Very small devices fine‑tuning beyond existing rules */
+@media (max-width: 480px) {
+  /* Reduce outer vertical gaps */
+  section, .services-section, .pricing-section, .about-section, .property-detail-page { padding-top: 32px; padding-bottom: 32px; }
+
+  /* Tighten grids further */
+  .stats-container, .hero-stats { gap: var(--space-md); }
+
+  /* Prevent button text wrapping oddly */
+  button, .btn, .contact-button, .search-button { white-space: nowrap; }
+
+  /* Wrap long property titles gracefully */
+  .property-title-section h1 { word-break: break-word; hyphens: auto; }
+
+  /* Shrink large numeric displays */
+  .amount { font-size: 2.2rem !important; }
+
+  /* Generic utility to hide heavy visuals */
+  .hide-480 { display: none !important; }
+
+  /* Ensure thumbnails don't overflow */
+  .thumbnail-grid { gap: 8px; }
+
+  /* More comfortable tap targets in dense lists */
+  .footer-links-grid a, .plan-features li, .service-features li { padding: 6px 4px; }
+}
+
+/* Ultra small (<=380px) safety net */
+@media (max-width: 380px) {
+  .hero-title { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+  .search-button, .cta-button, .contact-button { padding: var(--space-md) var(--space-lg); }
+  .pricing-card, .service-card { padding: 24px 18px; }
+  .plan-header h3 { font-size: 1.4rem; }
+  .property-price { font-size: 1.3rem; }
+  .property-stats { gap: 12px; }
+  .property-stats .stat { flex-wrap: wrap; }
+}
+
+/* (Compact & micro mobile button styles removed per revert request) */
+
+/* Removed compact & micro button overrides (reverted) */
+
+/* Landscape phones (height constrained) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero { padding-top: 70px; min-height: 420px; }
+  .hero-image { height: 240px; }
+  .nav { max-height: calc(100vh - 70px); overflow-y: auto; }
+/* Re-wrap stray utilities inside correct media query */
+@media (max-width: 768px) {
   .mobile-only {
     display: block;
   }
@@ -215,12 +308,7 @@
     padding-right: 10px;
   }
 
-  /* Ensure buttons don't get too small */
-  .btn {
-    min-height: 48px;
-    padding: var(--space-md);
-    font-size: 0.95rem;
-  }
+  /* Original button size retained (no forced shrink here) */
 
   /* Stack all flex layouts */
   .flex {

@@ -9,10 +9,43 @@ import {
   Mail,
   Clock,
   Home,
+  ChevronDown,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import "./Footer.css";
 
 const Footer = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [open, setOpen] = useState({
+    quick: false, // start closed on mobile; will be opened on desktop via effect
+    types: false,
+    contact: false,
+  });
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const apply = () => setIsMobile(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  // When switching to desktop ensure all sections are open visually (CSS handles layout)
+  useEffect(() => {
+    if (!isMobile) {
+      // Desktop: show all sections expanded
+      setOpen({ quick: true, types: true, contact: true });
+    } else {
+      // Mobile: all collapsed by default
+      setOpen({ quick: false, types: false, contact: false });
+    }
+  }, [isMobile]);
+
+  const toggle = (key) => {
+    if (!isMobile) return; // no-op on desktop
+    setOpen(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
   return (
     <footer className="footer">
       <div className="container">
@@ -76,49 +109,78 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="footer-section">
-            <h4>Quick Links</h4>
-            <div className="footer-links-grid">
-              <a href="#home">Home</a>
-              <a href="#about">About</a>
-              <a href="#services">Services</a>
-              <a href="#properties">Properties</a>
-              <a href="#blog">Blog</a>
-              <a href="#contact">Contact</a>
+          <div className={`footer-section footer-collapsible ${open.quick ? "open" : ""}`}>
+            <button
+              className="footer-toggle"
+              aria-expanded={open.quick}
+              aria-controls="footer-quick-links"
+              onClick={() => toggle("quick")}
+            >
+              <span>Quick Links</span>
+              <ChevronDown size={18} className="chevron" />
+            </button>
+            <div id="footer-quick-links" className="collapsible-content">
+              <div className="footer-links-grid">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#properties">Properties</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+              </div>
             </div>
           </div>
 
-          <div className="footer-section">
-            <h4>Property Types</h4>
-            <div className="footer-links-grid">
-              <a href="#">Apartments</a>
-              <a href="#">Villas</a>
-              <a href="#">Commercial</a>
-              <a href="#">Land</a>
-              <a href="#">Luxury Homes</a>
-              <a href="#">Investment</a>
+            <div className={`footer-section footer-collapsible ${open.types ? "open" : ""}`}>
+              <button
+                className="footer-toggle"
+                aria-expanded={open.types}
+                aria-controls="footer-property-types"
+                onClick={() => toggle("types")}
+              >
+                <span>Property Types</span>
+                <ChevronDown size={18} className="chevron" />
+              </button>
+              <div id="footer-property-types" className="collapsible-content">
+                <div className="footer-links-grid">
+                  <a href="#">Apartments</a>
+                  <a href="#">Villas</a>
+                  <a href="#">Commercial</a>
+                  <a href="#">Land</a>
+                  <a href="#">Luxury Homes</a>
+                  <a href="#">Investment</a>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="footer-section footer-contact">
-            <h4>Get In Touch</h4>
-            <div className="contact-info">
-              <div className="contact-item">
-                <MapPin size={16} />
-                <span>3828 Piermont Dr, Albuquerque, NM 87112</span>
-              </div>
-              <div className="contact-item">
-                <Phone size={16} />
-                <a href="tel:+911145678900">+91 99XXX XXXXX</a>
-              </div>
-              <div className="contact-item">
-                <Mail size={16} />
-                <a href="mailto:support@makaanwala.com">support@makaanwala.com</a>
-              </div>
-              <div className="contact-item">
-                <Clock size={16} />
-                <span>Mon-Fri: 9AM-7PM<br />
-                  Sat-Sun: 10AM-5PM</span>
+          <div className={`footer-section footer-contact footer-collapsible ${open.contact ? "open" : ""}`}>
+            <button
+              className="footer-toggle"
+              aria-expanded={open.contact}
+              aria-controls="footer-contact-info"
+              onClick={() => toggle("contact")}
+            >
+              <span>Get In Touch</span>
+              <ChevronDown size={18} className="chevron" />
+            </button>
+            <div id="footer-contact-info" className="collapsible-content">
+              <div className="contact-info">
+                <div className="contact-item">
+                  <MapPin size={16} />
+                  <span>3828 Piermont Dr, Albuquerque, NM 87112</span>
+                </div>
+                <div className="contact-item">
+                  <Phone size={16} />
+                  <a href="tel:+911145678900">+91 99XXX XXXXX</a>
+                </div>
+                <div className="contact-item">
+                  <Mail size={16} />
+                  <a href="mailto:support@makaanwala.com">support@makaanwala.com</a>
+                </div>
+                <div className="contact-item">
+                  <Clock size={16} />
+                  <span>Mon-Fri: 9AM-7PM<br />Sat-Sun: 10AM-5PM</span>
+                </div>
               </div>
             </div>
           </div>

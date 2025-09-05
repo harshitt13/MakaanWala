@@ -291,3 +291,44 @@
     display: none;
   }
 }
+
+/* Mobile collapsible enhancements */
+@media (max-width: 768px) {
+  .footer-collapsible .footer-links-grid,
+  .footer-collapsible .contact-info { transition: height .35s ease, opacity .3s ease; }
+
+  .footer-collapsible .collapsible-content { overflow: hidden; }
+
+  /* Start closed except ones with .open applied via React */
+  .footer-collapsible:not(.open) .collapsible-content { height:0; opacity:0; pointer-events:none; }
+  .footer-collapsible.open .collapsible-content { height:auto; opacity:1; }
+
+  .footer-toggle { 
+    width:100%;
+    background:rgba(255,255,255,0.05);
+    color:#ecf0f1;
+    border:1px solid rgba(255,255,255,0.08);
+    padding:14px 18px;
+    border-radius:10px;
+    font-size:1rem;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    cursor:pointer;
+    transition:background .3s ease, border-color .3s ease;
+  }
+  .footer-toggle:hover { background:rgba(255,255,255,0.1); }
+  .footer-toggle .chevron { transition: transform .35s ease; }
+  .footer-collapsible.open .footer-toggle .chevron { transform:rotate(180deg); }
+
+  /* Spacing inside collapsed sections */
+  .footer-collapsible .footer-links-grid, .footer-collapsible .contact-info { padding-top:12px; }
+}
+
+@media (min-width: 769px) { 
+  /* Ensure desktop unaffected */
+  .footer-toggle { display:none; }
+  .footer-collapsible .collapsible-content { height:auto !important; opacity:1 !important; overflow:visible; }
+}

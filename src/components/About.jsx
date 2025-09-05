@@ -1,66 +1,86 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
+// Counter targets extracted outside component to keep stable reference for hooks
+const COUNTER_TARGETS = { experience: 20, properties: 5000, clients: 15000, agents: 250 }
 import "./About.css"
 
 const About = () => {
-  const [counters, setCounters] = useState({
-    experience: 0,
-    properties: 0,
-    clients: 0,
-    agents: 0,
-  })
-  const [isVisible, setIsVisible] = useState(false)
+  const [counters, setCounters] = useState({ experience: 0, properties: 0, clients: 0, agents: 0 })
+  const [hasAnimated, setHasAnimated] = useState(false)
   const aboutRef = useRef(null)
+  const statsRef = useRef(null)
+
+  // Animation using requestAnimationFrame for smoother & battery friendly updates on mobile
+  const runCounterAnimation = useCallback(() => {
+    if (hasAnimated) return
+    setHasAnimated(true)
+
+    // Respect reduced motion preference
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setCounters({ ...COUNTER_TARGETS })
+      return
+    }
+
+    const duration = 1800
+    const startTime = performance.now()
+
+    const animate = (now) => {
+      const elapsed = now - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3) // easeOutCubic
+
+      setCounters({
+          experience: Math.round(COUNTER_TARGETS.experience * eased),
+          properties: Math.round(COUNTER_TARGETS.properties * eased),
+          clients: Math.round(COUNTER_TARGETS.clients * eased),
+          agents: Math.round(COUNTER_TARGETS.agents * eased),
+        })
+
+      if (progress < 1) requestAnimationFrame(animate)
+    }
+    requestAnimationFrame(animate)
+  }, [hasAnimated])
 
   useEffect(() => {
+    // Fallback if IntersectionObserver not supported
+    if (typeof window !== 'undefined' && !('IntersectionObserver' in window)) {
+      runCounterAnimation()
+      return
+    }
+
+    const node = statsRef.current || aboutRef.current
+    if (!node) return
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true)
-          animateCounters()
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            runCounterAnimation()
+          }
+        })
       },
-      { threshold: 0.3 },
+      {
+        threshold: 0.2,
+        // Positive bottom rootMargin so it triggers earlier on small (mobile) viewports
+        rootMargin: '0px 0px -10% 0px',
+      },
     )
 
-    if (aboutRef.current) {
-      observer.observe(aboutRef.current)
-    }
-
+    observer.observe(node)
     return () => observer.disconnect()
-  }, [isVisible])
+  }, [hasAnimated, runCounterAnimation])
 
-  const animateCounters = () => {
-    const targets = {
-      experience: 20,
-      properties: 5000,
-      clients: 15000,
-      agents: 250,
+  // Immediate trigger if already in viewport on initial load (mobile Safari quirk)
+  useEffect(() => {
+    if (hasAnimated) return
+    const node = statsRef.current
+    if (!node) return
+    const rect = node.getBoundingClientRect()
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      runCounterAnimation()
     }
-
-    const duration = 2000
-    const steps = 50
-    const stepDuration = duration / steps
-
-    Object.keys(targets).forEach((key) => {
-      const target = targets[key]
-      const increment = target / steps
-      let current = 0
-
-      const timer = setInterval(() => {
-        current += increment
-        if (current >= target) {
-          current = target
-          clearInterval(timer)
-        }
-        setCounters((prev) => ({
-          ...prev,
-          [key]: Math.floor(current),
-        }))
-      }, stepDuration)
-    })
-  }
+  }, [hasAnimated, runCounterAnimation])
 
   const teamMembers = [
     {
@@ -158,7 +178,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className="stats-section">
+        <div className="stats-section" ref={statsRef}>
           <div className="stats-container">
             <div className="stat-item">
               <div className="stat-icon">📅</div>
