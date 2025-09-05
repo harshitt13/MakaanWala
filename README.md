@@ -4,8 +4,6 @@
 ![React Router](https://img.shields.io/badge/React%20Router-7.x-CA4245?logo=reactrouter&labelColor=20232a)
 ![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?logo=vite&logoColor=fff)
 ![Three.js](https://img.shields.io/badge/Three.js-0.180.0-black?logo=three.js)
-![License: MIT](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Active-success)
 
 **MakaanWala** is a performance‑focused real estate experience for the Indian market featuring interactive 3D property visualisation, a rule‑driven AI assistant, and structured property data.
 
