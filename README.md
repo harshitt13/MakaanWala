@@ -1,4 +1,4 @@
-# 🏠 MakaanWala – Modern 3D + AI Enabled Real Estate Platform
+# 🏠 MakaanWala
 
 ![React 19](https://img.shields.io/badge/React-19.1.0-61dafb?logo=react&labelColor=20232a)
 ![React Router](https://img.shields.io/badge/React%20Router-7.x-CA4245?logo=reactrouter&labelColor=20232a)
