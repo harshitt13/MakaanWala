@@ -273,9 +273,9 @@ const ContactForm = () => {
             </button>
 
             {submitStatus === "success" && (
-              <div className="form-message success">
+              <div className="form-message success" role="status" aria-live="polite">
                 <CheckCircle size={20} />
-                Thank you! Your message has been sent successfully.
+                Thanks for contacting us! We will get back to you soon.
               </div>
             )}
 
