@@ -107,8 +107,7 @@ function PropertyGLTFModel({ url, targetSize = 8, onFit }) {
 useGLTF.preload("/models/apartments/scene.gltf");
 // (Removed incorrect villa GLTF preload; now using FBX for property 2)
 useGLTF.preload("/models/modern_office_building/scene.gltf");
-useGLTF.preload("/models/autumn_house/scene.gltf"); // legacy
-useGLTF.preload("/models/free_london_kinnaird_house/scene.gltf"); // legacy office variant
+// Removed preloads for models that are not present in public to avoid 404s in production
 // Preload FBX villa model
 useFBX.preload(
   "/models/modern-luxury-villa-house-building-with-pool/source/42.fbx"

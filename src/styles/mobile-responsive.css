@@ -144,6 +144,7 @@
   .hero { padding-top: 70px; min-height: 420px; }
   .hero-image { height: 240px; }
   .nav { max-height: calc(100vh - 70px); overflow-y: auto; }
+}
 /* Re-wrap stray utilities inside correct media query */
 @media (max-width: 768px) {
   .mobile-only {
